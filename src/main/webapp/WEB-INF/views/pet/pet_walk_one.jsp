@@ -33,7 +33,7 @@
 					<div class="d-flex w-100 justify-content-between">
 						<span>산책 날짜</span>
 						<h6 class="mb-0">
-							<%=dto.getWalk_date()%></h6>
+							${dto.walk_date}</h6>
 					</div>
 				</div>
 			</div>
@@ -42,7 +42,7 @@
 					<div class="d-flex w-100 justify-content-between">
 
 						<span>산책시작</span>
-						<h6 class="mb-0"> <%=dto.getWalk_start() %></h6>
+						<h6 class="mb-0"> ${dto.walk_start}</h6>
 					</div>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 				<div class="w-100 ms-3">
 					<div class="d-flex w-100 justify-content-between">
 						<span>산책종료</span>
-						<h6 class="mb-0"><%=dto.getWalk_end() %></h6>
+						<h6 class="mb-0">${dto.walk_end}</h6>
 					</div>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
 				<div class="w-100 ms-3">
 					<div class="d-flex w-100 justify-content-between">
 						<span>산책거리</span>
-						<h6 class="mb-0"> <%=dto.getWalk_distance() %></h6>
+						<h6 class="mb-0"> ${dto.walk_distance}</h6>
 					</div>
 				</div>
 			</div>		
