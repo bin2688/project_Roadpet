@@ -44,18 +44,13 @@
 						</div>
 				<div class="bg-light rounded">
 					<div style="display: flex; gap: 20px;">
-						<div>
-							<h5>
-								<span class="badge bg-secondary">라운지</span>
-							</h5>
-						</div>
 						<div><span class="badge bg-warning">${bag.lounge_pet_type}</span></div>
 					</div>
 					<div>
 					<h3 style="padding: 5px;">${bag.lounge_title}</h3>	
 					</div>		
 					<hr>
-					<div style="padding: 20px;">${bag.lounge_content}</div>
+					<div style="padding: 10px 20px; max-height: 200px; overflow-y: auto;">${bag.lounge_content}</div>
 					<!--썸네일 추가할부분-->
 					<div style="display: flex; justify-content: space-between;">
 						<div style="padding: 5px;">${bag.lounge_writer}</div>
@@ -84,7 +79,7 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="../resources/lib/chart/chart.min.js"></script>
+
 	<script src="../resources/lib/easing/easing.min.js"></script>
 	<script src="../resources/lib/waypoints/waypoints.min.js"></script>
 	<script src="../resources/lib/owlcarousel/owl.carousel.min.js"></script>

@@ -41,11 +41,9 @@ public class LoungeController {
 					 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO ,Model model) throws Exception {	
 		loungePageVO.setSearchType(searchType);
 		loungePageVO.setKeyWord(keyWord);
-		System.out.println("검색유형>>" + searchType + "  검색어>>" + keyWord);
 		loungePageVO.setStartEnd();
 		List<LoungeVO> list = loungeService.list(loungePageVO);
-		int count = loungeService.pageCount();
-		System.out.println("게시물 개수>>" + count);
+		int count = loungeService.pageCount(keyWord, searchType);
 		int pages = count/5;
 		if (count%5 != 0) {
 			pages += 1;
@@ -53,6 +51,8 @@ public class LoungeController {
 		model.addAttribute("list", list);	
 		model.addAttribute("pages", pages);	
 		model.addAttribute("count", count);	
+		model.addAttribute("searchType", searchType);	
+		model.addAttribute("keyWord", keyWord);
 		}
 	
 	@RequestMapping("lounge/pageList")
@@ -63,6 +63,8 @@ public class LoungeController {
 		loungePageVO.setStartEnd();
 		List<LoungeVO> list = loungeService.list(loungePageVO);
 		model.addAttribute("list", list);	
+		model.addAttribute("searchType", searchType);	
+		model.addAttribute("keyWord", keyWord);	
 		}
 	
 	@RequestMapping("lounge/one")

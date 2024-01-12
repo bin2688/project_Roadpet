@@ -9,7 +9,7 @@ public class LoungeVO {
     private String lounge_title;
     private String lounge_content;
     private String lounge_writer;
-    private Date lounge_date;
+    private String lounge_date;
     private String lounge_img;
     
 	public int getLounge_id() {
@@ -48,11 +48,11 @@ public class LoungeVO {
 	public void setLounge_writer(String lounge_writer) {
 		this.lounge_writer = lounge_writer;
 	}
-	public Date getLounge_date() {
+	public String getLounge_date() {
 		return lounge_date;
 	}
 	public void setLounge_date(Date lounge_date) {
-		this.lounge_date = lounge_date;
+		this.lounge_date = LoungeTimeDisplay.TimeCondition(lounge_date);
 	}
 	public String getLounge_img() {
 		return lounge_img;

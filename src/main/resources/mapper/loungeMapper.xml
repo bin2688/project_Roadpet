@@ -35,46 +35,79 @@
 		select * from lounge where lounge_id = #{lounge_id}
 	</select>
 	
-	<sql id="search">
-	         (select row_number() over(order by lounge_id desc) as lounge_no,
+		
+	<select id="list" parameterType="loungePageVO" resultType="loungeVO">
+			select * 
+			from
+				(select row_number() over(order by lounge_id desc) as lounge_no,
 	             lounge_id, lounge_pet_type, lounge_title, lounge_content, 
 	             lounge_writer, lounge_date
-	          from lounge) l2
+	         	 from 
 	           <choose>
-		          <when test="searchType='all'">
+		          <when test="searchType eq 'all'">
+		          		lounge
 			            where lounge_title like CONCAT('%',#{keyWord},'%')
 						or lounge_content like CONCAT('%', #{keyWord}, '%')
-		                or lounge_writer like CONCAT('%', #{keyWord}, '%')
-						and l2.lounge_no between #{start} and #{end}
+		                or lounge_writer like CONCAT('%', #{keyWord}, '%')) l2
+						where l2.lounge_no between #{start} and #{end}
+						order by l2.lounge_no;
 		          </when>
-		          <when test="searchType='titleContent'">
-			            where (lounge_title like CONCAT('%', #{keyWord}, '%') 
-                         or lounge_content like CONCAT('%', #{keyWord}, '%'))
-						and l2.lounge_no between #{start} and #{end}
+		          <when test="searchType eq 'titleContent'">
+		         		lounge
+			            where lounge_title like CONCAT('%', #{keyWord}, '%') 
+                         or lounge_content like CONCAT('%', #{keyWord}, '%')) l2
+						where l2.lounge_no between #{start} and #{end}
+						order by l2.lounge_no;
 		          </when>
-		          <when test="searchType='reply'">
-			            where reply_column like CONCAT('%', #{keyWord}, '%')
-						and l2.lounge_no between #{start} and #{end}
+		          <when test="searchType eq 'reply'">
+		          		lounge
+			            where reply_column like CONCAT('%', #{keyWord}, '%')) l2
+						where l2.lounge_no between #{start} and #{end}
+						order by l2.lounge_no;
+		          </when>
+		          <when test="searchType eq 'writer'">
+		          		lounge
+			            where lounge_writer like CONCAT('%', #{keyWord}, '%')) l2
+						where l2.lounge_no between #{start} and #{end}
+						order by l2.lounge_no;
 		          </when>
 	          	  <otherwise>
-	          	  		where l2.lounge_no between #{start} and #{end}
+	          	  		lounge) l2 where l2.lounge_no between #{start} and #{end}
 	          	   </otherwise>	          	  
 	          </choose> 
-	</sql>
-	
-	<select id="list" parameterType="loungePageVO" resultType="loungeVO">
-			select * from
-	         <include refid="search"></include> 
+	          
 	</select>
 	
-	<select id="count" resultType="int">
-		<if test="keyWord == null">
-		select count(*) from lounge
-		</if>
-		<if test="keyWord != null">
-			select count(*) from
-		 	<include refid="search"></include>
-		</if>		
+	
+	<select id="countAll" resultType="int">
+			select count(*) from lounge		
 	</select>
+	
+	
+	<select id="countSearch" resultType="int" parameterType="map">
+			select count(*) from lounge
+	    	 where 
+    		<choose>
+			<when test="searchType eq 'all'">
+				lounge_title like CONCAT('%',#{keyWord},'%')
+				or lounge_content like CONCAT('%', #{keyWord}, '%')
+				or lounge_writer like CONCAT('%', #{keyWord}, '%')
+			</when>
+			<when test="searchType eq 'titleContent'">
+				lounge_title like CONCAT('%', #{keyWord}, '%')
+				or lounge_content like CONCAT('%', #{keyWord}, '%')
+			</when>
+			<when test="searchType eq 'reply'">
+				reply_column like CONCAT('%', #{keyWord}, '%')
+		    </when>
+ 		    <when test="searchType eq 'writer'">
+		         lounge_writer like CONCAT('%', #{keyWord}, '%')
+ 		    </when>
+ 		    <otherwise>
+ 		         1=1
+ 		    </otherwise>
+  		  </choose>
+	</select>
+
 
 </mapper>
