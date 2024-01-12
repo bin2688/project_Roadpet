@@ -19,9 +19,7 @@
 	 
 		<div class="h-100 bg-light rounded p-4">
 		<span>
-			
 				<img class="petprofile" src="../resources/upload/<%=dto.getPet_photo()%>" style="width:120px; height:120px; border-radius:70%; border: 3px solid gold;"  >
-			
 		</span>
 		<div align="right">
 			<a href="/roadpet/pet/pet_info_update?pet_id=${dto.pet_id}">수정</a>

@@ -25,7 +25,11 @@
 	<select id="one" parameterType="int" resultType="petWalkVO">
 		select * from pet_walk where pet_id = #{pet_id}
 	</select>
+	
+	<select id="today" parameterType="String" resultType="petWalkVO">
+		select * from pet_walk where walk_date = #{walk_date}
+	</select>
 
-
+	
 </mapper>
 
