@@ -59,13 +59,26 @@ function getToday(){
 							$("#result4").html(x)
 						}//success
 					})//ajax	
+					
 					$.ajax({
 						url : "pet_walk_today",
 						data : {
-							walk_date :getToday()
+							walk_date : getToday(),
 						},
 						success : function(x) {	
+							alert(clickValue)
 							$("#result5").html(x)
+						}//success
+					})//ajax	
+					
+					$.ajax({
+						url : "pet_walk_week",
+						data : {
+													
+						},
+						success : function(x) {	
+							
+							$("#result6").html(x)
 						}//success
 					})//ajax	
 				
@@ -99,7 +112,7 @@ function getToday(){
                 	내 펫들이름 들어가는곳
                 	</div>         
 				<div id="result">마이펫 정보 들어가는곳</div>
-	</div>	
+				</div>	
     </div>
     
     <div class="container-fluid pt-4 px-4">
@@ -125,7 +138,7 @@ function getToday(){
 				<div style="float: left; width: 50%; height: 50%;">					
 						<div class="h-100 bg-light rounded p-4">
 							<h3>Today</h3>
-							<div id="result4">스톱워치</div>
+							<div id="result4" style ="margin-bottom:50px;">스톱워치</div>
 							<div id="result5">산책정보2</div>
 						</div>		
 				</div>

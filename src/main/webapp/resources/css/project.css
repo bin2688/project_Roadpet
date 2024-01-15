@@ -73,6 +73,13 @@ button:active{
 	background-color: darkslategray;	
 }
 
+button#bt__ok{
+	color : black; background-color : lightblue;
+	font-size: 16px; padding: 6px;
+	width:70px; border:none; border-radius:3px;
+	cursor:pointer;
+}
+
 
 
 

@@ -1,5 +1,7 @@
 package com.multi.roadpet.pet;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,7 +22,13 @@ public class PetWalkDAO {
 		return my.selectOne("petInfo.one", pet_id);	
 	} //산책페이지에서 사진, 이름 가져오기
 	
-	public PetWalkVO one3(String walk_date) { 
-		return my.selectOne("petWalk.today", walk_date);	
+	public List<PetWalkVO> list() throws Exception { 
+		List<PetWalkVO> list = my.selectList("petWalk.today_list");	
+		return list;
+	} // 날짜에 따른 산책 정보 가져오기
+	
+	public List<PetWalkVO> list2() throws Exception { 
+		List<PetWalkVO> list = my.selectList("petWalk.week_list");	
+		return list;
 	} // 날짜에 따른 산책 정보 가져오기
 }

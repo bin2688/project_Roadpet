@@ -1,15 +1,12 @@
 package com.multi.roadpet.pet;
 
-import java.io.File;
 import java.io.IOException;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class PetWalkController {
@@ -32,9 +29,17 @@ public class PetWalkController {
 	}
 	
 	@RequestMapping("pet/pet_walk_today")
-	public void one3(String walk_date, Model model) {
-		PetWalkVO dto = petwalkService.one3(walk_date);
-		System.out.println(dto);
-		model.addAttribute("dto",dto);
+	public void list(Model model) throws Exception {
+		List<PetWalkVO> list= petwalkService.list();
+		System.out.println("ø¿¥√ ªÍ√• "+list.size());
+		model.addAttribute("list",list);
 	}
+	
+	@RequestMapping("pet/pet_walk_week")
+	public void list2(Model model) throws Exception {
+		List<PetWalkVO> list2= petwalkService.list2();
+		System.out.println(list2.size());
+		model.addAttribute("list2",list2);
+	}
+	
 }

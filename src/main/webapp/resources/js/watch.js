@@ -17,6 +17,9 @@ buttonStart.onclick = function(){
 
 buttonStop.onclick = function(){
 	clearInterval(intervalId)
+	document.getElementById("walk_time").value = appendTens+appendSeconds+appendMinutes;
+	clearInterval(intervalId)
+	
 }
 
 buttonReset.onclick = function(){
@@ -43,4 +46,6 @@ function operateTimer(){
 	seconds = 0
 	appendSeconds.textContent = "00"
 	}
+	
+	
 }
