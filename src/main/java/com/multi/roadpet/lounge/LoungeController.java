@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoungeController {
 	
 	@Autowired
-	LoungeService loungeService;
+	LoungeService loungeService;	
+	@Autowired
+	LoungeReplyService lngRpService;
 	
 	@RequestMapping("lounge/insert")
-	public void insert(LoungeVO loungeVO) {
-		loungeService.insert(loungeVO);	
+	public String insert(LoungeVO loungeVO) {
+		loungeService.insert(loungeVO);		
+		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();
+		
 	}
 
 	@RequestMapping("lounge/update")
@@ -32,8 +36,9 @@ public class LoungeController {
 	}
 	
 	@RequestMapping("lounge/delete")
-	public void delete(LoungeVO loungeVO) {
+	public String delete(LoungeVO loungeVO) {
 		loungeService.delete(loungeVO);
+		return "redirect:list?page=1";
 	}
 	
 	@RequestMapping("lounge/list")
@@ -70,7 +75,9 @@ public class LoungeController {
 	@RequestMapping("lounge/one")
 	public void one(LoungeVO loungeVO, Model model) throws Exception {		
 		LoungeVO bag = loungeService.one(loungeVO);
+		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());
 		model.addAttribute("bag", bag);
+		model.addAttribute("rpList", rpList);
 	}
 	
 }

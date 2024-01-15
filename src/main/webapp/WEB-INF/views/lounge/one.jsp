@@ -1,7 +1,8 @@
 <%@page import="com.multi.roadpet.lounge.LoungeVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>	
-	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +12,25 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 <%@ include file="/sidebar.jsp"%>
-
-
+<script type="text/javascript" src="resources/js/jquery-3.7.1.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#replyBtn').click(function() {
+		$.ajax({
+			url:"rpInsert",
+			data:{
+				reply_oriid : '${bag.lounge_id}',
+				reply_content : $('#reply').val(),
+				reply_user_id : '1'
+			},
+			success: function(response) {
+				$('#result').append(response)
+			}
+		})
+	})
+})
+</script>
 </head>
-
 <body>
 
 	<div class="container-xxl position-relative bg-white d-flex p-0">
@@ -32,8 +48,7 @@
 		<!-- views 파일에서 구현예정 -->
 		<div class="content">
 			<%@ include file="/header.jsp"%>
-			<div class="container-fluid pt-4 px-4">
-			
+			<div class="container-fluid pt-4 px-4">		
 						<div style="display: flex; justify-content: flex-end;">				
 							<a href="update?lounge_id=${bag.lounge_id}">
                                 <button class="btn btn-primary w-20 m-2" type="submit">글수정</button>
@@ -55,14 +70,36 @@
 					<div style="display: flex; justify-content: space-between;">
 						<div style="padding: 5px;">${bag.lounge_writer}</div>
 						<div style="padding: 5px;">댓글: 1</div>
-						<div style="padding: 5px;">좋아요수</div>
+						<div style="padding: 5px;">
+							<img alt="like" src="../resources/img/heartDefault.png"> 0
+						</div>
 						<div style="padding: 5px;">${bag.lounge_date}</div>
 					</div>
 					<hr>
 				</div>			
 			</div>
+			<br>
+			<div class="container-fluid pt-4 px-4">
+				<div class="input-group mb-3">
+					<input type="hidden" name="reply_user_id" value="1">
+  					<input type="text" class="form-control" id="reply" placeholder="댓글을 입력해주세요.">
+  					<button class="btn btn-primary" id="replyBtn">댓글등록</button>
+				</div>
+			</div>
+		<div id="result">	
+		 <c:forEach items="${rpList}" var="rp">
+			<div class="container-fluid pt-4 px-4">
+				<div class="bg-light rounded">
+					<div style="display: flex; justify-content: space-between;">
+						<div style="padding: 5px;">hongg</div>												
+						<div style="padding: 5px;">${rp.reply_date}</div>
+					</div>	
+					<div style="padding: 20px;">${rp.reply_content}</div>
+				</div>
+			</div>
+		</c:forEach>
+		</div>
 			<!-- Table End -->
-
 
 			<!-- Footer Start -->
 		

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="lounge">
-	<insert id="insert" parameterType="loungeVO">
+	<insert id="insert" parameterType="loungeVO" useGeneratedKeys="true" keyProperty="lounge_id">
 		insert into lounge (lounge_id, lounge_pet_type, member_user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img)
 		values (
 			null,

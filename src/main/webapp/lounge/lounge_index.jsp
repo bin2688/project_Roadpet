@@ -10,12 +10,8 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 <%@ include file="../sidebar.jsp"%>
-
-
 </head>
-
 <body>
-
 	<div class="container-xxl position-relative bg-white d-flex p-0">
 		<!-- Spinner Start -->
 		<div id="spinner"
@@ -37,17 +33,9 @@
 					<button type="button" class="btn btn-outline-danger m-2" id="insertType"
 					aria-hidden="true">글쓰기</button> </a>	
 				</div>
-
-   			<div class="container mt-4">
-				<div class="bg-light rounded"></div>
-			</div>
-			
+	
 			<!-- Table End -->
 
-
-			<!-- Footer Start -->
-		
-			<!-- Footer End -->
 		</div>
 		<!-- Content End -->
 

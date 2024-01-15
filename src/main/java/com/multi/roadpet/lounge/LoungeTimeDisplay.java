@@ -1,5 +1,6 @@
 package com.multi.roadpet.lounge;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LoungeTimeDisplay {
@@ -13,11 +14,9 @@ public class LoungeTimeDisplay {
 		public static final int year = 12;
 	}
 	
-	public static String TimeCondition(Date lounge_date) {
-		//밀리초 단위
-		//int < 21억 / long < 922경
+	public static String TimeCondition(Date date) {
 		long timeNow = System.currentTimeMillis();
-		long insTime = lounge_date.getTime();
+		long insTime = date.getTime();
 		long difTime = (timeNow - insTime) / 1000;
 		String displayTime = null;
 		if (difTime < Time.sec) { 
@@ -32,7 +31,15 @@ public class LoungeTimeDisplay {
 			displayTime = (difTime) + "달 전"; //12개월 미만
 		} else if ((difTime /= Time.month) < Time.year) {
 			displayTime = (difTime) + "년 전"; //12년 미만
-		} 
+		} else {
+			displayTime = "오래 전";
+		}
 		return displayTime;		
-	}	
+	}
+	
+	public String TimeFormat(Date lounge_date) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+		String insFormat = dateFormat.format(lounge_date);
+		return insFormat;
+	}
 }
