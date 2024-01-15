@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-삭제가 완료되었습니다. ${result} 개
-<a href="pet_home.jsp">메인으로</a>
+<script>
+ alert("회원가입이 완료되었습니다.");
+ self.close();
+ location.href = "member.jsp";
+</script>
 </body>
 </html>

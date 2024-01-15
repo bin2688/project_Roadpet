@@ -6,9 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-
-삭제가 완료되었습니다. ${result} 개
-<a href="pet_home.jsp">메인으로</a>
+<body bgcolor="yellow">
+로그인처리 요청됨<br>
+${id}님이 로그인되었습니다. <br>
+<a href="member.jsp">첫 페이지로 이동</a>
 </body>
 </html>
