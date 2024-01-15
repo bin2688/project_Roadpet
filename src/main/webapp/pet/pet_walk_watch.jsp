@@ -12,12 +12,15 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
-	<%@ include file="../sidebar.jsp"%>
+    <link href="/roadpet/resources/css/project.css" rel="stylesheet">
 	<script>
 	let minutes = 0;
 	let seconds = 0;
 	let tenMillis = 0;
-
+	let today = new Date();
+	
+	
+	
 	const appendTens = document.getElementById("tenMillis");
 	const appendSeconds = document.getElementById("seconds");
 	const appendMinutes = document.getElementById("minutes");
@@ -29,16 +32,25 @@
 	buttonStart.onclick = function(){
 		clearInterval(intervalId)
 		intervalId = setInterval(operateTimer,10)
+		
 	}
 
 	buttonStop.onclick = function(){
-		document.getElementById("walk_time").value = appendTens+appendSeconds+appendMinutes;
-		alert(appendTens+appendSeconds+appendMinutes)
+		var tens = $('#tenMillis').text();
+		var sec = $('#seconds').text();
+		var min = $('#minutes').text();
+		time= min+":"+sec
+		document.getElementById("walk_time").value = time;
+		
+		
+		document.getElementById("walk_date").value = today.toISOString().substring(2,10);
+		
 		clearInterval(intervalId)
 	}
 
 	buttonReset.onclick = function(){
 		clearInterval(intervalId)
+		document.getElementById("walk_time").value = 0;
 		tenMillis =0; seconds =0; minutes =0;
 		appendTens.textContent = "00"
 		appendSeconds.textContent = "00"
@@ -61,30 +73,25 @@
 		seconds = 0
 		appendSeconds.textContent = "00"
 		}
-		
-		
+	
+	
 	}
 	
 	</script>
 
 </head>
 <body>
-	<%
-	PetWalkVO dto = (PetWalkVO)request.getAttribute("dto");
-	%>
-	alert(${dto.pet_id})
-	<div class="container-xxl position-relative bg-white d-flex p-0">
-		<!-- Spinner Start -->
-		<div id="spinner"
-			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-			<div class="spinner-border text-primary"
-				style="width: 3rem; height: 3rem;" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-		</div>
-	<div class="content">
-	<%@ include file="../header.jsp"%>
-   <div class="bg-light rounded h-100 p-4">
+	<div class="watch-container">
+		<h3>산책타이머</h3>
+	
+		<h2>
+			<span id="minutes">00</span>:<span id="seconds">00</span>:<span
+				id="tenMillis">00</span>
+		</h2>
+		<button id="bt__start">START</button>
+		<button id="bt__stop">STOP</button>
+		<button id="bt__reset">RESET</button><br><br>
+		
         <h3 class="mb-4">산책 정보 입력</h3>
 		
 		<form action="pet_walk_insert" id="form" method="post"  enctype="multipart/form-data" name="walk_form">
@@ -95,7 +102,7 @@
 			</div>
 			<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label">2.산책 날짜</label> <input
-					name="walk_date" class="form-control" id="exampleInputEmail1"
+					name="walk_date" class="form-control" id="walk_date"
 					aria-describedby="emailHelp">
 			</div>
 			<div class="mb-3">
@@ -109,27 +116,14 @@
 					aria-describedby="emailHelp">
 			</div>
 			<div class="button-login-box">
-				<button type="submit" class="btn btn-primary">완료</button>
+				<button id="bt__ok" type="submit" class="btn btn-primary">등록</button>
 			</div>
 		</form>
-		</div>
-		</div>
-</div>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="../resources/lib/chart/chart.min.js"></script>
-	<script src="../resources/lib/easing/easing.min.js"></script>
-	<script src="../resources/lib/waypoints/waypoints.min.js"></script>
-	<script src="../resources/lib/owlcarousel/owl.carousel.min.js"></script>
-	<script src="../resources/lib/tempusdominus/js/moment.min.js"></script>
-	<script
-		src="../resources/lib/tempusdominus/js/moment-timezone.min.js"></script>
-	<script
-		src="../resources/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-	<!-- Template Javascript -->
-	<script src="../resources/js/main.js"></script>
+		
 	
+	</div>
+
+	<script src="/roadpet/resources/js/watch.js"></script>
+
 </body>
 </html>
