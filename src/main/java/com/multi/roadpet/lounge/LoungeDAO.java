@@ -1,6 +1,8 @@
 package com.multi.roadpet.lounge;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,16 @@ public class LoungeDAO {
 		return my.selectOne("lounge.one", loungeVO);
 	}
 	
-	public int count() {
-		 return my.selectOne("lounge.count");
+	public int countAll() {
+		 return my.selectOne("lounge.countAll");
 		}
+	
+	public int countSearch(String keyWord, String searchType) {
+	    Map<String, Object> searchMap = new HashMap<>();
+	    searchMap.put("keyWord", keyWord);
+	    searchMap.put("searchType", searchType);
+	    
+		return my.selectOne("lounge.countSearch", searchMap);
+		}
+
 }

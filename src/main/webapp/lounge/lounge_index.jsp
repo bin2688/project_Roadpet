@@ -10,12 +10,8 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 <%@ include file="../sidebar.jsp"%>
-
-
 </head>
-
 <body>
-
 	<div class="container-xxl position-relative bg-white d-flex p-0">
 		<!-- Spinner Start -->
 		<div id="spinner"
@@ -37,17 +33,9 @@
 					<button type="button" class="btn btn-outline-danger m-2" id="insertType"
 					aria-hidden="true">글쓰기</button> </a>	
 				</div>
-
-   			<div class="container mt-4">
-				<div class="bg-light rounded"></div>
-			</div>
-			
+	
 			<!-- Table End -->
 
-
-			<!-- Footer Start -->
-		
-			<!-- Footer End -->
 		</div>
 		<!-- Content End -->
 
@@ -60,7 +48,6 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="../resources/lib/chart/chart.min.js"></script>
 	<script src="../resources/lib/easing/easing.min.js"></script>
 	<script src="../resources/lib/waypoints/waypoints.min.js"></script>
 	<script src="../resources/lib/owlcarousel/owl.carousel.min.js"></script>
