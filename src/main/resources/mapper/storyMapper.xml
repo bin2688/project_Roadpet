@@ -2,19 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="petstory">
 	<!-- ORM, Mapper파일 -->
-	<insert id="create" parameterType="petStoryVO">
-		insert into pet_story values (null, null,
-		#{story_title},#{story_content},now(),#{story_photo})
+	<insert id="insert" parameterType="petStoryVO">
+		insert into pet_story values
+		(null, null,
+		#{story_title},#{story_content},now(),#{story_photo}, #{story_private})
 	</insert>
-	
-	<select id="list" resultType="petStoryVO">
-		select product_id, story_photo,
-		story_title, story_date from
-		pet_story
+
+	<select id="list" parameterType="petStoryPageVO"
+		resultType="petStoryVO">
+		select *  
+		from 
+			(select 
+				ROW_NUMBER() over(order by story_id desc) as story_no,
+				story_id, story_photo, story_title, story_content
+			from pet_story ps) ps2 where ps2.story_no BETWEEN #{start} and #{end}
 	</select>
 
-<!--  
-	<select id="one" parameterType="productVO" resultType="productVO">
-		select product_id, product_create, product_img, product_title, product_content from product where product_id = #{product_id}
-	</select> -->
+	<select id="one" parameterType="petStoryVO"
+		resultType="petStoryVO">
+		select pet_id, story_date, story_photo, story_title,
+		story_content from pet_story where story_id = #{story_id}
+	</select>
+	
+	<!-- 전체 페이지개수 계산할 때 전체 게시물 개수가 필요함. total / page = pages -->
+	<select id="count" resultType="int">
+		select count(*) from pet_story
+	</select>
+
 </mapper>

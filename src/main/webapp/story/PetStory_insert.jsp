@@ -71,9 +71,9 @@
 <link rel="stylesheet" href="/roadpet/resources/css/style.css">
 
 <style>
-	.find-btn{
-		text-align: center;
-	}
+.find-btn {
+	text-align: center;
+}
 </style>
 
 </head>
@@ -86,25 +86,39 @@
 				<div class="bg-light rounded h-100 p-4">
 					<h6 class="mb-4">스토리 작성하기</h6>
 
-					<form action="PetStory_insert2" method="post" enctype="multipart/form-data">
+					<form action="PetStory_insert" method="post"
+						enctype="multipart/form-data">
 						<div class="mb-3">
 							<label for="story_title" class="form-label">제목</label> <input
 								type="text" class="form-control" name="story_title"
 								value="제목을 입력해주세요.">
 						</div>
-						
 
-						
 						<div class="mb-3">
 							<label for="story_content" class="form-label">내용</label>
-							<textarea class="form-control"
-								name="story_content" style="height: 200px;">test</textarea>
+							<textarea class="form-control" name="story_content"
+								style="height: 200px;">test</textarea>
 						</div>
 
 						<div class="mb-3">
-							<label for="story_photo" class="form-label">사진</label>
-							파일 선택: <input type="file" name="file" ><br>
+							<label for="story_photo" class="form-label">사진</label> 파일 선택: <input
+								type="file" name="file"><br>
 						</div>
+						<fieldset class="row mb-3">
+							<div class="col-sm-10">
+								<label for="exampleInputEmail1" class="form-label">공개 여부</label>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="story_private"
+										id="gridRadios1" value="0" checked> <label
+										class="form-check-label" for="gridRadios1"> 공개 </label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="story_private"
+										id="gridRadios2" value="1"> <label
+										class="form-check-label" for="gridRadios2"> 비공개 </label>
+								</div>
+							</div>
+						</fieldset>
 
 						<button class="btn btn-primary w-100 m-2" type="submit">등록하기</button>
 					</form>

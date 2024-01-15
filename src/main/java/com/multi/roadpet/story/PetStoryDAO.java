@@ -12,37 +12,20 @@ public class PetStoryDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
-	public int insert(PetStoryVO petstoryVO) {
-		int result = my.insert("petstory.create", petstoryVO);
-		return result;
+	public void insert(PetStoryVO petstoryVO) {
+		my.insert("petstory.insert", petstoryVO);
 	}
 	// 리스트 전체 보기
-	public List<PetStoryVO> list() throws Exception {
-		List<PetStoryVO> list = my.selectList("petstory.list");
+	public List<PetStoryVO> list(PetStoryPageVO petstoryPageVO) throws Exception {
+		List<PetStoryVO> list = my.selectList("petstory.list", petstoryPageVO);
 		return list;
 		}
-	/*
-	 * // 리스트 전체 보기 public List<PetStoryVO> list() throws Exception {
-	 * List<PetStoryVO> list = my.selectList("product.list"); return list; }
-	 * 
-	 * // 리스트 중에서 선택한 물건 하나 보기 public PetStoryVO one(PetStoryVO productVO) throws
-	 * Exception{ PetStoryVO vo2 = my.selectOne("product.one", productVO); return
-	 * vo2; }
-	 */
-	/*
-	 * 
-	 * public int update(BbsDTO dto) { int result = my.update("bbs.update", dto);
-	 * return result;
-	 * 
-	 * }
-	 * 
-	 * 
-	 * public int delete(BbsDTO dto) { int result = my.delete("bbs.delete", dto);
-	 * return result;
-	 * 
-	 * }
-	 * 
-	 *  public BbsDTO one(BbsDTO dto) throws Exception { //
-	 * 3.SQL문 결정/생성 BbsDTO dto2 = my.selectOne("bbs.one", dto); return dto2; }
-	 */
+	public PetStoryVO one(PetStoryVO petstoryVO) {
+		return my.selectOne("petstory.one", petstoryVO);
+	}
+	
+	public int count() {
+		return my.selectOne("petstory.count");
+	}
+	
 }
