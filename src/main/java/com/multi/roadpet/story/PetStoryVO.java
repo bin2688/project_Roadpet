@@ -3,6 +3,7 @@ package com.multi.roadpet.story;
 import java.util.Date;
 
 public class PetStoryVO {
+	private int story_no;
 	private int story_id;
 	private int pet_id;
 	private String story_title;
@@ -10,6 +11,14 @@ public class PetStoryVO {
 	private String story_date;
 	private String story_photo;
 	private int story_private;
+	
+	
+	public int getStory_no() {
+		return story_no;
+	}
+	public void setStory_no(int story_no) {
+		this.story_no = story_no;
+	}
 	public int getStory_id() {
 		return story_id;
 	}
