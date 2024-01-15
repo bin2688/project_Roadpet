@@ -6,26 +6,35 @@
 	<insert id="insert" parameterType="petWalkVO" useGeneratedKeys="true" keyProperty="walk_id"> <!--pet_info.insert의 insert , return타입 int라 따로 쓰지않음 쓰면 에러-->
 		insert into pet_walk(
 		pet_id,
-		pet_name,
 		walk_date,
 		walk_distance,
-		walk_start,
-		walk_end
+		walk_time
+		
 		)
 		values (
 		#{pet_id},
-		#{pet_name},
 		now(),
 		#{walk_distance},
-		#{walk_start},
-		#{walk_end}
+		#{walk_time}
 		)
 	</insert> <!-- walk_id값 auto_incerment 증가 -->
 
 	<select id="one" parameterType="int" resultType="petWalkVO">
 		select * from pet_walk where pet_id = #{pet_id}
 	</select>
+	
+	<select id="today_list" resultType="petWalkVO">
+		select * from pet_walk 
+		where walk_date= CURDATE()
+	</select>
+	
+	<select id="week_list" resultType="petWalkVO">
+		select pet_name ,time_format(AVG(walk_time),'%T') as walk_time,rank () over(order by time_format(AVG(walk_time),'%T') DESC) as walk_date
+		from pet_walk
+		where pet_walk.walk_date between date_add(NOW(),interval -1 week) and NOW()
+		group by pet_name;
+	</select>
 
-
+	
 </mapper>
 

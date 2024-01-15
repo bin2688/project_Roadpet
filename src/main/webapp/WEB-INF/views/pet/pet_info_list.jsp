@@ -19,7 +19,7 @@
  for(PetInfoVO bag : list){
 %>
 
-<button class="btn_pet" id="<%= bag.getPet_id()%>">
+<button class="btn_pet" id="<%= bag.getPet_id()%>" style="margin-right:50px;">
 	<img class="petprofile" src="../resources/upload/<%=bag.getPet_photo()%>" style="width:120px; height:120px; border-radius:70%; border: 3px solid gold;"  >
 </button>
 
