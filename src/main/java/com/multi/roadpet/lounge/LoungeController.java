@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoungeController {
 	
 	@Autowired
-	LoungeService loungeService;
+	LoungeService loungeService;	
+	@Autowired
+	LoungeReplyService lngRpService;
 	
 	@RequestMapping("lounge/insert")
-	public void insert(LoungeVO loungeVO) {
-		loungeService.insert(loungeVO);	
+	public String insert(LoungeVO loungeVO) {
+		loungeService.insert(loungeVO);		
+		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();
+		
 	}
 
 	@RequestMapping("lounge/update")
@@ -32,8 +36,9 @@ public class LoungeController {
 	}
 	
 	@RequestMapping("lounge/delete")
-	public void delete(LoungeVO loungeVO) {
+	public String delete(LoungeVO loungeVO) {
 		loungeService.delete(loungeVO);
+		return "redirect:list?page=1";
 	}
 	
 	@RequestMapping("lounge/list")
@@ -41,11 +46,9 @@ public class LoungeController {
 					 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO ,Model model) throws Exception {	
 		loungePageVO.setSearchType(searchType);
 		loungePageVO.setKeyWord(keyWord);
-		System.out.println("검색유형>>" + searchType + "  검색어>>" + keyWord);
 		loungePageVO.setStartEnd();
 		List<LoungeVO> list = loungeService.list(loungePageVO);
-		int count = loungeService.pageCount();
-		System.out.println("게시물 개수>>" + count);
+		int count = loungeService.pageCount(keyWord, searchType);
 		int pages = count/5;
 		if (count%5 != 0) {
 			pages += 1;
@@ -53,6 +56,8 @@ public class LoungeController {
 		model.addAttribute("list", list);	
 		model.addAttribute("pages", pages);	
 		model.addAttribute("count", count);	
+		model.addAttribute("searchType", searchType);	
+		model.addAttribute("keyWord", keyWord);
 		}
 	
 	@RequestMapping("lounge/pageList")
@@ -63,12 +68,16 @@ public class LoungeController {
 		loungePageVO.setStartEnd();
 		List<LoungeVO> list = loungeService.list(loungePageVO);
 		model.addAttribute("list", list);	
+		model.addAttribute("searchType", searchType);	
+		model.addAttribute("keyWord", keyWord);	
 		}
 	
 	@RequestMapping("lounge/one")
 	public void one(LoungeVO loungeVO, Model model) throws Exception {		
 		LoungeVO bag = loungeService.one(loungeVO);
+		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());
 		model.addAttribute("bag", bag);
+		model.addAttribute("rpList", rpList);
 	}
 	
 }

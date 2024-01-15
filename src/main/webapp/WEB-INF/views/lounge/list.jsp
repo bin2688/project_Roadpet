@@ -37,16 +37,21 @@
 
 
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script type="text/javascript">
+<script type="text/javascript">	
 	$(function() {
 		$('.pages').click(function() {
+			var pageNum = $(this).text();
+			var dataForm = {
+			            page: pageNum,
+			            searchType:"${searchType}", 
+			            keyWord: "${keyWord}" 
+			        };
+			console.log("dataForm:", dataForm);
 			$.ajax({
 				url : "pageList",
-				data : {
-					page : $(this).text()
-				},
+				data : dataForm,
 				success : function(table) {
-					$('#result').html(table)
+					$('#result').html(table);
 				}
 			}) //ajax
 		}) //.pages
@@ -68,15 +73,16 @@
 			<hr color="red">
 			
 			<!-- 검색  -->
-				<form action="list" method="get">
+				<form id="searchForm" action="list" method="get">
 				<div class="search-wrap">
+					<input type="hidden" name="page" value="1">
 					<select class="form-control search-select" name="searchType">
-						<option value="all" selected>전체</option>
-						<option value="titleContent">제목+내용</option>
-						<option value="reply">댓글</option>
-						<option value="writer">작성자</option>
-					</select>
-					<input type="text" class="form-control search-input" name="keyWord" value="" placeholder="검색어를 입력해주세요.">
+						<option value="all" <c:if test="${searchType == 'all'}">selected</c:if>>전체</option>
+            			<option value="titleContent" <c:if test="${searchType == 'titleContent'}">selected</c:if>>제목+내용</option>
+           				<option value="reply" <c:if test="${searchType == 'reply'}">selected</c:if>>댓글</option>
+            			<option value="writer" <c:if test="${searchType == 'writer'}">selected</c:if>>작성자</option>
+        			</select>
+       				<input type="text" class="form-control search-input" name="keyWord" value="${keyWord}" placeholder="검색어를 입력해주세요.">
 					<button id="submit" type="submit" class="btn btn-info search-btn">검색</button>
 				</div>
 				</form>
@@ -101,7 +107,9 @@
 							<div style="display: flex; justify-content: space-between;">
 								<div style="padding: 5px;">${bag.lounge_writer}</div>
 								<div style="padding: 5px;">댓글: 0</div>
-								<div style="padding: 5px;">좋아요/추천</div>
+								<div style="padding: 5px;">
+									<img alt="like" src="../resources/img/heartDefault.png"> 0
+								</div>
 								<div style="padding: 5px;">${bag.lounge_date}</div>
 							</div>
 							<hr>
@@ -137,7 +145,6 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="../resources/lib/chart/chart.min.js"></script>
 	<script src="../resources/lib/easing/easing.min.js"></script>
 	<script src="../resources/lib/waypoints/waypoints.min.js"></script>
 	<script src="../resources/lib/owlcarousel/owl.carousel.min.js"></script>

@@ -1,8 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="bbs">
-<!-- ORM, Mapper파일 -->
-	<insert id="create" parameterType="bbsVO">	
-		insert into product values (null,#{product_title},#{product_content},#{product_price})
+
+	<mapper namespace="lounge">
+	<insert id="insert" parameterType="loungeVO" useGeneratedKeys="true" keyProperty="lounge_id">
+		insert into lounge (lounge_id, lounge_pet_type, member_user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img)
+		values (
+			null,
+			#{lounge_pet_type},
+			#{member_user_id},
+			#{lounge_title},
+			#{lounge_content},
+			(SELECT nickname FROM member WHERE user_id = #{member_user_id}), 
+			now(),
+			#{lounge_img}
+			)
 	</insert>
+	
+	<update id="update" parameterType="loungeVO">
+		update lounge 
+		set 
+			lounge_pet_type = #{lounge_pet_type},
+			lounge_title = #{lounge_title},
+			lounge_content = #{lounge_content},
+			lounge_img = #{lounge_img},
+			lounge_date = now()
+		where lounge_id = #{lounge_id}
+	</update>
+	
+	<delete id="delete" parameterType="loungeVO">
+		delete from lounge where lounge_id = #{lounge_id}
+	</delete>
+	
+	<select id="one" parameterType="int" resultType="loungeVO">
+		select * from lounge where lounge_id = #{lounge_id}
+	</select>
+	
+		
+	<select id="list" parameterType="loungePageVO" resultType="loungeVO">
+			select * 
+			from
+				(select row_number() over(order by lounge_id desc) as lounge_no,
+	             lounge_id, lounge_pet_type, lounge_title, lounge_content, 
+	             lounge_writer, lounge_date
+	         	 from 
+	           <choose>
+		          <when test="searchType eq 'all'">
+		          		lounge
+			            where lounge_title like CONCAT('%',#{keyWord},'%')
+						or lounge_content like CONCAT('%', #{keyWord}, '%')
+		                or lounge_writer like CONCAT('%', #{keyWord}, '%')) l2
+						where l2.lounge_no between #{start} and #{end}
+						order by l2.lounge_no;
+		          </when>
+		          <when test="searchType eq 'titleContent'">
+		         		lounge
+			            where lounge_title like CONCAT('%', #{keyWord}, '%') 
+                         or lounge_content like CONCAT('%', #{keyWord}, '%')) l2
+						where l2.lounge_no between #{start} and #{end}
+						order by l2.lounge_no;
+		          </when>
+		          <when test="searchType eq 'reply'">
+		          		lounge
+			            where reply_column like CONCAT('%', #{keyWord}, '%')) l2
+						where l2.lounge_no between #{start} and #{end}
+						order by l2.lounge_no;
+		          </when>
+		          <when test="searchType eq 'writer'">
+		          		lounge
+			            where lounge_writer like CONCAT('%', #{keyWord}, '%')) l2
+						where l2.lounge_no between #{start} and #{end}
+						order by l2.lounge_no;
+		          </when>
+	          	  <otherwise>
+	          	  		lounge) l2 where l2.lounge_no between #{start} and #{end}
+	          	   </otherwise>	          	  
+	          </choose> 
+	          
+	</select>
+	
+	
+	<select id="countAll" resultType="int">
+			select count(*) from lounge		
+	</select>
+	
+	
+	<select id="countSearch" resultType="int" parameterType="map">
+			select count(*) from lounge
+	    	 where 
+    		<choose>
+			<when test="searchType eq 'all'">
+				lounge_title like CONCAT('%',#{keyWord},'%')
+				or lounge_content like CONCAT('%', #{keyWord}, '%')
+				or lounge_writer like CONCAT('%', #{keyWord}, '%')
+			</when>
+			<when test="searchType eq 'titleContent'">
+				lounge_title like CONCAT('%', #{keyWord}, '%')
+				or lounge_content like CONCAT('%', #{keyWord}, '%')
+			</when>
+			<when test="searchType eq 'reply'">
+				reply_column like CONCAT('%', #{keyWord}, '%')
+		    </when>
+ 		    <when test="searchType eq 'writer'">
+		         lounge_writer like CONCAT('%', #{keyWord}, '%')
+ 		    </when>
+ 		    <otherwise>
+ 		         1=1
+ 		    </otherwise>
+  		  </choose>
+	</select>
+
+
 </mapper>

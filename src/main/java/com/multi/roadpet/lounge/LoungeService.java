@@ -32,7 +32,11 @@ public class LoungeService {
 		return loungeDAO.one(loungeVO);
 	}
 	
-	public int pageCount() {
-		 return loungeDAO.count();
+	public int pageCount(String keyWord, String searchType) {
+		if (keyWord == null || keyWord.trim().equals("") && searchType == null) {
+		 return loungeDAO.countAll();
+		}else {
+		 return loungeDAO.countSearch(keyWord, searchType);
 		}
+	}
 }
