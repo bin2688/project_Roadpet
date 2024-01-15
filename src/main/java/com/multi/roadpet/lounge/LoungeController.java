@@ -1,3 +1,4 @@
+
 package com.multi.roadpet.lounge;
 
 import java.util.List;
@@ -79,5 +80,4 @@ public class LoungeController {
 		model.addAttribute("bag", bag);
 		model.addAttribute("rpList", rpList);
 	}
-	
 }
