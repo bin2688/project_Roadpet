@@ -25,4 +25,10 @@ public class PetStoryService {
 	public int pageCount() {
 		return dao.count();
 	}
+	public void delete(PetStoryVO petstoryVO) {
+		dao.delete(petstoryVO);
+	}
+	public void update(PetStoryVO petstoryVO) {
+		dao.update(petstoryVO);
+	}
 }

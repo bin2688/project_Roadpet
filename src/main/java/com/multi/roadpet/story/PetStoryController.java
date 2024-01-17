@@ -12,11 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.multi.roadpet.lounge.LoungeVO;
+
 @Controller // 싱글톤 + 컨트롤러 등록
 public class PetStoryController {
 
 	@Autowired
 	PetStoryService petstoryService;
+	
+	@Autowired
+	ReplyService replyService;
 	
 	@RequestMapping("story/PetStory_insert")
 	public void insert2(PetStoryVO petstoryVO, 
@@ -68,7 +73,24 @@ public class PetStoryController {
 	
 	@RequestMapping("story/PetStory_one")
 	public void one(PetStoryVO petstoryVO, Model model) {
-		PetStoryVO bag = petstoryService.one(petstoryVO);
+		PetStoryVO bag = petstoryService.one(petstoryVO);//상세정보 
+		//댓글리스트 
+		System.out.println(bag.getStory_id());
+		List<ReplyVO> list = replyService.list(petstoryVO.getStory_id());
+		System.out.println(list.size());
 		model.addAttribute("bag",bag);
+		model.addAttribute("list", list);
+	}
+	@RequestMapping("story/PetStory_delete")
+	public void delete(PetStoryVO petstoryVO, Model model) {
+		System.out.println(petstoryVO);
+		petstoryService.delete(petstoryVO);
+		model.addAttribute("petstoryVO", petstoryVO);
+	}
+	@RequestMapping("story/PetStory_update")
+	public void update(PetStoryVO petstoryVO, Model model) {
+		System.out.println(petstoryVO);
+		petstoryService.update(petstoryVO);
+		model.addAttribute("petstoryVO", petstoryVO);
 	}
 }
