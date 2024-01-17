@@ -152,6 +152,21 @@
 	width: 48px;
 	vertical-align: middle;
 }
+.ca-btn{
+	position: absolute;
+	right: 20px;
+	bottom: 70px;
+	border-radius: 3px;
+	background: #fff;
+	z-index: 3;
+}
+.cancel-btn{
+	background-image: url("../img/mapserviceCancel.png");
+	background-size: 48px 48px;
+	height: 48px;
+	width: 48px;
+	vertical-align: middle;
+}
 .ml-btn{
 	position: absolute;
 	right: 15px;
@@ -162,24 +177,28 @@
 }
 .mylocation-btn{
 	background-image: url("../img/myLocationButton.gif");
-	background-size: 25px 30px;
+	background-size: 30px 30px;
 	height: 30px;
 	width: 30px;
 	vertical-align: middle;
 }
 .zoom-btn{
 	position: relative;
-	height: 40px;
-	width: 32px;
+	height: 30px;
+	width: 30px;
 	background: #fff;
 	z-index: 10;
 }
 .zoomin{
 	background-image: url("../img/ico_plus.png");
-	background-size: 32px 32px;
+	background-size: 30px 30px;
 }
 .zoomout{
 	background-image: url("../img/ico_minus.png");
-	background-size: 32px 32px;
+	background-size: 30px 30px;
 }
-/***************모달 설정***************/
+/*************** Alert ***************/
+.help-alert{
+	position: relative;
+	z-index: 999;
+}
