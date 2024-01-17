@@ -1,6 +1,6 @@
 package com.multi.roadpet.story;
 
-/*import java.util.List;*/
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +13,15 @@ public class ReplyDAO {
 	SqlSessionTemplate my;
 
 
-	public int insert(ReplyVO dto) {
-		return my.insert("reply.create",dto);
+	public int insert(ReplyVO replyVO) {
+		return my.insert("reply.create",replyVO);
 
 	}
-
-	/*
-	 * // 리스트 전체 보기 public List<ReplyVO> list(int id) { return
-	 * my.selectList("reply.list", id);
-	 * 
-	 * }
-	 */
+	// 리스트 전체 보기
+	public List<ReplyVO> list(int reply_id) {
+		return my.selectList("reply.list", reply_id);
+	   }
+	 
 
 
 }

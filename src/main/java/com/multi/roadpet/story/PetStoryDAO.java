@@ -27,5 +27,10 @@ public class PetStoryDAO {
 	public int count() {
 		return my.selectOne("petstory.count");
 	}
-	
+	public void delete(PetStoryVO petstoryVO) {
+		my.delete("petstory.delete", petstoryVO);
+	}
+	public void update(PetStoryVO petstoryVO) {
+		my.update("petstory.update", petstoryVO);
+	}
 }
