@@ -9,35 +9,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class LoungeDAO {
+public class LoungeDAO implements LoungeDAOInterface {
 	
 	@Autowired
 	SqlSessionTemplate my;
 	
+	@Override
 	public void insert(LoungeVO loungeVO) {
 		my.insert("lounge.insert", loungeVO);
 	}
 	
+	@Override
 	public void update(LoungeVO loungeVO) {
 		my.update("lounge.update", loungeVO);
 	}
 	
+	@Override
 	public void delete(LoungeVO loungeVO) {
 		my.delete("lounge.delete", loungeVO);
 	}
 	
+	@Override
 	public List<LoungeVO> list(LoungePageVO loungePageVO) {
 		return my.selectList("lounge.list", loungePageVO);				 
 	}
 	
+	@Override
 	public LoungeVO one(LoungeVO loungeVO) {
 		return my.selectOne("lounge.one", loungeVO);
 	}
 	
+	@Override
 	public int countAll() {
 		 return my.selectOne("lounge.countAll");
 		}
 	
+	@Override
 	public int countSearch(String keyWord, String searchType) {
 	    Map<String, Object> searchMap = new HashMap<>();
 	    searchMap.put("keyWord", keyWord);
@@ -45,5 +52,10 @@ public class LoungeDAO {
 	    
 		return my.selectOne("lounge.countSearch", searchMap);
 		}
+	
+	@Override
+	public void replyCount(int lounge_id) {
+		my.update("lounge.replyCount", lounge_id);
+	}
 
 }
