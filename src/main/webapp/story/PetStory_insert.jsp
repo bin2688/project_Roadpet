@@ -95,6 +95,12 @@
 						</div>
 
 						<div class="mb-3">
+							<button style="background: red; color: white;" id="b1">위치추가하기</button>
+							<div id="map" style="width: 70%; height: 350px;"></div>
+						</div>
+
+
+						<div class="mb-3">
 							<label for="story_content" class="form-label">내용</label>
 							<textarea class="form-control" name="story_content"
 								style="height: 200px;">test</textarea>
@@ -108,13 +114,13 @@
 							<div class="col-sm-10">
 								<label for="exampleInputEmail1" class="form-label">공개 여부</label>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="story_private"
-										id="gridRadios1" value="0" checked> <label
-										class="form-check-label" for="gridRadios1"> 공개 </label>
+									<input class="form-check-input" type="radio"
+										name="story_private" id="gridRadios1" value="0" checked>
+									<label class="form-check-label" for="gridRadios1"> 공개 </label>
 								</div>
 								<div class="form-check">
-									<input class="form-check-input" type="radio" name="story_private"
-										id="gridRadios2" value="1"> <label
+									<input class="form-check-input" type="radio"
+										name="story_private" id="gridRadios2" value="1"> <label
 										class="form-check-label" for="gridRadios2"> 비공개 </label>
 								</div>
 							</div>
@@ -126,6 +132,7 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 
 

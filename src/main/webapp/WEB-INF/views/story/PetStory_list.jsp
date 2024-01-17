@@ -162,6 +162,7 @@
 					</div>
 			</c:forEach>
 		</div>
+	</div>
 		<hr color="red">
 
 		<%
@@ -175,7 +176,7 @@
 			}
 		%>
 
-	</div>
+
 
 	<!-- Content End -->
 	<!-- Back to Top -->
