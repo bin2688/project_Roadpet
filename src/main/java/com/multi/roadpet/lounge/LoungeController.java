@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class LoungeController {
 	
 	@Autowired
-	LoungeService loungeService;	
+	LoungeServiceInterface loungeService;	
 	@Autowired
-	LoungeReplyService lngRpService;
+	LoungeReplyServiceInterface lngRpService;
 	
 	@RequestMapping("lounge/insert")
 	public String insert(LoungeVO loungeVO) {
@@ -44,7 +44,7 @@ public class LoungeController {
 	
 	@RequestMapping("lounge/list")
 	public void list(@RequestParam(value = "searchType", required = false) String searchType,
-					 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO ,Model model) throws Exception {	
+					 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO, Model model) throws Exception {	
 		loungePageVO.setSearchType(searchType);
 		loungePageVO.setKeyWord(keyWord);
 		loungePageVO.setStartEnd();
@@ -63,7 +63,7 @@ public class LoungeController {
 	
 	@RequestMapping("lounge/pageList")
 	public void pageList(@RequestParam(value = "searchType", required = false) String searchType,
-						 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO ,Model model) throws Exception {
+						 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO, Model model) throws Exception {
 		loungePageVO.setSearchType(searchType);
 		loungePageVO.setKeyWord(keyWord);
 		loungePageVO.setStartEnd();
@@ -74,10 +74,12 @@ public class LoungeController {
 		}
 	
 	@RequestMapping("lounge/one")
-	public void one(LoungeVO loungeVO, Model model) throws Exception {		
+	public void one(LoungeVO loungeVO, Model model) throws Exception {	
+		int rpCount = lngRpService.rpCount();
 		LoungeVO bag = loungeService.one(loungeVO);
-		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());
+		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());	
 		model.addAttribute("bag", bag);
+		model.addAttribute("rpCount", rpCount);
 		model.addAttribute("rpList", rpList);
 	}
 }

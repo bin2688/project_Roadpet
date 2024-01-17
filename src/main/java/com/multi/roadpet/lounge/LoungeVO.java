@@ -11,7 +11,16 @@ public class LoungeVO {
     private String lounge_writer;
     private String lounge_date;
     private String lounge_img;
+    private int lounge_replyCount;
     
+    
+    
+	public int getLounge_replyCount() {
+		return lounge_replyCount;
+	}
+	public void setLounge_replyCount(int lounge_replyCount) {
+		this.lounge_replyCount = lounge_replyCount;
+	}
 	public int getLounge_id() {
 		return lounge_id;
 	}
@@ -66,7 +75,7 @@ public class LoungeVO {
 		return "LoungeVO [lounge_id=" + lounge_id + ", lounge_pet_type=" + lounge_pet_type + ", member_user_id="
 				+ member_user_id + ", lounge_title=" + lounge_title + ", lounge_content=" + lounge_content
 				+ ", lounge_writer=" + lounge_writer + ", lounge_date=" + lounge_date + ", lounge_img=" + lounge_img
-				+ "]";
+				+ ", lounge_replyCount=" + lounge_replyCount + "]";
 	}
     
 	
