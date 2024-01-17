@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
- <a href ="pet_home.jsp">데이터 삽입완료</a>
+  데이터 삽입 완료
+  <a href="#" onclick="win_close();">
+    <button class="btn btn-primary">창닫기</button>
+    </a>
+    
+    <script type="text/javascript">
+    function win_close(){
+    	window.close();
+    }
+    
+    </script>
 </body>
 </html>

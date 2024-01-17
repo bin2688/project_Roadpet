@@ -42,7 +42,7 @@ for(PetWalkVO dto : list){
 				<div class="w-100 ms-3">
 					<div class="d-flex w-100 justify-content-between">
 						<span>시간</span>
-						<h6 class="mb-0"> <%=dto.getWalk_time() %></h6>
+						<h6 class="mb-0"> <%=dto.getWalk_time()%> 분</h6>
 					</div>
 				</div>		
 </div>	
