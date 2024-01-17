@@ -106,7 +106,7 @@
 							</a>
 							<div style="display: flex; justify-content: space-between;">
 								<div style="padding: 5px;">${bag.lounge_writer}</div>
-								<div style="padding: 5px;">댓글: 0</div>
+								<div style="padding: 5px;">댓글: ${rpcount}</div>
 								<div style="padding: 5px;">
 									<img alt="like" src="../resources/img/heartDefault.png"> 0
 								</div>

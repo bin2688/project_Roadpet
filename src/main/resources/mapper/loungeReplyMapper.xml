@@ -16,8 +16,22 @@
 	<select id="list" parameterType="int" resultType="loungeReplyVO">
 		select * from lounge_reply
 		where reply_oriid = #{reply_id}
+		order by reply_id desc
 	</select>
 	
-
-
+	<update id="update" parameterType="loungeReplyVO"> 
+		update lounge_reply
+		set
+			reply_content = #{reply_content},
+			reply_date = now()
+		where reply_id = #{reply_id}
+	</update>
+	
+	<delete id="delete" parameterType="loungeReplyVO">
+		delete from lounge_reply where reply_id = #{reply_id}
+	</delete>
+	
+	<select id="one" parameterType="int" resultType="loungeReplyVO">
+		select * from lounge_reply where reply_id = #{reply_id}
+	</select>
 </mapper>

@@ -41,7 +41,7 @@
 			from
 				(select row_number() over(order by lounge_id desc) as lounge_no,
 	             lounge_id, lounge_pet_type, lounge_title, lounge_content, 
-	             lounge_writer, lounge_date
+	             lounge_writer, lounge_date, lounge_replyCount
 	         	 from 
 	           <choose>
 		          <when test="searchType eq 'all'">
@@ -108,6 +108,13 @@
  		    </otherwise>
   		  </choose>
 	</select>
+	
+	<update id="replyCount" parameterType="int">
+		UPDATE lounge 
+		SET lounge.lounge_replyCount = 
+			(select count(*) from lounge_reply where lounge_reply.reply_oriid  = #{lounge_id} ) 
+		WHERE lounge.lounge_id = #{lounge_id} 
+	</update>
 
 
 </mapper>
