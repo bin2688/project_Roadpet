@@ -13,6 +13,7 @@
 <meta content="" name="description">
 <%@ include file="/sidebar.jsp"%>
 <script type="text/javascript">
+	//댓글작성
 	$(function() {
 		$('#replyBtn').click(function() {
 			$.ajax({
@@ -28,6 +29,8 @@
 			})
 		})
 	})
+	
+	//댓글수정 클릭시 해당위치 스크립트 처리
 	$(function() {
 		$('[id^="rpUpdateBtn_"]').click(function() {
 			var reply_id = $(this).data('reply_id');
@@ -37,6 +40,8 @@
 			console.log(".rpUpdateBtn_" + reply_id);
 		});
 	});
+	
+	//댓글 수정완료
 	$(function() {
 		$('.rpEditDoneBtn').click(function() {
 			var reply_id = $(this).data('reply_id');
@@ -49,18 +54,35 @@
 				},
 				success : function(response) {
 					commentDiv.find('.comment').html(response);
-					commentDiv.find('.editForm').hide();			
+					commentDiv.find('.editForm').hide();
 					console.log(response)
-
 				}
 			})
 		})
 	})
+	
+	//댓글 삭제
+	$(function() {
+		$('[id^="rpDeleteBtn_"]').click(function() {
+			var replyId = $(this).data('reply_id');
+			$.ajax({
+				url: 'rpDelete',
+				data: {
+					reply_id : replyId,
+					reply_oriid : '${bag.lounge_id}'
+					},
+				success : function(response) {
+					 $('#comment_' + replyId).remove();					
+				},
+			})
+		})
+	})
+	
 </script>
 </head>
 <body>
 
-	<div class="container-xxl position-relative bg-white d-flex p-0">
+	<div class="container-fluid">
 		<!-- Spinner Start -->
 		<div id="spinner"
 			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -95,12 +117,15 @@
 						<h3 style="padding: 5px;">${bag.lounge_title}</h3>
 					</div>
 					<hr>
-					<div
-						style="padding: 10px 20px; max-height: 200px; overflow-y: auto;">${bag.lounge_content}</div>
+					<div style="padding: 10px 20px; max-height: 200px; overflow-y: auto;">${bag.lounge_content}</div>
+					<div style="padding: 10px;">${bag.lounge_img}</div>	
+					<br>
 					<!--썸네일 추가할부분-->
 					<div style="display: flex; justify-content: space-between;">
 						<div style="padding: 5px;">${bag.lounge_writer}</div>
-						<div style="padding: 5px;">댓글: </div>
+						<div style="padding: 1px;">
+						 댓글:<div id="replyCount">${bag.lounge_replyCount}</div>
+						</div>
 						<div style="padding: 5px;">
 							<img alt="like" src="../resources/img/heartDefault.png"> 0
 						</div>
@@ -116,9 +141,9 @@
 					<button class="btn btn-primary" id="replyBtn">댓글등록</button>
 				</div>
 			</div>
-			<div id="result"></div>
 			<c:forEach items="${rpList}" var="rp">
-				<div class="container-fluid pt-4 px-4 comment">
+				<div id="result"></div>
+				<div id="comment_${rp.reply_id}" class="container-fluid pt-4 px-4 comment">
 					<div class="bg-light rounded">
 						<div style="display: flex; justify-content: space-between;">
 							<div style="padding: 5px;">hongg</div>
@@ -129,19 +154,21 @@
 							<div style="display: flex; justify-content: flex-end;">
 								<button class="btn btn-primary w-20 m-2"
 									id="rpUpdateBtn_${rp.reply_id}" data-reply_id="${rp.reply_id}"
-									name="reply_content" value="${rp.reply_content}">글수정</button>
-								<form action="rpDelete">
-									<button class="btn btn-primary w-20 m-2" name="reply_id"
-										value="${rp.reply_id}">글삭제</button>
-								</form>
+									name="reply_content" value="${rp.reply_content}">댓글수정</button>
+								<input type="hidden" name="reply_oriid" value="${rp.reply_oriid}">
+								<button class="btn btn-primary w-20 m-2" id="rpDeleteBtn_${rp.reply_id}" data-reply_id="${rp.reply_id}"
+										value="${rp.reply_id}">댓글삭제</button>
+								
 							</div>
 						</div>
 						<div class="editForm" style="display: none;">
 							<input type="hidden" id="reply_id" name="reply_id"
 								value="${rp.reply_id}">
 							<textarea class="form-control newReply">${rp.reply_content}</textarea>
-							<button class="btn btn-primary w-20 m-2 rpEditDoneBtn"
-								data-reply_id="${rp.reply_id}">수정 완료</button>
+							<div style="display: flex; justify-content: flex-end;">
+								<button class="btn btn-primary w-20 m-2 rpEditDoneBtn"
+									data-reply_id="${rp.reply_id}">수정 완료</button>
+							</div>
 						</div>
 					</div>
 				</div>

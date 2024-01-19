@@ -10,10 +10,8 @@ public interface LoungeReplyServiceInterface {
 
 	int rpUpdate(LoungeReplyVO lngRpVO);
 
-	void rpDelete(LoungeReplyVO lngRpVO);
+	int rpDelete(LoungeReplyVO lngRpVO);
 
 	void rpOne(LoungeReplyVO lngRpVO);
-
-	int rpCount();
 
 }

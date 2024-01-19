@@ -1,13 +1,14 @@
 
 package com.multi.roadpet.lounge;
 
-import java.util.List;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class LoungeController {
@@ -20,8 +21,7 @@ public class LoungeController {
 	@RequestMapping("lounge/insert")
 	public String insert(LoungeVO loungeVO) {
 		loungeService.insert(loungeVO);		
-		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();
-		
+		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();		
 	}
 
 	@RequestMapping("lounge/update")
@@ -74,12 +74,11 @@ public class LoungeController {
 		}
 	
 	@RequestMapping("lounge/one")
-	public void one(LoungeVO loungeVO, Model model) throws Exception {	
-		int rpCount = lngRpService.rpCount();
+	public void one(LoungeVO loungeVO, Model model) throws Exception {
 		LoungeVO bag = loungeService.one(loungeVO);
 		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());	
 		model.addAttribute("bag", bag);
-		model.addAttribute("rpCount", rpCount);
 		model.addAttribute("rpList", rpList);
+
 	}
 }

@@ -46,7 +46,6 @@
 			            searchType:"${searchType}", 
 			            keyWord: "${keyWord}" 
 			        };
-			console.log("dataForm:", dataForm);
 			$.ajax({
 				url : "pageList",
 				data : dataForm,
@@ -59,8 +58,7 @@
 </script>
 </head>
 <body>
-
-	<div class="container-xxl position-relative bg-white d-flex p-0">
+	<div class="container-fluid">
 		<div class="content">
 			<%@ include file="/header.jsp"%>
 			<h3 style="padding: 10px;">커뮤니티 라운지</h3>
@@ -73,23 +71,24 @@
 			<hr color="red">
 			
 			<!-- 검색  -->
+			<div class="container mt-4">
 				<form id="searchForm" action="list" method="get">
 				<div class="search-wrap">
 					<input type="hidden" name="page" value="1">
 					<select class="form-control search-select" name="searchType">
 						<option value="all" <c:if test="${searchType == 'all'}">selected</c:if>>전체</option>
             			<option value="titleContent" <c:if test="${searchType == 'titleContent'}">selected</c:if>>제목+내용</option>
-           				<option value="reply" <c:if test="${searchType == 'reply'}">selected</c:if>>댓글</option>
             			<option value="writer" <c:if test="${searchType == 'writer'}">selected</c:if>>작성자</option>
         			</select>
        				<input type="text" class="form-control search-input" name="keyWord" value="${keyWord}" placeholder="검색어를 입력해주세요.">
 					<button id="submit" type="submit" class="btn btn-info search-btn">검색</button>
 				</div>
 				</form>
+				<br>
 			
 			
 			<!-- 게시글 목록 -->
-			<div class="container mt-4">
+			
 				<div id="result">
 					<c:forEach items="${list}" var="bag">
 						<div class="bg-light rounded">
@@ -102,11 +101,14 @@
 								<div>
 									<h6 style="padding: 5px;">${bag.lounge_title}</h6>
 								</div>
-								<div style="padding: 5px;">${bag.lounge_content}</div>
+								<div style="display: flex; align-items: center; padding: 5px;">
+								<div style="flex: 1; padding-right: 10px;">${bag.lounge_content}</div>
+								<img alt="" src="../resources/img/${bag.lounge_img}" >
+								</div>
 							</a>
 							<div style="display: flex; justify-content: space-between;">
 								<div style="padding: 5px;">${bag.lounge_writer}</div>
-								<div style="padding: 5px;">댓글: ${rpcount}</div>
+								<div style="padding: 5px;">댓글: ${bag.lounge_replyCount}</div>
 								<div style="padding: 5px;">
 									<img alt="like" src="../resources/img/heartDefault.png"> 0
 								</div>
@@ -138,8 +140,8 @@
 		<!-- Back to Top -->
 		<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
 			class="bi bi-arrow-up"></i></a>
-	</div>
-
+	
+</div>
 
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

@@ -29,8 +29,8 @@ public class LoungeReplyDAO implements LoungeReplyDAOInterface {
 		}
 		
 		@Override
-		public void rpDelete(LoungeReplyVO lngRpVO) {
-			my.delete("loungeReply.delete", lngRpVO);
+		public int rpDelete(LoungeReplyVO lngRpVO) {
+			return my.delete("loungeReply.delete", lngRpVO);
 		}
 		
 		@Override
@@ -38,8 +38,4 @@ public class LoungeReplyDAO implements LoungeReplyDAOInterface {
 			my.selectOne("loungeReply.one", lngRpVO);
 		}
 		
-		@Override
-		public int rpCount() {
-			return my.selectOne("loungeReply.count");
-		}
 }

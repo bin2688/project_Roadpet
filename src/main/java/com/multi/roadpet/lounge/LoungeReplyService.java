@@ -11,9 +11,17 @@ public class LoungeReplyService implements LoungeReplyServiceInterface {
 	@Autowired
 	LoungeReplyDAOInterface lngRpDAO;
 	
+	@Autowired
+	LoungeDAOInterface loungeDAO;
+	
 	@Override
 	public int rpInsert(LoungeReplyVO lngRpVO) {
-		return lngRpDAO.rpInsert(lngRpVO);
+		int result = lngRpDAO.rpInsert(lngRpVO);
+		if (result == 1) {		
+			int lounge_id = lngRpVO.getReply_oriid();
+			loungeDAO.replyCount(lounge_id, 1);
+		}
+		return result;
 	}
 	
 	@Override
@@ -27,8 +35,13 @@ public class LoungeReplyService implements LoungeReplyServiceInterface {
 	}
 	
 	@Override
-	public void rpDelete(LoungeReplyVO lngRpVO) {
-		lngRpDAO.rpDelete(lngRpVO);
+	public int rpDelete(LoungeReplyVO lngRpVO) {
+		int result = lngRpDAO.rpDelete(lngRpVO);
+		if (result == 1) {
+			int lounge_id = lngRpVO.getReply_oriid();
+			loungeDAO.replyCount(lounge_id, -1);	
+		}
+		return lngRpDAO.rpDelete(lngRpVO);
 	}
 	
 	@Override
@@ -36,8 +49,4 @@ public class LoungeReplyService implements LoungeReplyServiceInterface {
 		lngRpDAO.rpOne(lngRpVO);
 	}
 	
-	@Override
-	public int rpCount() {
-		return lngRpDAO.rpCount();
-	}
 }
