@@ -5,6 +5,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.multi.roadpet.pet.PetInfoVO;
+
 
 @Repository
 public class PetStoryDAO {
@@ -15,11 +17,12 @@ public class PetStoryDAO {
 	public void insert(PetStoryVO petstoryVO) {
 		my.insert("petstory.insert", petstoryVO);
 	}
-	// Î¶¨Ïä§Ìä∏ Ï†ÑÏ≤¥ Î≥¥Í∏∞
+	
+	
 	public List<PetStoryVO> list(PetStoryPageVO petstoryPageVO) throws Exception {
 		List<PetStoryVO> list = my.selectList("petstory.list", petstoryPageVO);
 		return list;
-		}
+	}
 	public PetStoryVO one(PetStoryVO petstoryVO) {
 		return my.selectOne("petstory.one", petstoryVO);
 	}
@@ -32,5 +35,10 @@ public class PetStoryDAO {
 	}
 	public void update(PetStoryVO petstoryVO) {
 		my.update("petstory.update", petstoryVO);
+	}
+	//∏∂¿Ã∆Í view ∫Œ∫–
+	public List<PetStoryVO> list2() throws Exception {
+		List<PetStoryVO> list2=my.selectList("petstory.list2");
+		return list2;
 	}
 }

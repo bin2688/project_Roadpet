@@ -3,7 +3,7 @@
 
 	<mapper namespace="lounge">
 	<insert id="insert" parameterType="loungeVO" useGeneratedKeys="true" keyProperty="lounge_id">
-		insert into lounge (lounge_id, lounge_pet_type, member_user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img)
+		insert into lounge (lounge_id, lounge_pet_type, member_user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img,lounge_replyCount,IsDeleted)
 		values (
 			null,
 			#{lounge_pet_type},
@@ -12,7 +12,9 @@
 			#{lounge_content},
 			(SELECT nickname FROM member WHERE user_id = #{member_user_id}), 
 			now(),
-			#{lounge_img}
+			#{lounge_img},
+			#{lounge_replyCount},
+			#{IsDeleted}
 			)
 	</insert>
 	
