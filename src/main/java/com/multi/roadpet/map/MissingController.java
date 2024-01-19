@@ -18,7 +18,7 @@ public class MissingController {
 	@Autowired
 	MissingService missingService;
 	
-	@RequestMapping(value="map",produces = "application/json") //all 검색 
+	@RequestMapping(value="map",produces = "application/json") //all 寃��깋 
 	@ResponseBody
 	public List<MissingVO> all() {
 		return missingService.all();

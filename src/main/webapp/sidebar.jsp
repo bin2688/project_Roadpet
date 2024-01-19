@@ -45,9 +45,9 @@
 </head>
 <body>
    <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+        <div class="sidebar pe-4 pb-3 open">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="../index.jsp" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>RoadPet</h3>
                 </a>
                 <div class="d-flex align-items-center ms-4 mb-4">
@@ -61,16 +61,13 @@
                     </div>
                 </div> 
                 <div class="navbar-nav w-100">
-                    <a href="pet_home.jsp" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>마이펫정보</a>
+
+                    <a href="/roadpet/pet/pet_home.jsp" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>마이펫정보</a>
                     <a href="/roadpet/lounge/list?page=1" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>커뮤니티</a>
                     <a href="#" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>펫 스토리</a>
-
                     <a href="/roadpet/map/mapservice_home.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>지도서비스</a>
-
-                  
-            
                 </div>
-            </nav>
+          </nav>
         </div>
 </body>
 </html>

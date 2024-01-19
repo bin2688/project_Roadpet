@@ -5,7 +5,7 @@
 	<insert id="insert" parameterType="petStoryVO">
 		insert into pet_story values
 		(null, null,
-		#{story_title},#{story_location},#{story_content},now(),#{story_photo},
+		#{story_title},#{story_content},now(),#{story_photo},
 		#{story_private})
 	</insert>
 
@@ -17,9 +17,19 @@
 		ROW_NUMBER() over(order by story_id
 		desc) as story_no,
 		story_id, story_photo, story_title, story_content
-		from pet_story ps) ps2 where ps2.story_no BETWEEN #{start} and #{end}
+		from pet_story ps
+		where story_private=0 
+		) ps2 where ps2.story_no BETWEEN #{start} and #{end}
 	</select>
-
+	
+	<select id="list2" parameterType="int" resultType="petStoryVO" >
+	select * 
+	from pet_story
+	where user_id= #{user_id}
+	order by story_date
+	limit 5;
+	</select>
+	
 	<select id="one" parameterType="petStoryVO"
 		resultType="petStoryVO">
 		select story_id, story_date, story_photo, story_title,
@@ -31,14 +41,18 @@
 		select count(*) from pet_story
 	</select>
 
-	<delete id="delete" parameterType="petStoryVO">
+	<delete id="delete" parameterType="petStoryVO" >
 		delete from pet_story where
 		story_id = #{story_id}
 	</delete>
 	
 	<update id="update" parameterType="petStoryVO">
-		update pet_story set story_title =
-		#{story_title}, story_content = #{story_content} where story_id = #{story_id}
+		update pet_story 
+		set
+			story_title = #{story_title},
+			story_content = #{story_content},
+			story_date = now()
+		where story_id = #{story_id}
 	</update>
 
 </mapper>
