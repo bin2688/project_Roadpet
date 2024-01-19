@@ -5,6 +5,14 @@ public class PetStoryPageVO {
 	private int start;
 	private int end;
 	private int page;
+	private String story_private;
+	
+	public String getStory_private() {
+		return story_private;
+	}
+	public void setStory_private(String story_private) {
+		this.story_private = story_private;
+	}
 
 	public int getPage() {
 		return page;

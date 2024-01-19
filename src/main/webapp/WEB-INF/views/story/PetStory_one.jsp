@@ -90,8 +90,7 @@
 				url : "insert4",
 				data : {
 					reply_user_id : 'hongildong',
-					reply_oriid : '<%=bag.getStory_id()%>
-	',
+					reply_oriid : '<%=bag.getStory_id()%>',
 					reply_content : $('#reply').val()
 				},
 				success : function(response) {
@@ -130,7 +129,7 @@
 				<a href="index.html" class="nav-item nav-link"><i
 					class="fa fa-tachometer-alt me-2"></i>마이펫정보</a> <a href="#"
 					class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>커뮤니티</a>
-				<a href="PetStory_list" class="nav-item nav-link"><i
+				<a href="PetStory_list?page=1" class="nav-item nav-link"><i
 					class="fa fa-keyboard me-2"></i>펫 스토리</a> <a href="widget.html"
 					class="nav-item nav-link"><i class="fa fa-th me-2"></i>지도서비스</a>
 
@@ -190,10 +189,6 @@
 				<th>작성일</th>
 				<td><%=bag.getStory_date()%></td>
 			</tr>
-			<tr>
-				<th>조회수</th>
-				<td>0</td>
-			</tr>
 		</table>
 		<br> <img src="../resources/upload/<%=bag.getStory_photo()%>"
 			width="500" height="300">
@@ -213,8 +208,8 @@
 			onclick="location.href='PetStory_list?page=1'">글목록</button>
 		<!-- 로그인했을때 수정 삭제 버튼 보여주기 -->
 		<a href="PetStory_update?story_id=<%= bag.getStory_id()%>">
-		<button type="button" class="btn btn-primary m-2">수정</button>
-
+			<button type="button" class="btn btn-primary m-2">수정</button>
+		</a>
 		<a href="PetStory_delete?story_id=<%= bag.getStory_id()%>">
 			<button type="button" class="btn btn-primary m-2">삭제</button>
 		</a>
