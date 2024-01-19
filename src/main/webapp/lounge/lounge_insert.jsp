@@ -62,7 +62,8 @@
 						</div>
 					</div>				
 						 <div class="m-n2" style="text-align: center;">
-							 	<input type="hidden" name="member_user_id" value="1">
+							 	<input type="hidden" name="member_user_id" value="12">
+							 	
                                 <button class="btn btn-primary w-40 m-2" type="submit">글작성 완료</button>
                      	</div>                    	
 				</form>	
