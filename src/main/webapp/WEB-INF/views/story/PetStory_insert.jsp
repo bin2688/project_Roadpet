@@ -167,7 +167,7 @@
 				<a href="index.html" class="nav-item nav-link"><i
 					class="fa fa-tachometer-alt me-2"></i>마이펫정보</a> <a href="#"
 					class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>커뮤니티</a>
-				<a href="#" class="nav-item nav-link"><i
+				<a href="PetStory_list?page=1&story_private=0" class="nav-item nav-link"><i
 					class="fa fa-keyboard me-2"></i>펫 스토리</a> <a href="widget.html"
 					class="nav-item nav-link"><i class="fa fa-th me-2"></i>지도서비스</a>
 
@@ -183,7 +183,7 @@
 				<i class="bi bi-exclamation-triangle display-1 text-primary"></i>
 				<h1 class="display-1 fw-bold">완료!</h1>
 				<h1 class="mb-4">스토리 등록 성공</h1>
-				<a class="btn btn-primary rounded-pill py-3 px-5" href="PetStory_list">전체목록</a>
+				<a class="btn btn-primary rounded-pill py-3 px-5" href="PetStory_list?page=1&story_private=0">전체목록</a>
 				<a class="btn btn-primary rounded-pill py-3 px-5" href="">내가쓴글목록</a>
 			</div>
 		</div>

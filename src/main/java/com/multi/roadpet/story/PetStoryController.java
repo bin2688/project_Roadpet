@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -72,8 +74,11 @@ public class PetStoryController {
 	
 	@RequestMapping("story/PetStory_one")
 	public void one(PetStoryVO petstoryVO, Model model) {
-		PetStoryVO bag = petstoryService.one(petstoryVO);//�긽�꽭�젙蹂� 
-		//�뙎湲�由ъ뒪�듃 
+
+		System.out.println("상세검색 --->" + petstoryVO);
+		PetStoryVO bag = petstoryService.one(petstoryVO);//상세정보 
+		//댓글리스트 
+		System.out.println(bag);
 		System.out.println(bag.getStory_id());
 		List<ReplyVO> list = replyService.list(petstoryVO.getStory_id());
 		System.out.println(list.size());
@@ -89,9 +94,18 @@ public class PetStoryController {
 	@RequestMapping("story/PetStory_update")
 	public void update(PetStoryVO petstoryVO, Model model) {
 		System.out.println(petstoryVO);
-		petstoryService.update(petstoryVO);
-		model.addAttribute("petstoryVO", petstoryVO);
+		//정보가져오기
+		PetStoryVO bag = petstoryService.one(petstoryVO);
+		//model저장
+		model.addAttribute("bag", bag);
 	}
+	@RequestMapping("story/update2")
+	public String update2(PetStoryVO petstoryVO, Model model ) {
+		System.out.println("수정내용 받음. ---- " + petstoryVO);
+		petstoryService.update(petstoryVO);
+		return "redirect:PetStory_one?story_id=" + petstoryVO.getStory_id();
+	}
+
 	@RequestMapping("pet/PetStory_list2")
 	public void list2(Model model) throws Exception {
 		List<PetStoryVO> list2 = petstoryService.list2();

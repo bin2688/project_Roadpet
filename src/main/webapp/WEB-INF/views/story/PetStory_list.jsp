@@ -162,14 +162,15 @@
 					</div>
 			</c:forEach>
 		</div>
-	</div>
 		<hr color="red">
+	</div>
+		
 
 		<%
 			int pages = (int) request.getAttribute("pages"); //int <-- object
 		for (int p = 1; p <= pages; p++) {
 		%>
-		<a href="PetStory_list?page=<%=p%>">
+		<a href="PetStory_list?page=<%=p%>&story_private=0">
 			<button class="btn btn-primary pages"><%=p%></button>
 		</a>
 		<%
