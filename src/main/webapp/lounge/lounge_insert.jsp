@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<div class="container-xxl position-relative bg-white d-flex p-0">
+	<div class="container-fluid">
 		<!-- Spinner Start -->
 		<div id="spinner"
 			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -62,8 +62,10 @@
 						</div>
 					</div>				
 						 <div class="m-n2" style="text-align: center;">
-							 	<input type="hidden" name="member_user_id" value="12">
-							 	
+
+							 	<input type="hidden" name="member_user_id" value="2">
+							 	<input type="hidden" name="lounge_replyCount" value="0">
+
                                 <button class="btn btn-primary w-40 m-2" type="submit">글작성 완료</button>
                      	</div>                    	
 				</form>	

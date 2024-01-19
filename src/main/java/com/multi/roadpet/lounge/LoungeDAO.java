@@ -54,8 +54,11 @@ public class LoungeDAO implements LoungeDAOInterface {
 		}
 	
 	@Override
-	public void replyCount(int lounge_id) {
-		my.update("lounge.replyCount", lounge_id);
+	public void replyCount(int lounge_id, int rpCntUpDown) {
+		Map<String, Object> rpCntMap  = new HashMap<>();
+		rpCntMap.put("lounge_id", lounge_id);
+		rpCntMap.put("rpCntUpDown", rpCntUpDown);
+		my.update("lounge.replyCount",rpCntMap);
 	}
 
 }
