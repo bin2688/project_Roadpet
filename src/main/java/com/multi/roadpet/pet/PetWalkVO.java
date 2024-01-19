@@ -9,7 +9,7 @@ public class PetWalkVO {
 	private String pet_name;
 	private int walk_id;
 	private String walk_date;
-	private String walk_time;
+	private int walk_time;
 	private int walk_distance ;
 	
 	public int getPet_id() {
@@ -32,10 +32,10 @@ public class PetWalkVO {
 		this.walk_id = walk_id;
 	}
 	
-	public String getWalk_time() {
+	public int getWalk_time() {
 		return walk_time;
 	}
-	public void setWalk_time(String walk_time) {
+	public void setWalk_time(int walk_time) {
 		this.walk_time = walk_time;
 	}
 	public String getWalk_date() {

@@ -39,7 +39,7 @@
 		var tens = $('#tenMillis').text();
 		var sec = $('#seconds').text();
 		var min = $('#minutes').text();
-		time= min+":"+sec
+		time= min;
 		document.getElementById("walk_time").value = time;
 		
 		
@@ -72,10 +72,9 @@
 		appendMinutes.textContent= minutes > 9 ? minutes : '0' +minutes
 		seconds = 0
 		appendSeconds.textContent = "00"
-		}
-	
-	
+		}	
 	}
+	
 	
 	</script>
 
@@ -85,7 +84,7 @@
 		<h3>산책타이머</h3>
 	
 		<h2>
-			<span id="minutes">00</span>:<span id="seconds">00</span>:<span
+			<span id="minutes">00</span>분<span id="seconds">00</span>초<span
 				id="tenMillis">00</span>
 		</h2>
 		<button id="bt__start">START</button>
@@ -98,22 +97,21 @@
 			<div class="mb-3">
 				<label for="exampleInputEmail1" class="form-label">1.펫 아이디</label> <input
 					name="pet_id" class="form-control" id="exampleInputEmail1" value="${dto.pet_id}"
-					aria-describedby="emailHelp">
+					placeholder="">
 			</div>
 			<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">2.산책 날짜</label> <input
-					name="walk_date" class="form-control" id="walk_date"
-					aria-describedby="emailHelp">
+			<label for="exampleInputEmail1" class="form-label" >2.산책 날짜</label>
+			 <input name="walk_date" class="form-control" id="walk_date" >
 			</div>
 			<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">3.산책 거리</label> <input
-					name="walk_distance" class="form-control" id="exampleInputEmail1"
-					aria-describedby="emailHelp">
+			<label for="exampleInputEmail1" class="form-label">3.산책 거리</label>
+			<input type="button" class="btn btn-primary" onclick="popup();" value="추가" >
+			 <input name="walk_distance" class="form-control" id="walk_distance" placeholder="미터"><br>
+					
 			</div>
 			<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label">4.산책 시간</label> <input
-					name="walk_time" class="form-control" id="walk_time"
-					aria-describedby="emailHelp">
+					name="walk_time" class="form-control" id="walk_time" placeholder="분">
 			</div>
 			<div class="button-login-box">
 				<button id="bt__ok" type="submit" class="btn btn-primary">등록</button>

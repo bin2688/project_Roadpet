@@ -6,5 +6,9 @@
 	SELECT CAST(ST_X(missing_location) AS DECIMAL(16,14)) AS 'lat', CAST(ST_Y(missing_location) AS DECIMAL(17,14)) AS 'lon' FROM pet.missing;
 	</select>
 	
+	<!-- <insert id="insert" parameterType="MissingVO">
+	INSERT INTO missing (missing_id, user_id, user_phone,
+	</insert> -->
+	
 </mapper>
 
