@@ -93,13 +93,6 @@
 								type="text" class="form-control" name="story_title"
 								value="제목을 입력해주세요.">
 						</div>
-
-						<div class="mb-3">
-							<button style="background: red; color: white;" id="b1">위치추가하기</button>
-							<div id="map" style="width: 70%; height: 350px;"></div>
-						</div>
-
-
 						<div class="mb-3">
 							<label for="story_content" class="form-label">내용</label>
 							<textarea class="form-control" name="story_content"
