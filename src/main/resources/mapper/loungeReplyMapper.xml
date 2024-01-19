@@ -27,7 +27,7 @@
 		where reply_id = #{reply_id}
 	</update>
 	
-	<delete id="delete" parameterType="loungeReplyVO">
+	<delete id="delete" parameterType="int">
 		delete from lounge_reply where reply_id = #{reply_id}
 	</delete>
 	

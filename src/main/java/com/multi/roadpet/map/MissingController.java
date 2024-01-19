@@ -24,8 +24,4 @@ public class MissingController {
 		return missingService.all();
 	}
 
-	@RequestMapping(value = "map", produces = "application/json")
-	public void insert(MissingVO missingVO, HttpServletRequest request, MultipartFile file, Model model) throws IllegalStateException, IOException {
-
-	}
 }

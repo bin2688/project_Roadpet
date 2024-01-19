@@ -17,9 +17,9 @@
 		</a>
 		<div style="display: flex; justify-content: space-between;">
 			<div style="padding: 5px;">${vo.lounge_writer}</div>
-			<div style="padding: 5px;">댓글: 0</div>
+			<div style="padding: 5px;">댓글: ${vo.lounge_replyCount}</div>
 			<div style="padding: 5px;">
-				<img alt="like" src="../resources/img/heartOn.png"> 1
+				<img alt="like" src="../resources/img/heartDefault.png"> 0
 			</div>
 			<div style="padding: 5px;">${vo.lounge_date}</div>
 		</div>
