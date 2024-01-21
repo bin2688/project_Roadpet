@@ -1,6 +1,6 @@
 package com.multi.roadpet.map;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,21 +18,32 @@ public class MissingController {
 	@Autowired
 	MissingService missingService;
 	
-<<<<<<< HEAD
-	@RequestMapping(value="map",produces = "application/json") //all 寃��깋 
-=======
-	@RequestMapping(value="map",produces = "application/json") //all 검색 
->>>>>>> parent of 58559d6 (2024-01-21 <마커 등록까지 구현 완료>)
+	@RequestMapping(value = "map/all", produces = "application/json") // all 검색
 	@ResponseBody
 	public List<MissingVO> all() {
 		return missingService.all();
 	}
 
-<<<<<<< HEAD
-=======
-	@RequestMapping(value = "map", produces = "application/json")
-	public void insert(MissingVO missingVO, HttpServletRequest request, MultipartFile file, Model model) throws IllegalStateException, IOException {
+	@RequestMapping("map/insert")
+	public void insert(MissingVO missingVO, MultipartFile file, HttpServletRequest request, Model model) throws Exception {
+
+		System.out.println(missingVO);
+		String savedName = file.getOriginalFilename();
+		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
+		System.out.println(uploadPath + "/" + savedName);
+
+		// 2. File객체(폴더/디렉토리 + 파일명)를 생성 ==> 파일을 인식(램에 저장)
+		File target = new File(uploadPath + "/" + savedName);
+
+		// 3. 서버 컴퓨터에 파일을 저장시켜야한다. ==> resources아래에 저장!
+		file.transferTo(target);
+
+		model.addAttribute("savedName", savedName);
+		missingVO.setPet_img(savedName);
+
+		missingService.insert(missingVO);
+		model.addAttribute("MissingVO", missingVO);
 
 	}
->>>>>>> parent of 58559d6 (2024-01-21 <마커 등록까지 구현 완료>)
+
 }

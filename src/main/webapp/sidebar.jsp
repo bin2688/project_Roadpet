@@ -45,7 +45,7 @@
 </head>
 <body>
    <!-- Sidebar Start -->
-        <div class="sidebar pe-4 pb-3">
+        <div class="sidebar pe-4 pb-3 open">
             <nav class="navbar bg-light navbar-light">
                 <a href="../index.jsp" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>RoadPet</h3>
