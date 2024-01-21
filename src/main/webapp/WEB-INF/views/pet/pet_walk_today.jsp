@@ -14,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
 <%
  ArrayList<PetWalkVO> list =(ArrayList<PetWalkVO>)request.getAttribute("list");
  int count=0; 
@@ -22,6 +23,7 @@ for(PetWalkVO dto : list){
 %>
 	<h3 style="color : orange"> <%=count %>회 </h3>
 <!--model로 views/one.jsp까지 전달한 데이터를 받아 꺼내서 출력 -->
+
 <div class="d-flex align-items-center border-bottom py-3">
 				<div class="w-100 ms-3">
 					<div class="d-flex w-100 justify-content-between">

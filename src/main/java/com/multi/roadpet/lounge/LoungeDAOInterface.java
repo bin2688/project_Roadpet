@@ -18,6 +18,6 @@ public interface LoungeDAOInterface {
 
 	int countSearch(String keyWord, String searchType);
 	
-	void replyCount(int lounge_id);
+	void replyCount(int lounge_id, int rpCntUpDown);
 
 }

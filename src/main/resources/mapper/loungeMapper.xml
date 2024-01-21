@@ -3,7 +3,8 @@
 
 	<mapper namespace="lounge">
 	<insert id="insert" parameterType="loungeVO" useGeneratedKeys="true" keyProperty="lounge_id">
-		insert into lounge (lounge_id, lounge_pet_type, member_user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img)
+
+		insert into lounge (lounge_id, lounge_pet_type, member_user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img, lounge_replyCount)
 		values (
 			null,
 			#{lounge_pet_type},
@@ -12,7 +13,8 @@
 			#{lounge_content},
 			(SELECT nickname FROM member WHERE user_id = #{member_user_id}), 
 			now(),
-			#{lounge_img}
+			#{lounge_img},
+			#{lounge_replyCount}
 			)
 	</insert>
 	
@@ -56,12 +58,6 @@
 		         		lounge
 			            where lounge_title like CONCAT('%', #{keyWord}, '%') 
                          or lounge_content like CONCAT('%', #{keyWord}, '%')) l2
-						where l2.lounge_no between #{start} and #{end}
-						order by l2.lounge_no;
-		          </when>
-		          <when test="searchType eq 'reply'">
-		          		lounge
-			            where reply_column like CONCAT('%', #{keyWord}, '%')) l2
 						where l2.lounge_no between #{start} and #{end}
 						order by l2.lounge_no;
 		          </when>
@@ -109,11 +105,10 @@
   		  </choose>
 	</select>
 	
-	<update id="replyCount" parameterType="int">
+	<update id="replyCount" parameterType="map">
 		UPDATE lounge 
-		SET lounge.lounge_replyCount = 
-			(select count(*) from lounge_reply where lounge_reply.reply_oriid  = #{lounge_id} ) 
-		WHERE lounge.lounge_id = #{lounge_id} 
+		SET lounge_replyCount = lounge_replyCount + #{rpCntUpDown}
+		WHERE lounge_id = #{lounge_id} 
 	</update>
 
 
