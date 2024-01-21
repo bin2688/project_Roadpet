@@ -3,32 +3,12 @@
 <mapper namespace="missing">
 	
 	<select id="all" resultType="MissingVO">
-<!-- 	SELECT CAST(ST_X(location) AS DECIMAL(16,14)) AS 'lat', CAST(ST_Y(location) AS DECIMAL(17,14)) AS 'lon' FROM missing;-->
-<!--  	SELECT * FROM missing; -->
- 		SELECT missing_id, user_phone, pet_name, pet_age, pet_sex, pet_type, pet_img
- 		, CAST(ST_X(location) AS DECIMAL(16,14)) AS 'lat', CAST(ST_Y(location) AS DECIMAL(17,14)) AS 'lon', 
- 		location_explain, missing_time, missing_notice, missing_date
- 		FROM missing
- 		WHERE missing_date >= NOW() - INTERVAL 72 HOUR;
- 	</select>
+	SELECT CAST(ST_X(missing_location) AS DECIMAL(16,14)) AS 'lat', CAST(ST_Y(missing_location) AS DECIMAL(17,14)) AS 'lon' FROM pet.missing;
+	</select>
 	
-	<insert id="insert" parameterType="MissingVO">
-		insert into missing (missing_id, user_phone, pet_name, pet_age, pet_sex, pet_type, pet_img, location, location_explain, missing_time, missing_notice, missing_date)
-		values (
-		null,
-		#{user_phone},
-		#{pet_name},
-		#{pet_age},
-		#{pet_sex},
-		#{pet_type},
-		#{pet_img},
-		POINT(#{lat}, #{lon}),
-		#{location_explain},
-		#{missing_time},
-		#{missing_notice},
-		now()
-		)
-	</insert>
+	<!-- <insert id="insert" parameterType="MissingVO">
+	INSERT INTO missing (missing_id, user_id, user_phone,
+	</insert> -->
 	
 </mapper>
 

@@ -79,14 +79,12 @@
 								<li id="hospitalMark" data-order="2"> 
 									<span class="category_bg hospital-c"></span>
 									병원
-								</li>
+								</li>  
 							</ul>
 						    <!-- Buttons -->
 							<button type="button" id="myLocationButton" class="btn btn-link btn-outline-danger ml-btn mylocation-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="내 위치 이동" onClick="javascript:getMyLocation();"></button>
 							<button type="button" id="cancelButton" class="btn btn-light btn-outline-danger ca-btn cancel-btn" style="visibility:hidden;" data-bs-toggle="tooltip" data-bs-placement="top" title="양식 작성 취소" onClick="javascript:cancelWritingMark();"></button>
 							<button type="button" id="writingButton" class="btn btn-light btn-outline-primary w-btn writing-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="신고 양식 작성" onClick="javascript:setMissingLocationMark();"></button>
-
-							<form method="post" enctype="multipart/form-data" action=insert>
 							<!-- Modal -->
 							<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 							  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
@@ -109,7 +107,8 @@
 											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
 											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
 											  </div>
-											  <div class="carousel-inner"></div>
+											  <div class="carousel-inner">
+											  </div>
 											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
 											    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 											    <span class="visually-hidden">Previous</span>
@@ -120,38 +119,36 @@
 											  </button>
 											</div>
 											<!-- Input button -->
-											
-							      	    	<input class="form-control mb-3" type="file" name="file" id="petImageInput" accept="image/*" onchange="setFormImageUpload(event);" required>
-							      	    	<!--  <input class="form-control mb-3" type="file" name="file"> -->
+							      	    	<input class="form-control mb-3" type="file" id="petImageInput" accept="image/*" onchange="setFormImageUpload(event);" multiple required>
 							      	    </div>
 							      	    <!-- Pet Info Input -->
 							      	    <div class="col-xl-9">
 							      	      <div class="row">
-							      	        <div class="col"><h4>펫 정보</h4></div>
+							      	        <div class="col"><h4>펫 정보(Label)</h4></div>
 							      	      </div>
 							      	      
 							      	      <div class="row mb-3">
 							      	        <div class="col form-floating">
-							      	        	<input type="text" class="form-control" name="pet_name" id="formPetnameInput" placeholder="PetName" value="" required>
+							      	        	<input type="text" class="form-control" id="formPetnameInput" placeholder="PetName" required>
 							      	        	<label for="formPetnameInput">펫 이름</label>
 							      	        </div>
 							      	        <div class="col form-floating">
-							      	        	<input type="text" class="form-control" name="pet_type" id="formPetTypeInput" placeholder="PetType"  value="" required>
+							      	        	<input type="text" class="form-control" id="formPetTypeInput" placeholder="PetType" required>
 							      	        	<label for="formPetTypeInput">펫 종류</label>
 							      	        </div>
 							      	      </div>
 							      	      
 							      	      <div class="row mb-3">
 							      	        <div class="col form-floating">
-							      	        	<input type="number" min="0" inputmode="numeric" name="pet_age" class="form-control" id="formPetAgeInput" placeholder="PetAge"  value=""  required>
+							      	        	<input type="number" min="0" inputmode="numeric" class="form-control" id="formPetAgeInput" placeholder="PetAge" required>
 							      	        	<label for="formPetnameInput">펫 나이</label>
 							      	        </div>
 							      	        <div class="col">
 								      	        <div class="btn-group" role="group" aria-label="PetSex toggle button group">
-								      	        	<input type="radio" class="btn-check" name="pet_sex" id="formPetSexRadio1" autocomplete="off" required value='M'>
+								      	        	<input type="radio" class="btn-check" name="btnradio" id="formPetSexRadio1" autocomplete="off" required>
 								      	        	<label class="btn btn-outline-primary" for="formPetSexRadio1">남♂️</label>
 								      	        	
-								      	        	<input type="radio" class="btn-check" name="pet_sex" id="formPetSexRadio2" autocomplete="off" required value='F'>
+								      	        	<input type="radio" class="btn-check" name="btnradio" id="formPetSexRadio2" autocomplete="off" required>
 								      	        	<label class="btn btn-outline-primary" for="formPetSexRadio2">여♀️</label>
 							      	       		</div>
 							      	        </div>
@@ -159,13 +156,13 @@
 							      	      
 							      	      <div class="row mb-3">
 							      	        <div class="col form-floating">
-							      	        	<input type="text" class="form-control" id="formPhoneNumberInput" name="user_phone" value="010-" placeholder="PhoneNumber" pattern="010-\d{4}-\d{4}$" required>
+							      	        	<input type="text" class="form-control" id="formPhoneNumberInput" placeholder="PhoneNumber" pattern="010-\d{4}-\d{4}$" required>
 							      	        	<label for="formPhoneNumberInput">연락처 ex)010-xxxx-xxxx</label>
 							      	        </div>
 							      	      </div>
 							      	      
 							      	      <div class="row">
-								       	    <div class="col"><h6>실종 시간: <input type="datetime-local" name="missing_time" id="formLostTimeInput" required></h6></div> 
+								      	    <div class="col"><h6>실종 시간: <input type="datetime-local" name="formLostTimeInput" id="formLostTimeInput" required></h6></div>
 								      	  </div>
 							      	    </div>
 							      	  </div>
@@ -173,14 +170,14 @@
 							      	  <div class="row mb-3">
 							      	  	<div class="input-group">
 							      	  	  <span class="input-group-text">실종 장소<br>설명</span>
-							      	  	  <textarea class="form-control" aria-label="실종 장소 설명" name="location_explain" id="formMissingLocationExplation" maxlength="500" required></textarea>
+							      	  	  <textarea class="form-control" aria-label="실종 장소 설명" id="formMissingLocationExplation" maxlength="500" required></textarea>
 							      	  	</div>
 							      	  </div>
 							      	  
 							      	  <div class="row mb-3">
 							      	  	<div class="input-group">
 							      	  	  <span class="input-group-text">특이 사항</span>
-							      	  	  <textarea class="form-control" aria-label="특이 사항" name="missing_notice" id="formMissingNotice" maxlength="500" required></textarea>
+							      	  	  <textarea class="form-control" aria-label="특이 사항" id="formMissingNotice" maxlength="500" required></textarea>
 							      	  	</div>
 							      	  </div>
 							      	  
@@ -189,20 +186,17 @@
 							      	  	  <input class="form-check-input" type="checkbox" value="" id="formAgreementCheck" required>
 								      	  <label class="form-check-label" for="formAgreementCheck">한 번 등록한 글은 수정할 수 없으며, 72시간 이후 소멸합니다.<br>동의하시면 체크해주세요.</label>
 								      	  </div>
-							      	  </div>
+							      	  	</div>
 							      	</div>
 							      </div>
 							      <div class="modal-footer">
-							      	<input type="hidden" id="formLat" name="lat" value=""/>	<input type="hidden" id="formLon" name="lon" value=""/>
 							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetModalContent()">취소</button>
-							        <button type="submit" class="btn btn-primary"  >작성하기</button>
+							        <button type="button" class="btn btn-primary" >작성하기</button>
 							      </div>
-							      
 							    </div>
 							  </div>
 							</div>
 							<!-- Modal End -->
-							</form>	             	
 	                	</div>
 	                </div>
 	            </div>
@@ -212,13 +206,10 @@
 		<!-- Content End -->
     	<!-- Map Script Start -->
     	<script>
-    	getMissingMark();
     		let missingLat; // 실종 등록 위치 (위도)
     		let missingLon; // 실종 등록 위치 (경도)
     		let gpsLat;		// gps 위도
     		let gpsLon;		// gps 경도
-    		var missingMarkers = [];
-    		var shelterMarkers = [];
     		let gpsMarker = new kakao.maps.Marker({
     	        position: new kakao.maps.LatLng(33.450701, 126.570667)
     	    });;	// gps 마커
@@ -235,6 +226,10 @@
 
 		    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
 		    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+/*
+		    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+		    var zoomControl = new kakao.maps.ZoomControl();
+		    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT); */
 		    
 		    // 마커 이미지 설정
 		    var imageSrc = '../resources/img/gpsMark.gif', // 마커이미지 주소    
@@ -248,35 +243,33 @@
 			updateCarousel();
 			getMyLocation();
 			
-			document.getElementById('sidebarToggle').addEventListener('click',sidebarRelayout);
+			document.getElementById('sidebarToggle').addEventListener('click',sidebarRelayout());
 			// 지도 클릭 이벤트 리스너
 		    var infowindow = new kakao.maps.InfoWindow({
 	        	map:map,
 	        	content: '<div style="width:30px;height:30px;"><img style="width:100%;height:100%;objct-fit: cover;" src="../resources/img/missingMark.png"/></div>'
 	        });
-			
-			// 양식 등록 버튼 실행 시 지도 클릭 이벤트 핸들러 생성 구문 (전역으로 생성 후 필요 할 때마다 이벤트 등록)
 			var clickEventHandler = function (mouseEvent) {
+		        // 클릭시 위치 저장
 		        var latlng = mouseEvent.latLng;
 		        missingLat = latlng.getLat();
 		        missingLon = latlng.getLng();
 		        infowindow.setPosition(latlng);
 		        infowindow.setMap(map);
-		        console.log("새로운 이벤트 리스너 등록됨 -", missingLat, missingLon); // 리스너 등록 확인 구문
+		        console.log("새로운 이벤트 리스너 등록됨 -", missingLat, missingLon);
 		        // 확인창 생성
 		        handleConfirmation();
 		    };
-		    var writingButton = document.getElementById('writingButton');	// 양식 등록 버튼 hidden 설정 위해 전역 생성
-		    var cancelButton = document.getElementById('cancelButton');		// 양식 등록 취소 버튼 hidden 설정 위해 전역 생성
+		    var writingButton = document.getElementById('writingButton');
+		    var cancelButton = document.getElementById('cancelButton');
 
 		    <!-- Functions -->
 		    // div 사이즈 변경(sidebar 호출)시 지도 사이즈 재설정 호출
 		    function relayout() {    
 		        map.relayout();
 		    }
-		    // sidebar 작동 시 애니메이션 이후 지도 사이즈 재설정 호출
 		    function sidebarRelayout(){
-		    	setTimeout(relayout,490);
+		    	setTimeout(relayout(),2000);
 		    	console.log('relayout');
 		    }
 			 // 내 위치 찾기 구문 (using 'gps'naming variable)
@@ -298,7 +291,7 @@
 			            relayout();
 				    }
 			 }
-			 // 지도에 내위치 마커를 표시하는 함수입니다
+			 // 지도에 마커를 표시하는 함수입니다
 			 function displayMyLocationMarker(locPosition) {
 			     // 마커를 생성합니다
 				 gpsMarker.setMap(null);
@@ -311,6 +304,21 @@
 			     // 지도 중심좌표를 접속위치로 변경합니다
 			     map.setCenter(locPosition);      
 			 }
+			// 지도타입 컨트롤의 지도 또는 스카이뷰 버튼을 클릭하면 호출되어 지도타입을 바꾸는 함수입니다
+			function setMapType(maptype) {
+				//console.error("맵타입");
+				var roadmapControl = document.getElementById('btnRoadmap');
+				var skyviewControl = document.getElementById('btnSkyview'); 
+				if (maptype === 'roadmap') {
+				    map.setMapTypeId(kakao.maps.MapTypeId.ROADMAP);    
+				    roadmapControl.className = 'selected_cusbtn';
+				    skyviewControl.className = 'cusbtn';
+				} else {
+				    map.setMapTypeId(kakao.maps.MapTypeId.HYBRID);    
+				    skyviewControl.className = 'selected_cusbtn';
+				    roadmapControl.className = 'cusbtn';
+				}
+			}
 
 			// 지도 확대, 축소 컨트롤에서 확대 버튼을 누르면 호출되어 지도를 확대하는 함수입니다
 			function zoomIn() {
@@ -321,7 +329,17 @@
 				map.setLevel(map.getLevel() + 1);
 			}
 			
-			// 실종 위치설정 마커 생성 함수 ( TEST )
+			/* // "마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
+			function showMarkers() {
+			    setMarkers(map)    
+			}
+
+			// "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
+			function hideMarkers() {
+			    setMarkers(null);    
+			} */
+			
+			// 실종 위치설정 마커 생성 함수
 			function setMissingLocationMark() {
 			    kakao.maps.event.addListener(map, 'click', clickEventHandler);
 			    // alert 표시 구문
@@ -342,11 +360,8 @@
 			    cancelButton.style.visibility = 'visible';
 			}
 			
-			// 양식 등록 실종 위치 지정 확인 함수
 			function handleConfirmation() {
 			    if (confirm("해당 위치로 등록하시겠습니까?")) {
-			    	document.getElementById('formLat').value = missingLat;
-			    	document.getElementById('formLon').value = missingLon;
 			        showReportModal();
 			        alertContainer.innerHTML = null;
 			        infowindow.close();
@@ -361,17 +376,20 @@
 			// 양식 등록 취소 버튼 누를 시 작동
 			function cancelWritingMark() {
 				alertContainer.innerHTML = null;
-		        kakao.maps.event.removeListener(map, 'click',clickEventHandler);
 		        infowindow.close();
 			    writingButton.classList.remove('disabled');
 			    cancelButton.style.visibility = "hidden";
 			}
-			// 양식 모달 생성 함수 (실종 위치 지정 이후 생성)
+
 			function showReportModal(){
 				var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'));
 		        myModal.show();
-		        kakao.maps.event.removeListener(map, 'click',clickEventHandler);
+		        kakao.maps.event.removeListener(map,'click',clickEventHandler);
 			}
+			// 신고 작성 버튼 누를 시, 지도 marker->hide,
+			// 실종 위치를 클릭해주세요. 화면에 오버레이 및 지도 클릭 시 팝업 창
+			// 해당 위치에 등록할까요? 예 아니오 버튼으로 입력 확인.
+			// 그러면 뒤로 가고싶을땐..? 등록 취소 버튼 생성? ㅇㅋ
 			
 			// formMypetImageInput 이미지 업로드 함수
 			function setFormImageUpload(event) {
@@ -404,7 +422,7 @@
 			    // updateCarousel 호출
 			    updateCarousel();
 			}
-			
+
 			// 이미지 업로드 후에 캐러셀 업데이트
 			function updateCarousel() {
 			    const carousel = document.querySelector('.carousel-inner');
@@ -422,7 +440,27 @@
 			        img.src = missingFormImage[i].src;
 			        img.className = 'd-block w-100';
 			        img.alt = `Image ${i + 1}`;
-			        img.id = 'missingImg';
+
+			        carouselItem.appendChild(img);
+			        carousel.appendChild(carouselItem);
+
+			        // 첫 번째 아이템을 활성화
+			        if (i === 0) {
+			            carouselItem.classList.add('active');
+			        }
+			    }
+
+			    // 업로드된 이미지의 개수가 3개 미만이면, 기본 이미지를 추가하여 캐러셀을 완성
+			    const remainingCount = 3 - missingFormImage.length;
+			    for (let i = 0; i < remainingCount; i++) {
+			    	console.log("기본"+i);
+			        const carouselItem = document.createElement('div');
+			        carouselItem.className = 'carousel-item';
+
+			        const img = document.createElement('img');
+			        img.src = defaultImageSrc;
+			        img.className = 'd-block w-100';
+			        img.alt = `Default Image ${i + 1}`;
 
 			        carouselItem.appendChild(img);
 			        carousel.appendChild(carouselItem);
@@ -453,97 +491,6 @@
 			    document.getElementById('formMissingLocationExplation').value = '';
 			    document.getElementById('formMissingNotice').value = '';
 			    
-			}
-			
-			// 모달 내용 유효성 검사 함수
-			function validateForm() {
-			    // 펫 이름 유효성 검사
-			    var petName = document.getElementById('formPetnameInput').value;
-			    if (petName.trim() === '') {
-			      alert('펫 이름을 입력해주세요.');
-			      return false;
-			    }
-			
-			    // 펫 종류 유효성 검사
-			    var petType = document.getElementById('formPetTypeInput').value;
-			    if (petType.trim() === '') {
-			      alert('펫 종류를 입력해주세요.');
-			      return false;
-			    }
-			
-			    // 펫 나이 유효성 검사
-			    var petAge = document.getElementById('formPetAgeInput').value;
-			    if (petAge < 0 || isNaN(petAge)) {
-			      alert('올바른 펫 나이를 입력해주세요.');
-			      return false;
-			    }
-			
-			    // 휴대폰 번호 유효성 검사
-			    var phoneNumber = document.getElementById('formPhoneNumberInput').value;
-			    var phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
-			    if (!phoneRegex.test(phoneNumber)) {
-			      alert('올바른 휴대폰 번호를 입력해주세요. (ex. 010-xxxx-xxxx)');
-			      return false;
-			    }
-			
-			    // 실종 시간 유효성 검사
-			    var lostTime = document.getElementById('formLostTimeInput').value.trim();
-			    if (lostTime === '') {
-			    	  alert('실종 시간을 입력해주세요.');
-			    	  return false;
-			    }
-			
-			    // 실종 장소 설명 유효성 검사
-			    var missingLocationExplanation = document.getElementById('formMissingLocationExplation').value;
-			    if (missingLocationExplanation.trim() === '') {
-			      alert('실종 장소 설명을 입력해주세요.');
-			      return false;
-			    }
-			
-			    // 특이 사항 유효성 검사
-			    var missingNotice = document.getElementById('formMissingNotice').value;
-			    if (missingNotice.trim() === '') {
-			      alert('특이 사항을 입력해주세요.');
-			      return false;
-			    }
-			
-			    // 동의 체크 유효성 검사
-			    var agreementCheck = document.getElementById('formAgreementCheck').checked;
-			    if (!agreementCheck) {
-			      alert('동의를 체크해주세요.');
-			      return false;
-			    }
-			
-			    // 모든 조건을 통과하면 true 반환
-			    return true;
-			  }
-			
-			// ajax 사용 양식 작성 버튼
-			function checkFormValidation(){
-				if(validateForm()){
-					insertFormToDatabase();
-					console.log("성공");
-				}else{
-					console.log("error");
-				}
-			}
-			
-			// 실종 마커 추가 함수
-			var getdatas = [];
-			function getMissingMark(){
-				$.ajax({
-				    url: "all",
-				    type: 'POST',
-				    dataType: "json",
-				    success: function(data) {
-				        // 서버로부터 받아온 데이터 활용
-				        console.log(data);
-				        // TODO: 데이터를 이용한 추가적인 작업 수행
-				    },
-				    error: function(xhr, status, error) {
-				        console.error("Error from server:", status, error);
-				    }
-				});
 			}
 		</script>
 		<!-- Map Script End -->
