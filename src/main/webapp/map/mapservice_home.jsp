@@ -121,7 +121,7 @@
 											</div>
 											<!-- Input button -->
 											
-							      	    	<input class="form-control mb-3" type="file" name="file" id="petImageInput" accept="image/*" onchange="setFormImageUpload(event);" required>
+							      	    	<input class="form-control mb-3" type="file" name="files" id="petImageInput" accept="image/*" onchange="setFormImageUpload(event);" multiple required>
 							      	    	<!--  <input class="form-control mb-3" type="file" name="file"> -->
 							      	    </div>
 							      	    <!-- Pet Info Input -->

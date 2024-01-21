@@ -1,7 +1,9 @@
 package com.multi.roadpet.map;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,21 +28,35 @@ public class MissingController {
 	}
 
 	@RequestMapping("map/insert")
-	public void insert(MissingVO missingVO, MultipartFile file, HttpServletRequest request, Model model) throws Exception {
+	public void insert(MissingVO missingVO, @RequestParam("files") List<MultipartFile> files, HttpServletRequest request, Model model) throws Exception {
 
-		System.out.println(missingVO);
-		String savedName = file.getOriginalFilename();
+		System.out.println(missingVO);// test
+		String saveToDataBaseFileName = ""; // DB에 보낼 이름 저장변수
+		String id = UUID.randomUUID().toString(); // 사진 파일 변환할 ID
+		int fileNameCount = 0;
+		System.out.println(id);// test
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
-		System.out.println(uploadPath + "/" + savedName);
+		System.out.println(uploadPath);
 
-		// 2. File객체(폴더/디렉토리 + 파일명)를 생성 ==> 파일을 인식(램에 저장)
-		File target = new File(uploadPath + "/" + savedName);
+		for (MultipartFile file : files) {
+			String orginalFileName = file.getOriginalFilename();
+			String savedName = Integer.toString(fileNameCount++) + id + orginalFileName.substring(orginalFileName.lastIndexOf("."));
+			File target = new File(uploadPath + "/" + savedName);
+			try {
+				file.transferTo(target);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 
-		// 3. 서버 컴퓨터에 파일을 저장시켜야한다. ==> resources아래에 저장!
-		file.transferTo(target);
-
-		model.addAttribute("savedName", savedName);
-		missingVO.setPet_img(savedName);
+			if (saveToDataBaseFileName == "") {
+				saveToDataBaseFileName = savedName;
+			} else {
+				saveToDataBaseFileName = saveToDataBaseFileName + "," + savedName;
+			}
+			System.out.println(saveToDataBaseFileName);
+		}
+		model.addAttribute("saveToDataBaseFileName", saveToDataBaseFileName);
+		missingVO.setPet_img(saveToDataBaseFileName);
 
 		missingService.insert(missingVO);
 		model.addAttribute("MissingVO", missingVO);
