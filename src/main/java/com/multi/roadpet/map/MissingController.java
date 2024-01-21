@@ -18,10 +18,21 @@ public class MissingController {
 	@Autowired
 	MissingService missingService;
 	
+<<<<<<< HEAD
 	@RequestMapping(value="map",produces = "application/json") //all 寃��깋 
+=======
+	@RequestMapping(value="map",produces = "application/json") //all 검색 
+>>>>>>> parent of 58559d6 (2024-01-21 <마커 등록까지 구현 완료>)
 	@ResponseBody
 	public List<MissingVO> all() {
 		return missingService.all();
 	}
 
+<<<<<<< HEAD
+=======
+	@RequestMapping(value = "map", produces = "application/json")
+	public void insert(MissingVO missingVO, HttpServletRequest request, MultipartFile file, Model model) throws IllegalStateException, IOException {
+
+	}
+>>>>>>> parent of 58559d6 (2024-01-21 <마커 등록까지 구현 완료>)
 }
