@@ -1,10 +1,13 @@
 package com.multi.roadpet.map;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,7 @@ public class MissingController {
 
 	@Autowired
 	MissingService missingService;
-	
+
 	@RequestMapping(value = "map/all", produces = "application/json") // all 검색
 	@ResponseBody
 	public List<MissingVO> all() {
@@ -41,6 +44,7 @@ public class MissingController {
 		for (MultipartFile file : files) {
 			String orginalFileName = file.getOriginalFilename();
 			String savedName = Integer.toString(fileNameCount++) + id + orginalFileName.substring(orginalFileName.lastIndexOf("."));
+
 			File target = new File(uploadPath + "/" + savedName);
 			try {
 				file.transferTo(target);
@@ -50,6 +54,20 @@ public class MissingController {
 
 			if (saveToDataBaseFileName == "") {
 				saveToDataBaseFileName = savedName;
+				/* 첫 번째 사진 썸네일 생성(ImageIO) */
+				try {
+					File thumbnailFile = new File(uploadPath, "s_" + savedName);
+					BufferedImage bufferedOriginalImage = ImageIO.read(target);
+					BufferedImage bufferedTypeImage = new BufferedImage(100, 100, BufferedImage.TYPE_3BYTE_BGR);
+
+					Graphics2D graphic = bufferedTypeImage.createGraphics();
+					graphic.drawImage(bufferedOriginalImage, 0, 0, 100, 100, null);
+
+					ImageIO.write(bufferedTypeImage, "jpg", thumbnailFile);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			} else {
 				saveToDataBaseFileName = saveToDataBaseFileName + "," + savedName;
 			}
