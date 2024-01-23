@@ -533,20 +533,47 @@
 			}
 			
 			// 실종 마커 추가 함수
-			var getdatas = [];
 			function getMissingMark(){
 				$.ajax({
-				    url: "all",
-				    type: 'POST',
+				    url: "missingmark",
+				    type: 'GET',
 				    dataType: "json",
 				    success: function(data) {
 				        // 서버로부터 받아온 데이터 활용
 				        console.log(data);
+				        console.log(data.length);
 				        // TODO: 데이터를 이용한 추가적인 작업 수행
-				    },
-				    error: function(xhr, status, error) {
+					    var missingImageSrc = '../resources/img/missingMark.png', // 마커이미지 주소    
+						    missingImageSize = new kakao.maps.Size(36, 36) // 마커 이미지 크기
+						      
+						// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+						var missingMarkerImage = new kakao.maps.MarkerImage(missingImageSrc, missingImageSize);
+				        for(var i=0;i<data.length;i++){
+				        	var markerPosition = new kakao.maps.LatLng(data[i].lat, data[i].lon);
+				        	var marker = new kakao.maps.Marker({
+				        		position: markerPosition,
+				        		image: missingMarkerImage
+				        	});
+				        	missingMarkers.push(marker);
+				        	missingMarkers[i].setMap(map);
+				        }
+				    },error: function(xhr, status, error) {
 				        console.error("Error from server:", status, error);
 				    }
+				});
+			}
+			
+			//보호소 마커 추가 함수
+			function getShelterMark(){
+				$.ajax({
+					url: "sheltermark",
+					type: 'GET',
+					dataType: "json",
+					success: function(data){
+						
+					},error: function(xhr, status, error){
+						consolr.error("Error from server:",status, error);
+					}
 				});
 			}
 		</script>

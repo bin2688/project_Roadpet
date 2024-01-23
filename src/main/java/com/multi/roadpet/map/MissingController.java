@@ -30,6 +30,12 @@ public class MissingController {
 		return missingService.all();
 	}
 
+	@RequestMapping(value = "map/missingmark", produces = "application/json") // all 검색
+	@ResponseBody
+	public List<MissingVO> missingmark() {
+		return missingService.missingmark();
+	}
+
 	@RequestMapping("map/insert")
 	public void insert(MissingVO missingVO, @RequestParam("files") List<MultipartFile> files, HttpServletRequest request, Model model) throws Exception {
 

@@ -22,4 +22,9 @@ public class MissingService {
 		// TODO Auto-generated method stub
 		dao.insert(missingVO);
 	}
+
+	public List<MissingVO> missingmark() {
+		// TODO Auto-generated method stub
+		return dao.missingmark();
+	}
 }
