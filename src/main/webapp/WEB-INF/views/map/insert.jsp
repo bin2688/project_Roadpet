@@ -7,7 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-게시글이 삭제되었습니다.
-<a href="list?page=1">라운지로 돌아가기</a>
+<script type="text/javascript">
+alert("추가 되었습니다. ");
+location.href = "/roadpet/map/mapservice_home.jsp";
+</script>
 </body>
 </html>

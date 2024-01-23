@@ -26,7 +26,7 @@ public class PetStoryController {
 	ReplyService replyService;
 	
 	@RequestMapping("story/PetStory_insert")
-	public void insert2(PetStoryVO petstoryVO, 
+	public String insert2(PetStoryVO petstoryVO, 
 						HttpServletRequest request, 
 						MultipartFile file, Model model) throws Exception {
 
@@ -47,8 +47,8 @@ public class PetStoryController {
 		System.out.println(petstoryVO);
 		petstoryService.insert(petstoryVO);
 		model.addAttribute("petstoryVO", petstoryVO);
+		return "redirect:PetStory_one?story_id=" + petstoryVO.getStory_id();
 	}
-	
 
 	@RequestMapping("story/PetStory_list")
 	public void list(PetStoryPageVO petstoryPageVO, Model model) throws Exception {

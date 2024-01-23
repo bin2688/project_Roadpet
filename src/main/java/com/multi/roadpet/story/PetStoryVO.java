@@ -5,7 +5,7 @@ import java.util.Date;
 public class PetStoryVO {
 	private int story_no;
 	private int story_id;
-	private int pet_id;
+	private int user_id;
 	private String story_title;
 	private String story_content;
 	private String story_date;
@@ -32,11 +32,11 @@ public class PetStoryVO {
 	public void setStory_id(int story_id) {
 		this.story_id = story_id;
 	}
-	public int getPet_id() {
-		return pet_id;
+	public int getUser_id() {
+		return user_id;
 	}
-	public void setPet_id(int pet_id) {
-		this.pet_id = pet_id;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 	public String getStory_title() {
 		return story_title;
@@ -70,7 +70,7 @@ public class PetStoryVO {
 	}
 	@Override
 	public String toString() {
-		return "PetStoryVO [story_id=" + story_id + ", pet_id=" + pet_id + ", story_title=" + story_title
+		return "PetStoryVO [story_id=" + story_id + ", user_id=" + user_id + ", story_title=" + story_title
 				+ ", story_content=" + story_content + ", story_date=" + story_date + ", story_photo=" + story_photo
 				+ ", story_private=" + story_private + "]";
 	}

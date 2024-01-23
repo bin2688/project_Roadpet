@@ -12,8 +12,35 @@ public class LoungeVO {
     private String lounge_date;
     private String lounge_img;
     private int lounge_replyCount;
-
+    private int likeCount;
+    private char likeYn;
     
+    
+    
+    public char getLikeYn() {
+		return likeYn;
+	}
+
+	public void setLikeYn(char likeYn) {
+		this.likeYn = likeYn;
+	}
+	
+	public LoungeVO () {
+    }
+    
+    public LoungeVO (int lounge_id, int member_user_id) {
+    	this.lounge_id = lounge_id;
+    	this.member_user_id = member_user_id;
+    }
+    
+    public int getLikeCount() {
+		return likeCount;
+	}
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+
 	public int getLounge_replyCount() {
 		return lounge_replyCount;
 	}
@@ -74,10 +101,7 @@ public class LoungeVO {
 		return "LoungeVO [lounge_id=" + lounge_id + ", lounge_pet_type=" + lounge_pet_type + ", member_user_id="
 				+ member_user_id + ", lounge_title=" + lounge_title + ", lounge_content=" + lounge_content
 				+ ", lounge_writer=" + lounge_writer + ", lounge_date=" + lounge_date + ", lounge_img=" + lounge_img
-				+ ", lounge_replyCount=" + lounge_replyCount + "]";
+				+ ", lounge_replyCount=" + lounge_replyCount + ", likeCount=" + likeCount + ", likeYn=" + likeYn +"]"; 
 	}
-    
-	
-    
-    
+	  
 }
