@@ -45,4 +45,9 @@ public class LoungeService implements LoungeServiceInterface {
 		 return loungeDAO.countSearch(keyWord, searchType);
 		}
 	}
+	
+	@Override
+	public List<LoungeVO> bestList(LoungeVO loungeVO) {
+		return loungeDAO.bestList(loungeVO);
+	}
 }

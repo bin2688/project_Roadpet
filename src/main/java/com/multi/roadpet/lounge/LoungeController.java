@@ -3,12 +3,15 @@ package com.multi.roadpet.lounge;
 
 
 import java.util.List;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
 
 @Controller
 public class LoungeController {
@@ -19,9 +22,15 @@ public class LoungeController {
 	LoungeReplyServiceInterface lngRpService;
 	
 	@RequestMapping("lounge/insert")
-	public String insert(LoungeVO loungeVO) {
+	public String insert(LoungeVO loungeVO,
+			HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
+		String savedName = file.getOriginalFilename();
+		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
+		File target = new File(uploadPath + "/" +savedName);
+		file.transferTo(target);
+		loungeVO.setLounge_img(savedName);
 		loungeService.insert(loungeVO);		
-		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();		
+		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();	
 	}
 
 	@RequestMapping("lounge/update")
@@ -31,7 +40,13 @@ public class LoungeController {
 	}
 	
 	@RequestMapping("lounge/updateTr")
-	public String updateTr(LoungeVO loungeVO) {
+	public String updateTr(LoungeVO loungeVO,
+			HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
+		String savedName = file.getOriginalFilename();
+		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
+		File target = new File(uploadPath + "/" +savedName);
+		file.transferTo(target);
+		loungeVO.setLounge_img(savedName);
 		loungeService.update(loungeVO);
 		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();	
 	}
@@ -48,17 +63,22 @@ public class LoungeController {
 		loungePageVO.setSearchType(searchType);
 		loungePageVO.setKeyWord(keyWord);
 		loungePageVO.setStartEnd();
+		LoungeVO loungeVO = new LoungeVO();
+		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
+		
 		List<LoungeVO> list = loungeService.list(loungePageVO);
 		int count = loungeService.pageCount(keyWord, searchType);
 		int pages = count/5;
 		if (count%5 != 0) {
 			pages += 1;
 		}
+		System.out.println(list);
+		model.addAttribute("bestList", bestList);	
 		model.addAttribute("list", list);	
 		model.addAttribute("pages", pages);	
-		model.addAttribute("count", count);	
 		model.addAttribute("searchType", searchType);	
 		model.addAttribute("keyWord", keyWord);
+
 		}
 	
 	@RequestMapping("lounge/pageList")

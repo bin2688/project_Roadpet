@@ -15,5 +15,7 @@ public interface LoungeServiceInterface {
 	LoungeVO one(LoungeVO loungeVO);
 
 	int pageCount(String keyWord, String searchType);
+	
+	List<LoungeVO> bestList(LoungeVO loungeVO);
 
 }

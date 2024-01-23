@@ -12,76 +12,124 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 <%@ include file="/sidebar.jsp"%>
-<script type="text/javascript">
-	//댓글작성
-	$(function() {
-		$('#replyBtn').click(function() {
-			$.ajax({
-				url : "rpInsert",
-				data : {
-					reply_oriid : '${bag.lounge_id}',
-					reply_content : $('#reply').val(),
-					reply_user_id : '1',
-				},
-				success : function(response) {
-					$('#result').prepend(response)
-				}
-			})
-		})
-	})
-	
-	//댓글수정 클릭시 해당위치 스크립트 처리
-	$(function() {
-		$('[id^="rpUpdateBtn_"]').click(function() {
-			var reply_id = $(this).data('reply_id');
-			var commentDiv = $(this).closest(".comment");
-			commentDiv.find(".editForm").show();
-			commentDiv.find(".rpContent").hide();
-			console.log(".rpUpdateBtn_" + reply_id);
-		});
-	});
-	
-	//댓글 수정완료
-	$(function() {
-		$('.rpEditDoneBtn').click(function() {
-			var reply_id = $(this).data('reply_id');
-			var commentDiv = $(this).closest(".comment");
-			$.ajax({
-				url : "rpUpdate",
-				data : {
-					reply_content : commentDiv.find('.newReply').val(),
-					reply_id : reply_id
-				},
-				success : function(response) {
-					commentDiv.find('.comment').html(response);
-					commentDiv.find('.editForm').hide();
-					console.log(response)
-				}
-			})
-		})
-	})
-	
-	//댓글 삭제
-	$(function() {
-		$('[id^="rpDeleteBtn_"]').click(function() {
-			var replyId = $(this).data('reply_id');
-			$.ajax({
-				url: 'rpDelete',
-				data: {
-					reply_id : replyId,
-					reply_oriid : '${bag.lounge_id}'
-					},
-				success : function(response) {
-					 $('#comment_' + replyId).remove();					
-				},
-			})
-		})
-	})
-	
-</script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
 </head>
 <body>
+	<script type="text/javascript">
+		//좋아요 버튼
+		$(function() {
+			$('.likeClick').click(function() {
+				
+				console.log("${bag.likeYn}")
+				
+				 if('${bag.likeYn}' == 'N') { 
+					$.ajax({
+						type: "get",
+						url: "likeInsert",
+						data: {
+							member_user_id : '2',
+							lounge_id : '${bag.lounge_id}',
+						},
+						success : function(response) {	
+							$("#likeImg").attr("src", "../resources/img/heartOn.png");
+							$("#b1").html(response)
+							console.log(response)
+							console.log("좋아요추가")
+						},
+						error : function(response) {
+							console.log(response)
+						}							
+					})
+				 }else {
+					$.ajax({
+						type: "get",
+						url: "likeDelete",
+						data: {
+							member_user_id : '1',
+							lounge_id : '${bag.lounge_id}',
+						},
+						success : function(response) {	
+							$("#likeImg").attr("src", "../resources/img/heartDefault.png");
+							$("#b1").html(response)
+							console.log(response)
+							console.log("좋아요삭제")
+						},
+						error : function(response) {
+							console.log(response)
+						}
+							
+					})
+				} 
+			 })
+			})
 
+		//댓글작성
+		$(function() {
+			$('#replyBtn').click(function() {
+				$.ajax({
+					url : "rpInsert",
+					data : {
+						reply_oriid : '${bag.lounge_id}',
+						reply_content : $('#reply').val(),
+						reply_user_id : '1',
+					},
+					success : function(response) {
+						$('#result').prepend(response)
+					}
+				})
+			})
+		})
+		
+		//댓글수정 클릭시 해당위치 스크립트 처리
+		$(function() {
+			$('[id^="rpUpdateBtn_"]').click(function() {
+				var reply_id = $(this).data('reply_id');
+				var commentDiv = $(this).closest(".comment");
+				commentDiv.find(".editForm").show();
+				commentDiv.find(".rpContent").hide();
+				console.log(".rpUpdateBtn_" + reply_id);
+			});
+		});
+		
+		//댓글 수정완료
+		$(function() {
+			$('.rpEditDoneBtn').click(function() {
+				var reply_id = $(this).data('reply_id');
+				var commentDiv = $(this).closest(".comment");
+				$.ajax({
+					url : "rpUpdate",
+					data : {
+						reply_content : commentDiv.find('.newReply').val(),
+						reply_id : reply_id
+					},
+					success : function(response) {
+						commentDiv.find('.comment').html(response);
+						commentDiv.find('.editForm').hide();
+						console.log(response)
+					}
+				})
+			})
+		})
+		
+		//댓글 삭제
+		$(function() {
+			$('[id^="rpDeleteBtn_"]').click(function() {
+				var replyId = $(this).data('reply_id');
+				$.ajax({
+					url: 'rpDelete',
+					data: {
+						reply_id : replyId,
+						reply_oriid : '${bag.lounge_id}'
+						},
+					success : function(response) {
+						 $('#comment_' + replyId).remove();					
+					},
+				})
+			})
+		})
+		
+	</script>
 	<div class="container-fluid">
 		<!-- Spinner Start -->
 		<div id="spinner"
@@ -95,7 +143,7 @@
 
 
 		<!-- views 파일에서 구현예정 -->
-		<div class="content">
+		<div class="content open">
 			<%@ include file="/header.jsp"%>
 			<div class="container-fluid pt-4 px-4">
 				<div style="display: flex; justify-content: flex-end;">
@@ -115,19 +163,27 @@
 					</div>
 					<div>
 						<h3 style="padding: 5px;">${bag.lounge_title}</h3>
-					</div>
+					</div>				
 					<hr>
 					<div style="padding: 10px 20px; max-height: 200px; overflow-y: auto;">${bag.lounge_content}</div>
-					<div style="padding: 10px;">${bag.lounge_img}</div>	
+					<img alt="" src="../resources/upload/${bag.lounge_img}"> 
 					<br>
 					<!--썸네일 추가할부분-->
 					<div style="display: flex; justify-content: space-between;">
 						<div style="padding: 5px;">${bag.lounge_writer}</div>
-						<div style="padding: 1px;">
-						 댓글:<div id="replyCount">${bag.lounge_replyCount}</div>
-						</div>
+							<div style="padding: 1px;">
+							 
+							 	<div id="replyCount">
+							 		댓글: ${bag.lounge_replyCount}
+							 	</div>
+							</div>	
 						<div style="padding: 5px;">
-							<img alt="like" src="../resources/img/heartDefault.png"> 0
+							<div class="likeClick" style="text-align: center;">			
+								<img id="likeImg" style="display: inline-block;" alt="like" src="../resources/img/heartDefault.png" > 
+								<div id="b1" style="display: inline-block;"> 
+									${bag.likeCount}
+								</div>
+							</div>
 						</div>
 						<div style="padding: 5px;">${bag.lounge_date}</div>
 					</div>
@@ -136,9 +192,9 @@
 			</div>
 			<br>
 			<div class="container-fluid pt-4 px-4">
-				<div class="input-group mb-3">
-					<textarea id="reply" class="form-control" placeholder="댓글을 입력해주세요."></textarea>
-					<button class="btn btn-primary" id="replyBtn">댓글등록</button>
+				<div class="input-group mb-3" style="text-align: center">
+					<textarea id="reply" style="display: inline-block;" class="form-control" placeholder="댓글을 입력해주세요."></textarea>
+					<button class="btn btn-primary" style="display: inline-block;" id="replyBtn">댓글등록</button>
 				</div>
 			</div>
 			<c:forEach items="${rpList}" var="rp">

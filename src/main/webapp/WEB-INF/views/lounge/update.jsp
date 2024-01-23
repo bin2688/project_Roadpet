@@ -12,6 +12,24 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 <%@ include file="/sidebar.jsp"%>
+<style>
+.preview-image {
+    max-width: 100%;
+    max-height: 200px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.close-button {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 1px 5px;
+    cursor: pointer;
+    border-radius: 50%;
+
+}
+</style>
 </head>
 
 <body>
@@ -32,7 +50,7 @@
 			<!-- Form Start -->
 			<div class="container-fluid pt-4 px-4">
 				<div class="row g-4">
-				<form action="updateTr">
+				<form action="updateTr" method="post" enctype="multipart/form-data" id="form">
 					<div class="col-sm-24 col-xl-12">
 						<div class="bg-light rounded h-30 p-4">
 							<h6 class="mb-4">카테고리</h6>
@@ -58,10 +76,10 @@
 						</div>
 						<div class="bg-light rounded h-30 p-4">
 								<h6 class="mb-4">이미지 첨부</h6>
-                           		<div class="mb-3">
-                           				<input name="lounge_img" value="${bag.lounge_img}">
-                               		<!-- <input name="lounge_img" class="form-control" type="file" id="formFile"> -->
-                          	  	</div>
+                           		<div class="input-form-box">
+									<input type="file" name="file" id="file" class="form-control" value="${bag.lounge_img}" onchange="previewImage()">
+									<div id="image-preview-container"></div>
+								</div>
 						</div>
 					</div>				
 						 <div class="m-n2" style="text-align: center;"> 					
@@ -81,6 +99,39 @@
 		<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
 			class="bi bi-arrow-up"></i></a>
 	</div>
+	<script>
+		function previewImage() {
+			const input = document.getElementById('file');
+			const container = document.getElementById('image-preview-container');
+
+			// 이전에 추가된 이미지 및 버튼 제거
+			container.innerHTML = '';
+
+			if (input.files && input.files[0]) {
+			    const reader = new FileReader();
+				reader.onload = function (e) {
+			   		// 미리보기 이미지 생성
+			        const previewImage = document.createElement('img');
+			        previewImage.src = e.target.result;
+			        previewImage.classList.add('preview-image');
+			        container.appendChild(previewImage);
+
+			        // 미리보기 이미지 첨부삭제 버튼 생성
+			        const closeButton = document.createElement('button');
+			        closeButton.innerHTML = 'X';
+			        closeButton.classList.add('close-button');
+			        closeButton.onclick = function() {
+			            // 클릭시 첨부값 초기화
+			            container.innerHTML = '';
+			            input.value = null;
+			        };
+			            
+			      container.appendChild(closeButton);
+			   };
+			   reader.readAsDataURL(input.files[0]);   
+			}
+		}
+	</script>
 
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
