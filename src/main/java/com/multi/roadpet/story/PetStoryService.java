@@ -34,8 +34,8 @@ public class PetStoryService {
 		dao.update(petstoryVO);
 	}
 	//∏∂¿Ã∆Í view ∫Œ∫–
-	public List<PetStoryVO> list2() throws Exception {
-		List<PetStoryVO> list2 = dao.list2();
+	public List<PetStoryVO> mystorylist(PetStoryVO petstoryVO) throws Exception {
+		List<PetStoryVO> list2 = dao.mystorylist(petstoryVO);
 		return list2;
 	}
 }

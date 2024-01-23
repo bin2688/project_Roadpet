@@ -22,12 +22,12 @@
 		) ps2 where ps2.story_no BETWEEN #{start} and #{end}
 	</select>
 	
-	<select id="list2" parameterType="int" resultType="petStoryVO" >
+	<select id="mystorylist" parameterType="int" resultType="petStoryVO" >
 	select * 
 	from pet_story
 	where user_id= #{user_id}
-	order by story_date
-	limit 5;
+	order by story_date DESC
+	limit 6;
 	</select>
 	
 	<select id="one" parameterType="petStoryVO"
