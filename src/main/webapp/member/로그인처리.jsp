@@ -3,7 +3,7 @@
 <%
 String id = request.getParameter("id");
 String pw = request.getParameter("pw");
-String id2 = "root";
+String id2 = "1";
 String pw2 = "1234";
 String result = "로그인 실패";
 if(id.equals(id2)&& pw.equals(pw2)){

@@ -12,19 +12,8 @@ public class LoungeVO {
     private String lounge_date;
     private String lounge_img;
     private int lounge_replyCount;
-    private int IsDeleted;
+
     
-    
-    
-	public int getIsDeleted() {
-		return IsDeleted;
-	}
-	public void setIsDeleted(int isDeleted) {
-		IsDeleted = isDeleted;
-	}
-	public void setLounge_date(String lounge_date) {
-		this.lounge_date = lounge_date;
-	}
 	public int getLounge_replyCount() {
 		return lounge_replyCount;
 	}

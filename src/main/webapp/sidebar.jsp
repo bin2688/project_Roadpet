@@ -64,7 +64,7 @@
 
                     <a href="/roadpet/pet/pet_home.jsp" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>마이펫정보</a>
                     <a href="/roadpet/lounge/list?page=1" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>커뮤니티</a>
-                    <a href="#" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>펫 스토리</a>
+                    <a href="/roadpet/story/PetStory_list?page=1&story_private=0" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>펫 스토리</a>
                     <a href="/roadpet/map/mapservice_home.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>지도서비스</a>
                 </div>
           </nav>
