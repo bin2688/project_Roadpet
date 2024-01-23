@@ -6,9 +6,17 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body bgcolor="yellow">
-로그인처리 요청됨<br>
-${id}님이 로그인되었습니다. <br>
-<a href="member.jsp">첫 페이지로 이동</a>
+<body>
+<a href="/roadpet/pet/pet_home.jsp">dasdas</a>
+<%if(session.getAttribute("user_id")!=null){ %>
+	세션 id 값은 : <%= session.getAttribute("user_id") %>
+<%} %>
+
+<script>
+
+ alert("로그인이 완료되었습니다.");
+ 
+</script>
+
 </body>
 </html>

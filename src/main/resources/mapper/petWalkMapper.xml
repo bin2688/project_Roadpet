@@ -33,7 +33,7 @@
 	AVG(walk_time) as walk_time,
 	rank () over(order by AVG(walk_time) DESC) as walk_date,
 	AVG(walk_distance) as walk_distance,
-	rank () over(order by AVG(walk_distance)) as walk_id,
+	rank () over(order by AVG(walk_distance) DESC) as walk_id,
 	(select pet_name from pet_info where pet_info.pet_id = pet_walk.pet_id) as pet_name
 		from pet_walk 
 		where pet_walk.walk_date between date_add(NOW(),interval -1 week) and NOW()

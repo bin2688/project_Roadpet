@@ -49,10 +49,10 @@
 	<%@ include file="../header.jsp"%>
 	<%@ include file="../sidebar.jsp"%>
 	<%
-	if (session.getAttribute("id")!= null){
+	if (session.getAttribute("user_id")!= null){
 		%>
 		로그인한사람
-	<%=session.getAttribute("id")%>
+	<%=session.getAttribute("user_id")%>
 	
 	<%}else{
 		
@@ -72,10 +72,10 @@
     	<!--스토리  -->
     	<div class="container-fluid pt-4 px-4"> 
     	    <div class="row g-4" style="width:80%; margin:auto;">
-                    <h3 class="mb-0">다이어리</h3>                         
+                    <h3 class="mb-0">스토리</h3>                         
 					<div id="result2">다이어리 들어가는곳</div>
 			</div>	
-		</div>
+		</div><br><br><br>
    	
 			<div class="container-fluid pt-4 px-4"> 
 				<div class="row g-4" style="width:80%; margin:auto;">

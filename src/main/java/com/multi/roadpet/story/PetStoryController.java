@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -107,8 +108,13 @@ public class PetStoryController {
 	}
 
 	@RequestMapping("pet/PetStory_list2")
-	public void list2(Model model) throws Exception {
-		List<PetStoryVO> list2 = petstoryService.list2();
+	public void list2(PetStoryVO petstoryVO, Model model, HttpSession session) throws Exception {
+		String user_id = (String) session.getAttribute("id");
+		System.out.println(user_id);
+		
+		petstoryVO.setUser_id(Integer.parseInt(user_id));
+		
+		List<PetStoryVO> list2 = petstoryService.mystorylist(petstoryVO);
 		System.out.println(list2.size());
 		model.addAttribute("list2", list2);
 	}

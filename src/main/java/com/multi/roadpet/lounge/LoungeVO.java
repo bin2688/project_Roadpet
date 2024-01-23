@@ -40,6 +40,7 @@ public class LoungeVO {
 		this.likeCount = likeCount;
 	}
 
+
 	public int getLounge_replyCount() {
 		return lounge_replyCount;
 	}
