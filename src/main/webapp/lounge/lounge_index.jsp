@@ -25,7 +25,7 @@
 
 
 		<!-- views 파일에서 구현예정 -->
-			<div class="content">
+			<div class="content open">
 				<%@ include file="../header.jsp"%>
 				<h3 >전체글</h3>
 				<div style="display: flex; justify-content: flex-end;">

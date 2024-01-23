@@ -60,5 +60,10 @@ public class LoungeDAO implements LoungeDAOInterface {
 		rpCntMap.put("rpCntUpDown", rpCntUpDown);
 		my.update("lounge.replyCount",rpCntMap);
 	}
+	
+	@Override
+	public List<LoungeVO> bestList(LoungeVO loungeVO) {
+		return my.selectList("lounge.bestList", loungeVO);
+	}
 
 }
