@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.multi.roadpet.pet.PetInfoVO;
-
 @Service
 public class PetStoryService {
 	
@@ -33,7 +31,7 @@ public class PetStoryService {
 	public void update(PetStoryVO petstoryVO) {
 		dao.update(petstoryVO);
 	}
-	//¸¶ÀÌÆê view ºÎºÐ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ view ï¿½Îºï¿½
 	public List<PetStoryVO> list2() throws Exception {
 		List<PetStoryVO> list2 = dao.list2();
 		return list2;
