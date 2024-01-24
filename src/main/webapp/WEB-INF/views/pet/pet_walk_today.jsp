@@ -21,8 +21,17 @@
 for(PetWalkVO dto : list){
 	 count++;
 %>
-	<h3 style="color : orange"> <%=count %>회 </h3>
+	<hr color="blue">
 <!--model로 views/one.jsp까지 전달한 데이터를 받아 꺼내서 출력 -->
+
+<div class="d-flex align-items-center border-bottom py-3">
+				<div class="w-100 ms-3">
+					<div class="d-flex w-100 justify-content-between">
+						<span style="color:blue;border:2px;font-size:20px;"><%=dto.getPet_name() %></span>
+						
+					</div>
+				</div>		
+</div>
 
 <div class="d-flex align-items-center border-bottom py-3">
 				<div class="w-100 ms-3">

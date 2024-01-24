@@ -45,6 +45,7 @@
 
 <!-- Template Stylesheet -->
 <link href="../resources/css/style.css" rel="stylesheet">
+<link rel="stylesheet" href="/roadpet/resources/css/board.css">
 </head>
 
 <body>
@@ -59,8 +60,8 @@
 		</div>
 
 		<div class="content open">
-<%@ include file="/header.jsp"%>
-<%@ include file="/sidebar.jsp"%>
+	<%@ include file="/header.jsp"%>
+	<%@ include file="/sidebar.jsp"%>
 			<%
 				if (session.getAttribute("id") != null) {
 			%>
@@ -72,29 +73,44 @@
 
 			}
 			%>
-			<h6 class="mb-4"></h6>
-			<div class="container-fluid pt-4 px-4">
+			
+				<div class="container-fluid pt-4 px-4"> 
+             <div class="row g-4"  style="width:60%; margin:auto;">
 				<c:forEach items="${list}" var="vo">
-					<div class="story_list">
-						<div class="card"
-							style="border: 1px solid blue; float: left; width: 33%; padding: 10px;">
-							<h4>NO.${vo.story_no}</h4>
-							<div class="img">
-								<img src="../resources/upload/${vo.story_photo}" width="250"
-									height="200">
-							</div>
-							<div class="text">
-								<h2>${vo.story_title}</h2>
-								<p>${vo.story_content}</p>
-								<button type="button" class="btn btn-primary m-2"
-									onclick="location.href='PetStory_one?story_id=${vo.story_id}'">상세보기
-								</button>
+				
+					
+						<div class="card">
+							<div class="card-view">
+								<div class="title">
+									<h4 class="mb-0">${vo.story_title}</h4>
+								</div>
+								<div class="myinfo">
+									<div
+										class="d-flex align-items-center justify-content-right mb-2">
+										<dl>
+											<dt>날짜</dt>
+											<dd>${vo.story_date}</dd>
+										</dl>
+										<dl>
+											<dt>공개여부</dt>
+											<dd>${vo.story_private}</dd>
+										</dl>
+									</div>
+								</div>
+								<div class="cont">
+									<h3>${vo.story_photo}</h3>
+									<h4>${vo.story_content}</h4>
+								</div>
 							</div>
 						</div>
-				</c:forEach>
-			</div>
-			<hr color="red">
+					
+			</c:forEach>
+			
 		</div>
+		</div>
+	
+			<hr color="red">
+		
 
 
 		<%
@@ -107,13 +123,15 @@
 		<%
 			}
 		%>
-
+	
 
 
 		<!-- Content End -->
 		<!-- Back to Top -->
 		<button type="button" class="btn btn-primary m-2"
 			style="float: right;" onclick="location.href='PetStory_insert.jsp'">글작성하기</button>
+		</div>
+	</div>
 </body>
 
 </html>

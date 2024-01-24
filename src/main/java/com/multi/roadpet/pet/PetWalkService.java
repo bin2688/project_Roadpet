@@ -21,13 +21,17 @@ public class PetWalkService {
 	public PetInfoVO one2(int pet_id) { //id=4
 		return dao.one2(pet_id);
 	}
-	public List<PetWalkVO> list() throws Exception{ //id=4
-		List<PetWalkVO> list =dao.list();
+	public List<PetWalkVO> list(PetWalkVO petwalkVO) throws Exception{ //id=4
+		List<PetWalkVO> list =dao.list(petwalkVO);
 		return list;
 	}
-	public List<PetWalkVO> list2() throws Exception{ //id=4
-		List<PetWalkVO> list =dao.list2();
-		return list;
+	public List<PetWalkVO> list2(PetWalkVO petwalkVO) throws Exception{ //id=4
+		List<PetWalkVO> list2 =dao.list2(petwalkVO);
+		return list2;
+	}
+	public List<PetWalkVO> list3(PetWalkVO petwalkVO) throws Exception{ //id=4
+		List<PetWalkVO> list3 =dao.list3(petwalkVO);
+		return list3;
 	}
 	
 }

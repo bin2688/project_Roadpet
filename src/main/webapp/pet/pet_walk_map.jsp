@@ -1,12 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
 	href="../resources/css/mapservice.css">
-<title>»êÃ¥ Áöµµ</title>
+<title>ì‚°ì±… ì§€ë„</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -42,7 +44,7 @@
 <link href="../resources/css/style.css" rel="stylesheet">
 
 <meta charset="utf-8">
-<title>¼±ÀÇ °Å¸® °è»êÇÏ±â</title>
+<title>ì„ ì˜ ê±°ë¦¬ ê³„ì‚°í•˜ê¸°</title>
 <style>
 .dot {
 	overflow: hidden;
@@ -107,32 +109,37 @@
 </head>
 
 <body>
+
+
 <div id="map" style="width:100%;height:700px;"></div>  
 <p>
-    <em>Áöµµ¸¦ ¸¶¿ì½º·Î Å¬¸¯ÇÏ¸é ¼± ±×¸®±â°¡ ½ÃÀÛµÇ°í<br>¿À¸¥ÂÊ ¸¶¿ì½º¸¦ Å¬¸¯ÇÏ¸é ¼± ±×¸®±â°¡ Á¾·áµË´Ï´Ù<br>ÀÚµ¿À¸·Î ½Ã°£°ú °Å¸®°¡ ÀÔ·ÂµÇ¸ç Á÷Á¢ ¼öÁ¤ ÇÒ ¼ö ÀÖ½À´Ï´Ù</em>
+    <em>ì§€ë„ë¥¼ ë§ˆìš°ìŠ¤ë¡œ í´ë¦­í•˜ë©´ ì„  ê·¸ë¦¬ê¸°ê°€ ì‹œìž‘ë˜ê³ <br>ì˜¤ë¥¸ìª½ ë§ˆìš°ìŠ¤ë¥¼ í´ë¦­í•˜ë©´ ì„  ê·¸ë¦¬ê¸°ê°€ ì¢…ë£Œë©ë‹ˆë‹¤<br>ìžë™ìœ¼ë¡œ ì‹œê°„ê³¼ ê±°ë¦¬ê°€ ìž…ë ¥ë˜ë©° ì§ì ‘ ìˆ˜ì • í•  ìˆ˜ ìžˆìŠµë‹ˆë‹¤</em>
     <br>
    
    <form action="pet_walk_insert" id="form" method="post"  enctype="multipart/form-data" name="walk_form">
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">1.Æê ¾ÆÀÌµð</label> <input
-					name="pet_id" class="form-control" id="exampleInputEmail1" value="${dto.pet_id}"
-					placeholder="">
+					<input type="hidden" name="user_id" value="<%=session.getAttribute("user_id")%>"> 
+			</div>
+			
+				<label for="exampleInputEmail1" class="form-label">1.íŽ«</label>
+				<div id="namelist">
+				
 			</div>
 			<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label" >2.»êÃ¥ ³¯Â¥</label>
+			<label for="exampleInputEmail1" class="form-label" >2.ì‚°ì±… ë‚ ì§œ</label>
 			 <input name="walk_date" class="form-control" id="walk_date" >
 			</div>
 			<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">3.»êÃ¥ °Å¸®</label>
-			 <input name="walk_distance" class="form-control" id="walk_distance" placeholder="¹ÌÅÍ"><br>
+			<label for="exampleInputEmail1" class="form-label">3.ì‚°ì±… ê±°ë¦¬</label>
+			 <input name="walk_distance" class="form-control" id="walk_distance" placeholder="ë¯¸í„°"><br>
 					
 			</div>
 			<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">4.»êÃ¥ ½Ã°£</label> <input
-					name="walk_time" class="form-control" id="walk_time" placeholder="ºÐ">
+			<label for="exampleInputEmail1" class="form-label">4.ì‚°ì±… ì‹œê°„</label> <input
+					name="walk_time" class="form-control" id="walk_time" placeholder="ë¶„">
 			</div>
 			<div class="button-login-box">
-				<button id="bt__ok" type="submit" class="btn btn-primary">µî·Ï</button>
+				<button id="bt__ok" type="submit" class="btn btn-primary">ë“±ë¡</button>
 			</div>
 		</form>
    
@@ -140,9 +147,21 @@
 </p>
 
 
+
+
+
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=56c48a3122cf3fa36b09433b2e689987"></script>
 <script>
 
+$(function() {
+	$.ajax({
+		url : "pet_info_namelist",
+		success : function(x) {
+			$("#namelist").html(x)
+			}//success
+		})//ajax
+	})//$	
 
 
 function win_close(){
@@ -153,84 +172,84 @@ function win_close(){
 let today = new Date();
 document.getElementById("walk_date").value = today.toISOString().substring(2,10);
 
-var mapContainer = document.getElementById('map'), // Áöµµ¸¦ Ç¥½ÃÇÒ div  
+var mapContainer = document.getElementById('map'), // ì§€ë„ë¥¼ í‘œì‹œí•  div  
     mapOption = { 
-        center: new kakao.maps.LatLng(37.4925168, 127.1236765), // ÁöµµÀÇ Áß½ÉÁÂÇ¥
-        level: 2 // ÁöµµÀÇ È®´ë ·¹º§
+        center: new kakao.maps.LatLng(37.4925168, 127.1236765), // ì§€ë„ì˜ ì¤‘ì‹¬ì¢Œí‘œ
+        level: 2 // ì§€ë„ì˜ í™•ëŒ€ ë ˆë²¨
     };
 
-var map = new kakao.maps.Map(mapContainer, mapOption); // Áöµµ¸¦ »ý¼ºÇÕ´Ï´Ù
+var map = new kakao.maps.Map(mapContainer, mapOption); // ì§€ë„ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
 
 var markerPosition  = new kakao.maps.LatLng(37.4925168, 127.1236765); 
 
-//¸¶Ä¿¸¦ »ý¼ºÇÕ´Ï´Ù
+//ë§ˆì»¤ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
 var marker = new kakao.maps.Marker({
  position: markerPosition
 });
 
 marker.setMap(map);
-//¸¶Ä¿°¡ Áöµµ À§¿¡ Ç¥½ÃµÊ
+//ë§ˆì»¤ê°€ ì§€ë„ ìœ„ì— í‘œì‹œë¨
 
 
-var drawingFlag = false; // ¼±ÀÌ ±×·ÁÁö°í ÀÖ´Â »óÅÂ¸¦ °¡Áö°í ÀÖÀ» º¯¼öÀÔ´Ï´Ù
-var moveLine; // ¼±ÀÌ ±×·ÁÁö°í ÀÖÀ»¶§ ¸¶¿ì½º ¿òÁ÷ÀÓ¿¡ µû¶ó ±×·ÁÁú ¼± °´Ã¼ ÀÔ´Ï´Ù
-var clickLine // ¸¶¿ì½º·Î Å¬¸¯ÇÑ ÁÂÇ¥·Î ±×·ÁÁú ¼± °´Ã¼ÀÔ´Ï´Ù
-var distanceOverlay; // ¼±ÀÇ °Å¸®Á¤º¸¸¦ Ç¥½ÃÇÒ Ä¿½ºÅÒ¿À¹ö·¹ÀÌ ÀÔ´Ï´Ù
-var dots = {}; // ¼±ÀÌ ±×·ÁÁö°í ÀÖÀ»¶§ Å¬¸¯ÇÒ ¶§¸¶´Ù Å¬¸¯ ÁöÁ¡°ú °Å¸®¸¦ Ç¥½ÃÇÏ´Â Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ ¹è¿­ÀÔ´Ï´Ù.
+var drawingFlag = false; // ì„ ì´ ê·¸ë ¤ì§€ê³  ìžˆëŠ” ìƒíƒœë¥¼ ê°€ì§€ê³  ìžˆì„ ë³€ìˆ˜ìž…ë‹ˆë‹¤
+var moveLine; // ì„ ì´ ê·¸ë ¤ì§€ê³  ìžˆì„ë•Œ ë§ˆìš°ìŠ¤ ì›€ì§ìž„ì— ë”°ë¼ ê·¸ë ¤ì§ˆ ì„  ê°ì²´ ìž…ë‹ˆë‹¤
+var clickLine // ë§ˆìš°ìŠ¤ë¡œ í´ë¦­í•œ ì¢Œí‘œë¡œ ê·¸ë ¤ì§ˆ ì„  ê°ì²´ìž…ë‹ˆë‹¤
+var distanceOverlay; // ì„ ì˜ ê±°ë¦¬ì •ë³´ë¥¼ í‘œì‹œí•  ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ ìž…ë‹ˆë‹¤
+var dots = {}; // ì„ ì´ ê·¸ë ¤ì§€ê³  ìžˆì„ë•Œ í´ë¦­í•  ë•Œë§ˆë‹¤ í´ë¦­ ì§€ì ê³¼ ê±°ë¦¬ë¥¼ í‘œì‹œí•˜ëŠ” ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ ë°°ì—´ìž…ë‹ˆë‹¤.
 
-// Áöµµ¿¡ Å¬¸¯ ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
-// Áöµµ¸¦ Å¬¸¯ÇÏ¸é ¼± ±×¸®±â°¡ ½ÃÀÛµË´Ï´Ù ±×·ÁÁø ¼±ÀÌ ÀÖÀ¸¸é Áö¿ì°í ´Ù½Ã ±×¸³´Ï´Ù
+// ì§€ë„ì— í´ë¦­ ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•©ë‹ˆë‹¤
+// ì§€ë„ë¥¼ í´ë¦­í•˜ë©´ ì„  ê·¸ë¦¬ê¸°ê°€ ì‹œìž‘ë©ë‹ˆë‹¤ ê·¸ë ¤ì§„ ì„ ì´ ìžˆìœ¼ë©´ ì§€ìš°ê³  ë‹¤ì‹œ ê·¸ë¦½ë‹ˆë‹¤
 kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
 
-    // ¸¶¿ì½º·Î Å¬¸¯ÇÑ À§Ä¡ÀÔ´Ï´Ù 
+    // ë§ˆìš°ìŠ¤ë¡œ í´ë¦­í•œ ìœ„ì¹˜ìž…ë‹ˆë‹¤ 
     var clickPosition = mouseEvent.latLng;
 
-    // Áöµµ Å¬¸¯ÀÌº¥Æ®°¡ ¹ß»ýÇß´Âµ¥ ¼±À» ±×¸®°íÀÖ´Â »óÅÂ°¡ ¾Æ´Ï¸é
+    // ì§€ë„ í´ë¦­ì´ë²¤íŠ¸ê°€ ë°œìƒí–ˆëŠ”ë° ì„ ì„ ê·¸ë¦¬ê³ ìžˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆë©´
     if (!drawingFlag) {
 
-        // »óÅÂ¸¦ true·Î, ¼±ÀÌ ±×¸®°íÀÖ´Â »óÅÂ·Î º¯°æÇÕ´Ï´Ù
+        // ìƒíƒœë¥¼ trueë¡œ, ì„ ì´ ê·¸ë¦¬ê³ ìžˆëŠ” ìƒíƒœë¡œ ë³€ê²½í•©ë‹ˆë‹¤
         drawingFlag = true;
         
-        // Áöµµ À§¿¡ ¼±ÀÌ Ç¥½ÃµÇ°í ÀÖ´Ù¸é Áöµµ¿¡¼­ Á¦°ÅÇÕ´Ï´Ù
+        // ì§€ë„ ìœ„ì— ì„ ì´ í‘œì‹œë˜ê³  ìžˆë‹¤ë©´ ì§€ë„ì—ì„œ ì œê±°í•©ë‹ˆë‹¤
         deleteClickLine();
         
-        // Áöµµ À§¿¡ Ä¿½ºÅÒ¿À¹ö·¹ÀÌ°¡ Ç¥½ÃµÇ°í ÀÖ´Ù¸é Áöµµ¿¡¼­ Á¦°ÅÇÕ´Ï´Ù
+        // ì§€ë„ ìœ„ì— ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ê°€ í‘œì‹œë˜ê³  ìžˆë‹¤ë©´ ì§€ë„ì—ì„œ ì œê±°í•©ë‹ˆë‹¤
         deleteDistnce();
 
-        // Áöµµ À§¿¡ ¼±À» ±×¸®±â À§ÇØ Å¬¸¯ÇÑ ÁöÁ¡°ú ÇØ´ç ÁöÁ¡ÀÇ °Å¸®Á¤º¸°¡ Ç¥½ÃµÇ°í ÀÖ´Ù¸é Áöµµ¿¡¼­ Á¦°ÅÇÕ´Ï´Ù
+        // ì§€ë„ ìœ„ì— ì„ ì„ ê·¸ë¦¬ê¸° ìœ„í•´ í´ë¦­í•œ ì§€ì ê³¼ í•´ë‹¹ ì§€ì ì˜ ê±°ë¦¬ì •ë³´ê°€ í‘œì‹œë˜ê³  ìžˆë‹¤ë©´ ì§€ë„ì—ì„œ ì œê±°í•©ë‹ˆë‹¤
         deleteCircleDot();
     
-        // Å¬¸¯ÇÑ À§Ä¡¸¦ ±âÁØÀ¸·Î ¼±À» »ý¼ºÇÏ°í ÁöµµÀ§¿¡ Ç¥½ÃÇÕ´Ï´Ù
+        // í´ë¦­í•œ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì„ ì„ ìƒì„±í•˜ê³  ì§€ë„ìœ„ì— í‘œì‹œí•©ë‹ˆë‹¤
         clickLine = new kakao.maps.Polyline({
-            map: map, // ¼±À» Ç¥½ÃÇÒ ÁöµµÀÔ´Ï´Ù 
-            path: [clickPosition], // ¼±À» ±¸¼ºÇÏ´Â ÁÂÇ¥ ¹è¿­ÀÔ´Ï´Ù Å¬¸¯ÇÑ À§Ä¡¸¦ ³Ö¾îÁÝ´Ï´Ù
-            strokeWeight: 3, // ¼±ÀÇ µÎ²²ÀÔ´Ï´Ù 
-            strokeColor: '#db4040', // ¼±ÀÇ »ö±òÀÔ´Ï´Ù
-            strokeOpacity: 1, // ¼±ÀÇ ºÒÅõ¸íµµÀÔ´Ï´Ù 0¿¡¼­ 1 »çÀÌ°ªÀÌ¸ç 0¿¡ °¡±î¿ï¼ö·Ï Åõ¸íÇÕ´Ï´Ù
-            strokeStyle: 'solid' // ¼±ÀÇ ½ºÅ¸ÀÏÀÔ´Ï´Ù
+            map: map, // ì„ ì„ í‘œì‹œí•  ì§€ë„ìž…ë‹ˆë‹¤ 
+            path: [clickPosition], // ì„ ì„ êµ¬ì„±í•˜ëŠ” ì¢Œí‘œ ë°°ì—´ìž…ë‹ˆë‹¤ í´ë¦­í•œ ìœ„ì¹˜ë¥¼ ë„£ì–´ì¤ë‹ˆë‹¤
+            strokeWeight: 3, // ì„ ì˜ ë‘ê»˜ìž…ë‹ˆë‹¤ 
+            strokeColor: '#db4040', // ì„ ì˜ ìƒ‰ê¹”ìž…ë‹ˆë‹¤
+            strokeOpacity: 1, // ì„ ì˜ ë¶ˆíˆ¬ëª…ë„ìž…ë‹ˆë‹¤ 0ì—ì„œ 1 ì‚¬ì´ê°’ì´ë©° 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ íˆ¬ëª…í•©ë‹ˆë‹¤
+            strokeStyle: 'solid' // ì„ ì˜ ìŠ¤íƒ€ì¼ìž…ë‹ˆë‹¤
         });
         
-        // ¼±ÀÌ ±×·ÁÁö°í ÀÖÀ» ¶§ ¸¶¿ì½º ¿òÁ÷ÀÓ¿¡ µû¶ó ¼±ÀÌ ±×·ÁÁú À§Ä¡¸¦ Ç¥½ÃÇÒ ¼±À» »ý¼ºÇÕ´Ï´Ù
+        // ì„ ì´ ê·¸ë ¤ì§€ê³  ìžˆì„ ë•Œ ë§ˆìš°ìŠ¤ ì›€ì§ìž„ì— ë”°ë¼ ì„ ì´ ê·¸ë ¤ì§ˆ ìœ„ì¹˜ë¥¼ í‘œì‹œí•  ì„ ì„ ìƒì„±í•©ë‹ˆë‹¤
         moveLine = new kakao.maps.Polyline({
-            strokeWeight: 3, // ¼±ÀÇ µÎ²²ÀÔ´Ï´Ù 
-            strokeColor: '#db4040', // ¼±ÀÇ »ö±òÀÔ´Ï´Ù
-            strokeOpacity: 0.5, // ¼±ÀÇ ºÒÅõ¸íµµÀÔ´Ï´Ù 0¿¡¼­ 1 »çÀÌ°ªÀÌ¸ç 0¿¡ °¡±î¿ï¼ö·Ï Åõ¸íÇÕ´Ï´Ù
-            strokeStyle: 'solid' // ¼±ÀÇ ½ºÅ¸ÀÏÀÔ´Ï´Ù    
+            strokeWeight: 3, // ì„ ì˜ ë‘ê»˜ìž…ë‹ˆë‹¤ 
+            strokeColor: '#db4040', // ì„ ì˜ ìƒ‰ê¹”ìž…ë‹ˆë‹¤
+            strokeOpacity: 0.5, // ì„ ì˜ ë¶ˆíˆ¬ëª…ë„ìž…ë‹ˆë‹¤ 0ì—ì„œ 1 ì‚¬ì´ê°’ì´ë©° 0ì— ê°€ê¹Œìš¸ìˆ˜ë¡ íˆ¬ëª…í•©ë‹ˆë‹¤
+            strokeStyle: 'solid' // ì„ ì˜ ìŠ¤íƒ€ì¼ìž…ë‹ˆë‹¤    
         });
     
-        // Å¬¸¯ÇÑ ÁöÁ¡¿¡ ´ëÇÑ Á¤º¸¸¦ Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+        // í´ë¦­í•œ ì§€ì ì— ëŒ€í•œ ì •ë³´ë¥¼ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
         displayCircleDot(clickPosition, 0);
 
             
-    } else { // ¼±ÀÌ ±×·ÁÁö°í ÀÖ´Â »óÅÂÀÌ¸é
+    } else { // ì„ ì´ ê·¸ë ¤ì§€ê³  ìžˆëŠ” ìƒíƒœì´ë©´
 
-        // ±×·ÁÁö°í ÀÖ´Â ¼±ÀÇ ÁÂÇ¥ ¹è¿­À» ¾ò¾î¿É´Ï´Ù
+        // ê·¸ë ¤ì§€ê³  ìžˆëŠ” ì„ ì˜ ì¢Œí‘œ ë°°ì—´ì„ ì–»ì–´ì˜µë‹ˆë‹¤
         var path = clickLine.getPath();
 
-        // ÁÂÇ¥ ¹è¿­¿¡ Å¬¸¯ÇÑ À§Ä¡¸¦ Ãß°¡ÇÕ´Ï´Ù
+        // ì¢Œí‘œ ë°°ì—´ì— í´ë¦­í•œ ìœ„ì¹˜ë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤
         path.push(clickPosition);
         
-        // ´Ù½Ã ¼±¿¡ ÁÂÇ¥ ¹è¿­À» ¼³Á¤ÇÏ¿© Å¬¸¯ À§Ä¡±îÁö ¼±À» ±×¸®µµ·Ï ¼³Á¤ÇÕ´Ï´Ù
+        // ë‹¤ì‹œ ì„ ì— ì¢Œí‘œ ë°°ì—´ì„ ì„¤ì •í•˜ì—¬ í´ë¦­ ìœ„ì¹˜ê¹Œì§€ ì„ ì„ ê·¸ë¦¬ë„ë¡ ì„¤ì •í•©ë‹ˆë‹¤
         clickLine.setPath(path);
 
         var distance = Math.round(clickLine.getLength());
@@ -238,77 +257,77 @@ kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
     }
 });
     
-// Áöµµ¿¡ ¸¶¿ì½º¹«ºê ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
-// ¼±À» ±×¸®°íÀÖ´Â »óÅÂ¿¡¼­ ¸¶¿ì½º¹«ºê ÀÌº¥Æ®°¡ ¹ß»ýÇÏ¸é ±×·ÁÁú ¼±ÀÇ À§Ä¡¸¦ µ¿ÀûÀ¸·Î º¸¿©ÁÖµµ·Ï ÇÕ´Ï´Ù
+// ì§€ë„ì— ë§ˆìš°ìŠ¤ë¬´ë¸Œ ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•©ë‹ˆë‹¤
+// ì„ ì„ ê·¸ë¦¬ê³ ìžˆëŠ” ìƒíƒœì—ì„œ ë§ˆìš°ìŠ¤ë¬´ë¸Œ ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´ ê·¸ë ¤ì§ˆ ì„ ì˜ ìœ„ì¹˜ë¥¼ ë™ì ìœ¼ë¡œ ë³´ì—¬ì£¼ë„ë¡ í•©ë‹ˆë‹¤
 kakao.maps.event.addListener(map, 'mousemove', function (mouseEvent) {
 
-    // Áöµµ ¸¶¿ì½º¹«ºê ÀÌº¥Æ®°¡ ¹ß»ýÇß´Âµ¥ ¼±À» ±×¸®°íÀÖ´Â »óÅÂÀÌ¸é
+    // ì§€ë„ ë§ˆìš°ìŠ¤ë¬´ë¸Œ ì´ë²¤íŠ¸ê°€ ë°œìƒí–ˆëŠ”ë° ì„ ì„ ê·¸ë¦¬ê³ ìžˆëŠ” ìƒíƒœì´ë©´
     if (drawingFlag){
         
-        // ¸¶¿ì½º Ä¿¼­ÀÇ ÇöÀç À§Ä¡¸¦ ¾ò¾î¿É´Ï´Ù 
+        // ë§ˆìš°ìŠ¤ ì»¤ì„œì˜ í˜„ìž¬ ìœ„ì¹˜ë¥¼ ì–»ì–´ì˜µë‹ˆë‹¤ 
         var mousePosition = mouseEvent.latLng; 
 
-        // ¸¶¿ì½º Å¬¸¯À¸·Î ±×·ÁÁø ¼±ÀÇ ÁÂÇ¥ ¹è¿­À» ¾ò¾î¿É´Ï´Ù
+        // ë§ˆìš°ìŠ¤ í´ë¦­ìœ¼ë¡œ ê·¸ë ¤ì§„ ì„ ì˜ ì¢Œí‘œ ë°°ì—´ì„ ì–»ì–´ì˜µë‹ˆë‹¤
         var path = clickLine.getPath();
         
-        // ¸¶¿ì½º Å¬¸¯À¸·Î ±×·ÁÁø ¸¶Áö¸· ÁÂÇ¥¿Í ¸¶¿ì½º Ä¿¼­ À§Ä¡ÀÇ ÁÂÇ¥·Î ¼±À» Ç¥½ÃÇÕ´Ï´Ù
+        // ë§ˆìš°ìŠ¤ í´ë¦­ìœ¼ë¡œ ê·¸ë ¤ì§„ ë§ˆì§€ë§‰ ì¢Œí‘œì™€ ë§ˆìš°ìŠ¤ ì»¤ì„œ ìœ„ì¹˜ì˜ ì¢Œí‘œë¡œ ì„ ì„ í‘œì‹œí•©ë‹ˆë‹¤
         var movepath = [path[path.length-1], mousePosition];
         moveLine.setPath(movepath);    
         moveLine.setMap(map);
         
-        var distance = Math.round(clickLine.getLength() + moveLine.getLength()), // ¼±ÀÇ ÃÑ °Å¸®¸¦ °è»êÇÕ´Ï´Ù
-            content = '<div class="dotOverlay distanceInfo">ÃÑ°Å¸® <span class="number">' + distance + '</span>m</div>'; // Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¿¡ Ãß°¡µÉ ³»¿ëÀÔ´Ï´Ù
+        var distance = Math.round(clickLine.getLength() + moveLine.getLength()), // ì„ ì˜ ì´ ê±°ë¦¬ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤
+            content = '<div class="dotOverlay distanceInfo">ì´ê±°ë¦¬ <span class="number">' + distance + '</span>m</div>'; // ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ì— ì¶”ê°€ë  ë‚´ìš©ìž…ë‹ˆë‹¤
         document.getElementById("walk_distance").value=distance;
-        // °Å¸®Á¤º¸¸¦ Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+        // ê±°ë¦¬ì •ë³´ë¥¼ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
         showDistance(content, mousePosition);   
     }             
 });                 
 
-// Áöµµ¿¡ ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯ ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù
-// ¼±À» ±×¸®°íÀÖ´Â »óÅÂ¿¡¼­ ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯ ÀÌº¥Æ®°¡ ¹ß»ýÇÏ¸é ¼± ±×¸®±â¸¦ Á¾·áÇÕ´Ï´Ù
+// ì§€ë„ì— ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­ ì´ë²¤íŠ¸ë¥¼ ë“±ë¡í•©ë‹ˆë‹¤
+// ì„ ì„ ê·¸ë¦¬ê³ ìžˆëŠ” ìƒíƒœì—ì„œ ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­ ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´ ì„  ê·¸ë¦¬ê¸°ë¥¼ ì¢…ë£Œí•©ë‹ˆë‹¤
 kakao.maps.event.addListener(map, 'rightclick', function (mouseEvent) {
 
-    // Áöµµ ¿À¸¥ÂÊ Å¬¸¯ ÀÌº¥Æ®°¡ ¹ß»ýÇß´Âµ¥ ¼±À» ±×¸®°íÀÖ´Â »óÅÂÀÌ¸é
+    // ì§€ë„ ì˜¤ë¥¸ìª½ í´ë¦­ ì´ë²¤íŠ¸ê°€ ë°œìƒí–ˆëŠ”ë° ì„ ì„ ê·¸ë¦¬ê³ ìžˆëŠ” ìƒíƒœì´ë©´
     if (drawingFlag) {
         
-        // ¸¶¿ì½º¹«ºê·Î ±×·ÁÁø ¼±Àº Áöµµ¿¡¼­ Á¦°ÅÇÕ´Ï´Ù
+        // ë§ˆìš°ìŠ¤ë¬´ë¸Œë¡œ ê·¸ë ¤ì§„ ì„ ì€ ì§€ë„ì—ì„œ ì œê±°í•©ë‹ˆë‹¤
         moveLine.setMap(null);
         moveLine = null;  
         
-        // ¸¶¿ì½º Å¬¸¯À¸·Î ±×¸° ¼±ÀÇ ÁÂÇ¥ ¹è¿­À» ¾ò¾î¿É´Ï´Ù
+        // ë§ˆìš°ìŠ¤ í´ë¦­ìœ¼ë¡œ ê·¸ë¦° ì„ ì˜ ì¢Œí‘œ ë°°ì—´ì„ ì–»ì–´ì˜µë‹ˆë‹¤
         var path = clickLine.getPath();
     
-        // ¼±À» ±¸¼ºÇÏ´Â ÁÂÇ¥ÀÇ °³¼ö°¡ 2°³ ÀÌ»óÀÌ¸é
+        // ì„ ì„ êµ¬ì„±í•˜ëŠ” ì¢Œí‘œì˜ ê°œìˆ˜ê°€ 2ê°œ ì´ìƒì´ë©´
         if (path.length > 1) {
 
-            // ¸¶Áö¸· Å¬¸¯ ÁöÁ¡¿¡ ´ëÇÑ °Å¸® Á¤º¸ Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ Áö¿ó´Ï´Ù
+            // ë§ˆì§€ë§‰ í´ë¦­ ì§€ì ì— ëŒ€í•œ ê±°ë¦¬ ì •ë³´ ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ì§€ì›ë‹ˆë‹¤
             if (dots[dots.length-1].distance) {
                 dots[dots.length-1].distance.setMap(null);
                 dots[dots.length-1].distance = null;    
             }
 
-            var distance = Math.round(clickLine.getLength()), // ¼±ÀÇ ÃÑ °Å¸®¸¦ °è»êÇÕ´Ï´Ù
-                content = getTimeHTML(distance); // Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¿¡ Ãß°¡µÉ ³»¿ëÀÔ´Ï´Ù
+            var distance = Math.round(clickLine.getLength()), // ì„ ì˜ ì´ ê±°ë¦¬ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤
+                content = getTimeHTML(distance); // ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ì— ì¶”ê°€ë  ë‚´ìš©ìž…ë‹ˆë‹¤
                 
-            // ±×·ÁÁø ¼±ÀÇ °Å¸®Á¤º¸¸¦ Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+            // ê·¸ë ¤ì§„ ì„ ì˜ ê±°ë¦¬ì •ë³´ë¥¼ ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
             showDistance(content, path[path.length-1]);  
              
         } else {
 
-            // ¼±À» ±¸¼ºÇÏ´Â ÁÂÇ¥ÀÇ °³¼ö°¡ 1°³ ÀÌÇÏÀÌ¸é 
-            // Áöµµ¿¡ Ç¥½ÃµÇ°í ÀÖ´Â ¼±°ú Á¤º¸µéÀ» Áöµµ¿¡¼­ Á¦°ÅÇÕ´Ï´Ù.
+            // ì„ ì„ êµ¬ì„±í•˜ëŠ” ì¢Œí‘œì˜ ê°œìˆ˜ê°€ 1ê°œ ì´í•˜ì´ë©´ 
+            // ì§€ë„ì— í‘œì‹œë˜ê³  ìžˆëŠ” ì„ ê³¼ ì •ë³´ë“¤ì„ ì§€ë„ì—ì„œ ì œê±°í•©ë‹ˆë‹¤.
             deleteClickLine();
             deleteCircleDot(); 
             deleteDistnce();
 
         }
         
-        // »óÅÂ¸¦ false·Î, ±×¸®Áö ¾Ê°í ÀÖ´Â »óÅÂ·Î º¯°æÇÕ´Ï´Ù
+        // ìƒíƒœë¥¼ falseë¡œ, ê·¸ë¦¬ì§€ ì•Šê³  ìžˆëŠ” ìƒíƒœë¡œ ë³€ê²½í•©ë‹ˆë‹¤
         drawingFlag = false;          
     }  
 });    
 
-// Å¬¸¯À¸·Î ±×·ÁÁø ¼±À» Áöµµ¿¡¼­ Á¦°ÅÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
+// í´ë¦­ìœ¼ë¡œ ê·¸ë ¤ì§„ ì„ ì„ ì§€ë„ì—ì„œ ì œê±°í•˜ëŠ” í•¨ìˆ˜ìž…ë‹ˆë‹¤
 function deleteClickLine() {
     if (clickLine) {
         clickLine.setMap(null);    
@@ -316,23 +335,23 @@ function deleteClickLine() {
     }
 }
 
-// ¸¶¿ì½º µå·¡±×·Î ±×·ÁÁö°í ÀÖ´Â ¼±ÀÇ ÃÑ°Å¸® Á¤º¸¸¦ Ç¥½ÃÇÏ°Å
-// ¸¶¿ì½º ¿À¸¥ÂÊ Å¬¸¯À¸·Î ¼± ±×¸®°¡ Á¾·áµÆÀ» ¶§ ¼±ÀÇ Á¤º¸¸¦ Ç¥½ÃÇÏ´Â Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ »ý¼ºÇÏ°í Áöµµ¿¡ Ç¥½ÃÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
+// ë§ˆìš°ìŠ¤ ë“œëž˜ê·¸ë¡œ ê·¸ë ¤ì§€ê³  ìžˆëŠ” ì„ ì˜ ì´ê±°ë¦¬ ì •ë³´ë¥¼ í‘œì‹œí•˜ê±°
+// ë§ˆìš°ìŠ¤ ì˜¤ë¥¸ìª½ í´ë¦­ìœ¼ë¡œ ì„  ê·¸ë¦¬ê°€ ì¢…ë£Œëì„ ë•Œ ì„ ì˜ ì •ë³´ë¥¼ í‘œì‹œí•˜ëŠ” ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ìƒì„±í•˜ê³  ì§€ë„ì— í‘œì‹œí•˜ëŠ” í•¨ìˆ˜ìž…ë‹ˆë‹¤
 function showDistance(content, position) {
     
-    if (distanceOverlay) { // Ä¿½ºÅÒ¿À¹ö·¹ÀÌ°¡ »ý¼ºµÈ »óÅÂÀÌ¸é
+    if (distanceOverlay) { // ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ê°€ ìƒì„±ëœ ìƒíƒœì´ë©´
         
-        // Ä¿½ºÅÒ ¿À¹ö·¹ÀÌÀÇ À§Ä¡¿Í Ç¥½ÃÇÒ ³»¿ëÀ» ¼³Á¤ÇÕ´Ï´Ù
+        // ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ì˜ ìœ„ì¹˜ì™€ í‘œì‹œí•  ë‚´ìš©ì„ ì„¤ì •í•©ë‹ˆë‹¤
         distanceOverlay.setPosition(position);
         distanceOverlay.setContent(content);
         
-    } else { // Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ°¡ »ý¼ºµÇÁö ¾ÊÀº »óÅÂÀÌ¸é
+    } else { // ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ê°€ ìƒì„±ë˜ì§€ ì•Šì€ ìƒíƒœì´ë©´
         
-        // Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ »ý¼ºÇÏ°í Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+        // ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ìƒì„±í•˜ê³  ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
         distanceOverlay = new kakao.maps.CustomOverlay({
-            map: map, // Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¸¦ Ç¥½ÃÇÒ ÁöµµÀÔ´Ï´Ù
-            content: content,  // Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¿¡ Ç¥½ÃÇÒ ³»¿ëÀÔ´Ï´Ù
-            position: position, // Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¸¦ Ç¥½ÃÇÒ À§Ä¡ÀÔ´Ï´Ù.
+            map: map, // ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ë¥¼ í‘œì‹œí•  ì§€ë„ìž…ë‹ˆë‹¤
+            content: content,  // ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ì— í‘œì‹œí•  ë‚´ìš©ìž…ë‹ˆë‹¤
+            position: position, // ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ë¥¼ í‘œì‹œí•  ìœ„ì¹˜ìž…ë‹ˆë‹¤.
             xAnchor: 0,
             yAnchor: 0,
             zIndex: 3  
@@ -340,8 +359,8 @@ function showDistance(content, position) {
     }
 }
 
-// ±×·ÁÁö°í ÀÖ´Â ¼±ÀÇ ÃÑ°Å¸® Á¤º¸¿Í 
-// ¼± ±×¸®°¡ Á¾·áµÆÀ» ¶§ ¼±ÀÇ Á¤º¸¸¦ Ç¥½ÃÇÏ´Â Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ »èÁ¦ÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
+// ê·¸ë ¤ì§€ê³  ìžˆëŠ” ì„ ì˜ ì´ê±°ë¦¬ ì •ë³´ì™€ 
+// ì„  ê·¸ë¦¬ê°€ ì¢…ë£Œëì„ ë•Œ ì„ ì˜ ì •ë³´ë¥¼ í‘œì‹œí•˜ëŠ” ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ì‚­ì œí•˜ëŠ” í•¨ìˆ˜ìž…ë‹ˆë‹¤
 function deleteDistnce () {
     if (distanceOverlay) {
         distanceOverlay.setMap(null);
@@ -349,38 +368,38 @@ function deleteDistnce () {
     }
 }
 
-// ¼±ÀÌ ±×·ÁÁö°í ÀÖ´Â »óÅÂÀÏ ¶§ Áöµµ¸¦ Å¬¸¯ÇÏ¸é È£ÃâÇÏ¿© 
-// Å¬¸¯ ÁöÁ¡¿¡ ´ëÇÑ Á¤º¸ (µ¿±×¶ó¹Ì¿Í Å¬¸¯ ÁöÁ¡±îÁöÀÇ ÃÑ°Å¸®)¸¦ Ç¥ÃâÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
+// ì„ ì´ ê·¸ë ¤ì§€ê³  ìžˆëŠ” ìƒíƒœì¼ ë•Œ ì§€ë„ë¥¼ í´ë¦­í•˜ë©´ í˜¸ì¶œí•˜ì—¬ 
+// í´ë¦­ ì§€ì ì— ëŒ€í•œ ì •ë³´ (ë™ê·¸ë¼ë¯¸ì™€ í´ë¦­ ì§€ì ê¹Œì§€ì˜ ì´ê±°ë¦¬)ë¥¼ í‘œì¶œí•˜ëŠ” í•¨ìˆ˜ìž…ë‹ˆë‹¤
 function displayCircleDot(position, distance) {
 
-    // Å¬¸¯ ÁöÁ¡À» Ç¥½ÃÇÒ »¡°£ µ¿±×¶ó¹Ì Ä¿½ºÅÒ¿À¹ö·¹ÀÌ¸¦ »ý¼ºÇÕ´Ï´Ù
+    // í´ë¦­ ì§€ì ì„ í‘œì‹œí•  ë¹¨ê°„ ë™ê·¸ë¼ë¯¸ ì»¤ìŠ¤í…€ì˜¤ë²„ë ˆì´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
     var circleOverlay = new kakao.maps.CustomOverlay({
         content: '<span class="dot"></span>',
         position: position,
         zIndex: 1
     });
 
-    // Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+    // ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
     circleOverlay.setMap(map);
 
     if (distance > 0) {
-        // Å¬¸¯ÇÑ ÁöÁ¡±îÁöÀÇ ±×·ÁÁø ¼±ÀÇ ÃÑ °Å¸®¸¦ Ç¥½ÃÇÒ Ä¿½ºÅÒ ¿À¹ö·¹ÀÌ¸¦ »ý¼ºÇÕ´Ï´Ù
+        // í´ë¦­í•œ ì§€ì ê¹Œì§€ì˜ ê·¸ë ¤ì§„ ì„ ì˜ ì´ ê±°ë¦¬ë¥¼ í‘œì‹œí•  ì»¤ìŠ¤í…€ ì˜¤ë²„ë ˆì´ë¥¼ ìƒì„±í•©ë‹ˆë‹¤
         var distanceOverlay = new kakao.maps.CustomOverlay({
-            content: '<div class="dotOverlay">°Å¸® <span class="number">' + distance + '</span>m</div>',
+            content: '<div class="dotOverlay">ê±°ë¦¬ <span class="number">' + distance + '</span>m</div>',
             position: position,
             yAnchor: 1,
             zIndex: 2
         });
 
-        // Áöµµ¿¡ Ç¥½ÃÇÕ´Ï´Ù
+        // ì§€ë„ì— í‘œì‹œí•©ë‹ˆë‹¤
         distanceOverlay.setMap(map);
     }
 
-    // ¹è¿­¿¡ Ãß°¡ÇÕ´Ï´Ù
+    // ë°°ì—´ì— ì¶”ê°€í•©ë‹ˆë‹¤
     dots.push({circle:circleOverlay, distance: distanceOverlay});
 }
 
-// Å¬¸¯ ÁöÁ¡¿¡ ´ëÇÑ Á¤º¸ (µ¿±×¶ó¹Ì¿Í Å¬¸¯ ÁöÁ¡±îÁöÀÇ ÃÑ°Å¸®)¸¦ Áöµµ¿¡¼­ ¸ðµÎ Á¦°ÅÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
+// í´ë¦­ ì§€ì ì— ëŒ€í•œ ì •ë³´ (ë™ê·¸ë¼ë¯¸ì™€ í´ë¦­ ì§€ì ê¹Œì§€ì˜ ì´ê±°ë¦¬)ë¥¼ ì§€ë„ì—ì„œ ëª¨ë‘ ì œê±°í•˜ëŠ” í•¨ìˆ˜ìž…ë‹ˆë‹¤
 function deleteCircleDot() {
     var i;
 
@@ -397,39 +416,39 @@ function deleteCircleDot() {
     dots = [];
 }
 
-// ¸¶¿ì½º ¿ìÅ¬¸¯ ÇÏ¿© ¼± ±×¸®±â°¡ Á¾·áµÆÀ» ¶§ È£ÃâÇÏ¿© 
-// ±×·ÁÁø ¼±ÀÇ ÃÑ°Å¸® Á¤º¸¿Í °Å¸®¿¡ ´ëÇÑ µµº¸, ÀÚÀü°Å ½Ã°£À» °è»êÇÏ¿©
-// HTML Content¸¦ ¸¸µé¾î ¸®ÅÏÇÏ´Â ÇÔ¼öÀÔ´Ï´Ù
+// ë§ˆìš°ìŠ¤ ìš°í´ë¦­ í•˜ì—¬ ì„  ê·¸ë¦¬ê¸°ê°€ ì¢…ë£Œëì„ ë•Œ í˜¸ì¶œí•˜ì—¬ 
+// ê·¸ë ¤ì§„ ì„ ì˜ ì´ê±°ë¦¬ ì •ë³´ì™€ ê±°ë¦¬ì— ëŒ€í•œ ë„ë³´, ìžì „ê±° ì‹œê°„ì„ ê³„ì‚°í•˜ì—¬
+// HTML Contentë¥¼ ë§Œë“¤ì–´ ë¦¬í„´í•˜ëŠ” í•¨ìˆ˜ìž…ë‹ˆë‹¤
 function getTimeHTML(distance) {
 
-    // µµº¸ÀÇ ½Ã¼ÓÀº Æò±Õ 4km/h ÀÌ°í µµº¸ÀÇ ºÐ¼ÓÀº 67m/minÀÔ´Ï´Ù
+    // ë„ë³´ì˜ ì‹œì†ì€ í‰ê·  4km/h ì´ê³  ë„ë³´ì˜ ë¶„ì†ì€ 67m/minìž…ë‹ˆë‹¤
     var walkkTime = distance / 67 | 0;
     var walkHour = '', walkMin = '';
 
-    // °è»êÇÑ µµº¸ ½Ã°£ÀÌ 60ºÐ º¸´Ù Å©¸é ½Ã°£À¸·Î Ç¥½ÃÇÕ´Ï´Ù
+    // ê³„ì‚°í•œ ë„ë³´ ì‹œê°„ì´ 60ë¶„ ë³´ë‹¤ í¬ë©´ ì‹œê°„ìœ¼ë¡œ í‘œì‹œí•©ë‹ˆë‹¤
     
-    walkMin = '<span class="number">' + walkkTime + '</span>ºÐ'
+    walkMin = '<span class="number">' + walkkTime + '</span>ë¶„'
     document.getElementById("walk_time").value=walkkTime;
-    // ÀÚÀü°ÅÀÇ Æò±Õ ½Ã¼ÓÀº 16km/h ÀÌ°í ÀÌ°ÍÀ» ±âÁØÀ¸·Î ÀÚÀü°ÅÀÇ ºÐ¼ÓÀº 267m/minÀÔ´Ï´Ù
+    // ìžì „ê±°ì˜ í‰ê·  ì‹œì†ì€ 16km/h ì´ê³  ì´ê²ƒì„ ê¸°ì¤€ìœ¼ë¡œ ìžì „ê±°ì˜ ë¶„ì†ì€ 267m/minìž…ë‹ˆë‹¤
     var bycicleTime = distance / 227 | 0;
     var bycicleHour = '', bycicleMin = '';
 
-    // °è»êÇÑ ÀÚÀü°Å ½Ã°£ÀÌ 60ºÐ º¸´Ù Å©¸é ½Ã°£À¸·Î Ç¥ÃâÇÕ´Ï´Ù
+    // ê³„ì‚°í•œ ìžì „ê±° ì‹œê°„ì´ 60ë¶„ ë³´ë‹¤ í¬ë©´ ì‹œê°„ìœ¼ë¡œ í‘œì¶œí•©ë‹ˆë‹¤
     if (bycicleTime > 60) {
-        bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>½Ã°£ '
+        bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>ì‹œê°„ '
     }
-    bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>ºÐ'
+    bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>ë¶„'
 
-    // °Å¸®¿Í µµº¸ ½Ã°£, ÀÚÀü°Å ½Ã°£À» °¡Áö°í HTML Content¸¦ ¸¸µé¾î ¸®ÅÏÇÕ´Ï´Ù
+    // ê±°ë¦¬ì™€ ë„ë³´ ì‹œê°„, ìžì „ê±° ì‹œê°„ì„ ê°€ì§€ê³  HTML Contentë¥¼ ë§Œë“¤ì–´ ë¦¬í„´í•©ë‹ˆë‹¤
     var content = '<ul class="dotOverlay distanceInfo">';
     content += '    <li>';
-    content += '        <span class="label">ÃÑ°Å¸®</span><span class="number">' + distance + '</span>m';
+    content += '        <span class="label">ì´ê±°ë¦¬</span><span class="number">' + distance + '</span>m';
     content += '    </li>';
     content += '    <li>';
-    content += '        <span class="label">µµº¸</span>' + walkHour + walkMin;
+    content += '        <span class="label">ë„ë³´</span>' + walkHour + walkMin;
     content += '    </li>';
     content += '    <li>';
-    content += '        <span class="label">ÀÚÀü°Å</span>' + bycicleHour + bycicleMin;
+    content += '        <span class="label">ìžì „ê±°</span>' + bycicleHour + bycicleMin;
     content += '    </li>';
     content += '</ul>'
 

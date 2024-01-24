@@ -11,11 +11,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/roadpet/resources/css/style.css">
-<link rel="stylesheet" href="/roadpet/resources/css/board.css">
+<!-- <link rel="stylesheet" href="/roadpet/resources/css/board.css"> -->
 </head>
 <body>
 <div class="row g-4">
-<div align="right">
+<div>
 <a href>전체보기</a>
 </div>
 <c:forEach items="${list2}" var="vo">

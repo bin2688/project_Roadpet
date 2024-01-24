@@ -109,10 +109,9 @@ public class PetStoryController {
 
 	@RequestMapping("pet/PetStory_list2")
 	public void list2(PetStoryVO petstoryVO, Model model, HttpSession session) throws Exception {
-		String user_id = (String) session.getAttribute("id");
-		System.out.println(user_id);
-		
-		petstoryVO.setUser_id(Integer.parseInt(user_id));
+		int user_id = (int) session.getAttribute("user_id");
+		System.out.println(user_id);		
+		petstoryVO.setUser_id((user_id));
 		
 		List<PetStoryVO> list2 = petstoryService.mystorylist(petstoryVO);
 		System.out.println(list2.size());
