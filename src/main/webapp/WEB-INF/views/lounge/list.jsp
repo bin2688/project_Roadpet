@@ -61,9 +61,7 @@
 		<div class="content open">
 			<%@ include file="/header.jsp"%>
 
-
-
-			<!-- 검색  -->
+			<!-- 인기글  -->
 			<div class="container mt-4">
 				<h4 style="padding: 10px; text-align: center;">라운지 인기글</h4>
 				<br>
@@ -81,9 +79,8 @@
 									<h6 style="padding: 5px;">${vo.lounge_title}</h6>
 								</div>
 								<div style="display: flex; align-items: center; padding: 5px;">
-									<div
-										style="flex: 1; padding-right: 10px; overflow: hidden; text-overflow: ellipsis;">${vo.lounge_content}</div>
-									<img alt="" src="../resources/upload/${vo.lounge_img}">
+									<div style="flex: 1; padding-right: 10px; overflow: hidden; text-overflow: ellipsis;">${vo.lounge_content}</div>
+									<img alt="" src="../resources/upload/${vo.lounge_img}" width="40" height="40">
 								</div>
 							</a>
 							<div style="display: flex; justify-content: space-between;">
@@ -100,6 +97,7 @@
 					</c:forEach>
 				</div>
 				<br>
+				<!-- 라운지  -->
 				<h4 style="padding: 10px; text-align: center;">라운지</h4>
 				<br>
 				<form id="searchForm" action="list" method="get">
@@ -118,16 +116,30 @@
 					</div>
 				</form>
 				<br>
-				<div style="display: flex; justify-content: flex-end;">
-					<a href="lounge_insert.jsp">
-						<button type="button" class="btn btn-outline-danger m-2"
-							id="insertType" aria-hidden="true">글쓰기</button>
-					</a>
-				</div>
 
+
+
+<% if (session.getAttribute("user_id") != null) { %>
+    <!-- 로그인한 경우 -->
+    <div style="display: flex; justify-content: flex-end;">
+    <span class="alert alert-success"> 
+				<%=session.getAttribute("user_id")%>님 환영합니다.
+			</span>
+        <a href="lounge_insert.jsp?user_id=<%=session.getAttribute("user_id")%>">
+            <button type="button" class="btn btn-outline-danger m-2" id="insertType" aria-hidden="true">글쓰기</button>
+        </a>
+    </div>
+<% } else { %>
+    <!-- 로그인하지 않은 경우 -->
+    <div style="display: flex; justify-content: flex-end;">
+        <a href="/roadpet/member/login.jsp">
+            <button type="button" class="btn btn-outline-danger m-2" id="insertType" aria-hidden="true">로그인 후 글쓰기</button>
+        </a>
+    </div>
+<% } %>
 
 				<!-- 게시글 목록 -->
-
+	
 				<div id="result">
 					<c:forEach items="${list}" var="bag">
 						<div class="bg-light rounded">
@@ -142,9 +154,8 @@
 								</div>
 								<div style="display: flex; align-items: center; padding: 5px;">
 									<div style="flex: 1; padding-right: 10px; overflow: hidden; text-overflow: ellipsis;">${bag.lounge_content}</div>									
-										<c:if test="${not empty bag.lounge_img}">
-											<img alt="" src="../resources/upload/${bag.lounge_img}"
-												width="80" height="80">
+										<c:if test="${not empty bag.lounge_img and bag.lounge_img ne ''}">
+   										 <img alt="" src="../resources/upload/${bag.lounge_img}" width="80" height="80">
 										</c:if>
 								</div>
 							</a>

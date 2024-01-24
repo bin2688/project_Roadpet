@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,10 +107,11 @@
 					<div class="bg-light text-center rounded p-4">
 						<div class="d-flex align-items-center justify-content-between mb-4">
 						<h2 style="text-align: left;">최근 커뮤니티 글</h2>
+						
 						<a href="">자세히 보기</a>
 						</div>
-						<div class="result1" style="text-align: left;">
-							<h5>커뮤니티 리스트</h5>				
+						<div class="result1" style="text-align: left;">	
+							
 						</div>		
 					</div>
 				</div>
@@ -148,5 +150,6 @@
 		
 		</div>
 	</div>
+
 </body>
 </html>

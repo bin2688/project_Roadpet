@@ -35,9 +35,10 @@ public class MemberService {
 		// db mem �뀒�씠釉붿뿉�꽌 �엯�젰�븯怨� dto.getId媛믪쑝濡� �븫�샇�맂 pw 援ы빐�삤湲�
 		MemberDTO dto2 = dao.login(dto);
 			System.out.println(dto2);
+			
 		boolean result = true; // pw �떎由�d
 		System.out.println("비번"+dto2.getPassword());
-		System.out.println("비번"+dto.getPassword());
+		System.out.println("비번"+ dto.getPassword());
 		if (pwEncoder.matches(dto.getPassword(), dto2.getPassword())) { // (input 1234 . db pw)
 			// login �꽦怨�!
 			result = true;

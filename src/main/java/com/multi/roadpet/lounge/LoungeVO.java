@@ -5,7 +5,7 @@ import java.util.Date;
 public class LoungeVO {
     private int lounge_id;
     private String lounge_pet_type;
-    private int member_user_id;
+    private int user_id;
     private String lounge_title;
     private String lounge_content;
     private String lounge_writer;
@@ -28,9 +28,9 @@ public class LoungeVO {
 	public LoungeVO () {
     }
     
-    public LoungeVO (int lounge_id, int member_user_id) {
+    public LoungeVO (int lounge_id, int user_id) {
     	this.lounge_id = lounge_id;
-    	this.member_user_id = member_user_id;
+    	this.user_id = user_id;
     }
     
     public int getLikeCount() {
@@ -59,11 +59,11 @@ public class LoungeVO {
 	public void setLounge_pet_type(String lounge_pet_type) {
 		this.lounge_pet_type = lounge_pet_type;
 	}
-	public int getMember_user_id() {
-		return member_user_id;
+	public int getUser_id() {
+		return user_id;
 	}
-	public void setMember_user_id(int member_user_id) {
-		this.member_user_id = member_user_id;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 	public String getLounge_title() {
 		return lounge_title;
@@ -98,8 +98,8 @@ public class LoungeVO {
 	
 	@Override
 	public String toString() {
-		return "LoungeVO [lounge_id=" + lounge_id + ", lounge_pet_type=" + lounge_pet_type + ", member_user_id="
-				+ member_user_id + ", lounge_title=" + lounge_title + ", lounge_content=" + lounge_content
+		return "LoungeVO [lounge_id=" + lounge_id + ", lounge_pet_type=" + lounge_pet_type + ", user_id="
+				+ user_id + ", lounge_title=" + lounge_title + ", lounge_content=" + lounge_content
 				+ ", lounge_writer=" + lounge_writer + ", lounge_date=" + lounge_date + ", lounge_img=" + lounge_img
 				+ ", lounge_replyCount=" + lounge_replyCount + ", likeCount=" + likeCount + ", likeYn=" + likeYn +"]"; 
 	}
