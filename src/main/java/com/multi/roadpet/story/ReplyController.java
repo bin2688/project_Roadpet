@@ -24,5 +24,6 @@ public class ReplyController {
 		//System.out.println(list.size());
 		//model.addAttribute("list", list);
 		model.addAttribute("result", result);
+		
 	}
 }

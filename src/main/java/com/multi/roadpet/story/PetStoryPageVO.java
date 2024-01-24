@@ -18,7 +18,11 @@ public class PetStoryPageVO {
 		return page;
 	}
 	public void setPage(int page) {
-		this.page = page;
+		if (page <= 0) {
+			this.page = 1;	
+		}else {
+			this.page = page;
+		}
 	}
 	public void setStartEnd() {
 		start = 1 + (page -1) * 6;

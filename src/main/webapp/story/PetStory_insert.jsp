@@ -88,6 +88,7 @@
 
 					<form action="PetStory_insert" method="post"
 						enctype="multipart/form-data">
+						<input type="hidden" name="user_id" value="${user_id}">
 						<div class="mb-3">
 							<label for="story_title" class="form-label">제목</label> <input
 								type="text" class="form-control" name="story_title"

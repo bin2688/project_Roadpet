@@ -4,9 +4,7 @@
 	<!-- ORM, Mapper파일 -->
 	<insert id="insert" parameterType="petStoryVO">
 		insert into pet_story values
-		(null, null,
-		#{story_title},#{story_content},now(),#{story_photo},
-		#{story_private})
+		(null,#{user_id},#{story_title},#{story_content},now(),#{story_photo},#{story_private})
 	</insert>
 
 	<select id="list" parameterType="petStoryPageVO"
@@ -16,7 +14,7 @@
 		(select
 		ROW_NUMBER() over(order by story_id
 		desc) as story_no,
-		story_id, story_photo, story_title, story_content
+		story_id, user_id, story_date, story_photo, story_title, story_content
 		from pet_story ps
 		where story_private=0 
 		) ps2 where ps2.story_no BETWEEN #{start} and #{end}
@@ -32,7 +30,7 @@
 	
 	<select id="one" parameterType="petStoryVO"
 		resultType="petStoryVO">
-		select story_id, story_date, story_photo, story_title,
+		select story_id, user_id, story_date, story_photo, story_title,
 		story_content from pet_story where story_id = #{story_id}
 	</select>
 
@@ -51,7 +49,8 @@
 		set
 			story_title = #{story_title},
 			story_content = #{story_content},
-			story_date = now()
+			story_date = now(),
+			story_private = #{story_private}
 		where user_id = #{user_id}
 	</update>
 
