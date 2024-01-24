@@ -29,4 +29,9 @@ public class MissingDAO {
 		return my.selectList("missing.missingmark");
 	}
 
+	public MissingVO getMissingForm(String missingId) {
+		// TODO Auto-generated method stub
+		return my.selectOne("missing.missingdetail", missingId);
+	}
+
 }

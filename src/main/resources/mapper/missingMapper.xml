@@ -24,7 +24,7 @@
  		SELECT user_phone, pet_name, pet_age, pet_sex, pet_type, pet_img
  		, location_explain, missing_time, missing_notice
 		FROM missing
-		WHERE missing_id = #{missing_id}
+		WHERE missing_id = #{missingId}
  	</select>
 	
 	<!-- 실종 양식 등록 -->
@@ -45,6 +45,6 @@
 		now()
 		)
 	</insert>
-	
+		
 </mapper>
 
