@@ -46,13 +46,18 @@
 <body>
    <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3 open">
-            <nav class="navbar bg-light navbar-light">
+            <nav class="navbar bg-light navbar-gray">
                 <a href="../index.jsp" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>RoadPet</h3>
                 </a>
+               
+                <%
+					if (session.getAttribute("user_id") == null) {
+					%>
+               
                 <div class="d-flex align-items-center ms-4 mb-4">
                     <div class="position-relative">
-
+					
                         <img class="rounded-circle" src="../resources/img/default.jpg" alt="" style="width: 40px; height: 40px;">
                     </div>
                     <div class="ms-3">
@@ -67,6 +72,30 @@
                     <a href="/roadpet/story/PetStory_list?page=1&story_private=0" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>펫 스토리</a>
                     <a href="/roadpet/map/mapservice_home.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>지도서비스</a>
                 </div>
+                 <%
+				} else {
+					%>
+                  <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+					
+                        <img class="rounded-circle" src="../resources/img/default.jpg" alt="" style="width: 40px; height: 40px;">
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0"><%=session.getAttribute("user_id")%>님</h6>
+                        <span>환영합니다.</span>
+                    </div>
+                </div> 
+                <div class="navbar-nav w-100">
+
+                    <a href="/roadpet/pet/pet_home.jsp" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>마이펫정보</a>
+                    <a href="/roadpet/lounge/list?page=1" class="nav-item nav-link"><i class="fa fa-laptop me-2"></i>커뮤니티</a>
+                    <a href="/roadpet/story/PetStory_list?page=1&story_private=0" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>펫 스토리</a>
+                    <a href="/roadpet/map/mapservice_home.jsp" class="nav-item nav-link"><i class="fa fa-th me-2"></i>지도서비스</a>
+                </div>  
+                    
+                <%
+					}
+					%> 
           </nav>
         </div>
 </body>

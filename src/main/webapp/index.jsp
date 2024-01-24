@@ -110,8 +110,10 @@
 						
 						<a href="">자세히 보기</a>
 						</div>
-						<div class="result1" style="text-align: left;">	
-							
+
+						<div id="main_result1" style="text-align: left;">
+							<h5>커뮤니티 리스트</h5>				
+
 						</div>		
 					</div>
 				</div>
@@ -124,7 +126,7 @@
 						<h2 style="text-align: left;">최근 스토리</h2>
 						<a href="">자세히 보기</a>
 						</div>
-						<div class="result2" style="text-align: left;" >
+						<div id="main_result2" style="text-align: left;" >
 							<h5>스토리 리스트</h5>				
 						</div>		
 					</div>
@@ -135,11 +137,10 @@
 				<div class="row g-4" style="width:80%; margin:auto;" >
 					<div class="bg-light text-center rounded p-4">
 						<div class="d-flex align-items-center justify-content-between mb-4">
-						<h2 style="text-align: left;">산책 랭킹</h2>
-						<a href="">자세히 보기</a>
-						</div>
-						<div class="result3" style="text-align: left;">
-							<h5>산책 랭킹</h5>				
+						<h2 style="text-align: left;">산책 랭킹</h2>				
+						</div>	
+						<div id="main_result3" style="text-align: left;">
+										
 						</div>		
 					</div>
 				</div>
@@ -151,5 +152,16 @@
 		</div>
 	</div>
 
+	<script>
+	$(function() {
+		 $.ajax({
+				url : "pet/all_walk_week",
+				success : function(x) {	
+					$("#main_result3").html(x)
+				}//success
+			})//ajax	
+	})
+	
+	</script>
 </body>
 </html>

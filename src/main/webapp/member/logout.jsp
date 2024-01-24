@@ -9,5 +9,5 @@
 <script>
 alert("로그아웃이 완료되었습니다.");
 self.close();
-location.href = "http://localhost:9999/roadpet/member/login.jsp";
+location.href = "/roadpet/index.jsp";
 </script>

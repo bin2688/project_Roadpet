@@ -48,15 +48,11 @@
 		<div class="content open">
 	<%@ include file="../header.jsp"%>
 	<%@ include file="../sidebar.jsp"%>
+	
+	
+	
 	<%
 	if (session.getAttribute("user_id")!= null){
-		%>
-		로그인한사람
-	<%=session.getAttribute("user_id")%>
-	
-	<%}else{
-		
-	}
 	%>
 		<!--내 펫 리스트  -->
          <div class="container-fluid pt-4 px-4"> 
@@ -106,6 +102,13 @@
 
 			<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
 			class="bi bi-arrow-up"></i></a>
+		<%}else{%>
+		상단에 로그인 해주세요.
+		
+		<%
+		}
+		%>	
+			
    </div> 
  </div>
    <script type="text/javascript">
@@ -134,7 +137,8 @@ function popup(){
 	 $.ajax({
 			url : "pet_walk_today",
 			data : {
-				walk_date : getToday(),
+				walk_date : getToday()
+				 
 			},
 			success : function(x) {	
 				$("#result5").html(x)
@@ -152,7 +156,7 @@ function popup(){
 		})//ajax	
 	  
 		$.ajax({
-			url : "PetStory_list2?user_id=12",
+			url : "PetStory_list2",
 			data : {
 										
 			},

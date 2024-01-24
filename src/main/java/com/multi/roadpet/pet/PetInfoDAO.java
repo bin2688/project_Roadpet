@@ -5,7 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
+import com.multi.roadpet.pet.PetInfoVO;
 
 
 
@@ -33,8 +33,8 @@ public class PetInfoDAO {
 		
 		return result;
 	}
-	public List<PetInfoVO> list() throws Exception {
-		List<PetInfoVO> list=my.selectList("petInfo.list");
+	public List<PetInfoVO> list(PetInfoVO petinfoVO) throws Exception {
+		List<PetInfoVO> list=my.selectList("petInfo.list",petinfoVO);
 		return list;
 	}
 	

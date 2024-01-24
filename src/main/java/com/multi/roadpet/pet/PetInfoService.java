@@ -2,9 +2,7 @@ package com.multi.roadpet.pet;
 
 import java.util.List;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 
@@ -33,8 +31,8 @@ public class PetInfoService {
 		
 		return result;
 	}
-	public List<PetInfoVO> list() throws Exception {
-		List<PetInfoVO> list = dao.list();
+	public List<PetInfoVO> list(PetInfoVO petinfoVO) throws Exception {
+		List<PetInfoVO> list = dao.list(petinfoVO);
 		
 		return list;
 	}

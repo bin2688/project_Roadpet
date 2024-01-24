@@ -60,8 +60,10 @@
 		</div>
 
 		<div class="content open">
-			<%@ include file="/header.jsp"%>
-			<%@ include file="/sidebar.jsp"%>
+
+	<%@ include file="/header.jsp"%>
+	<%@ include file="/sidebar.jsp"%>
+
 			<%
 				if (session.getAttribute("user_id") != null) {
 			%>
@@ -74,10 +76,12 @@
 			}
 			%>
 
-			<div class="container-fluid pt-4 px-4">
-				<div class="row g-4" style="width: 60%; margin: auto;">
-					<c:forEach items="${list}" var="vo">
-
+			
+				<div class="container-fluid pt-4 px-4"> 
+             <div class="row g-4"  style="width:60%; margin:auto;">
+				<c:forEach items="${list}" var="vo">
+				
+					
 
 						<div class="card">
 							<div class="card-view">
@@ -92,31 +96,43 @@
 											<dd>${vo.story_date}</dd>
 										</dl>
 										<dl>
-											<dt>작성자</dt>
-											<dd>${vo.user_id}</dd>
+											<dt>공개여부</dt>
+											<dd>${vo.story_private}</dd>
+
 										</dl>
 									</div>
 								</div>
 								<div class="cont">
-									<h3>
-										<img src="../resources/upload/${vo.story_photo}" width="250"
-											height="200">
-									</h3>
+
+									<h3>${vo.story_photo}</h3>
 									<h4>${vo.story_content}</h4>
-									<button type="button" class="btn btn-primary m-2"
-										onclick="location.href='PetStory_one?story_id=${vo.story_id}'">상세보기
-									</button>
 								</div>
 							</div>
 						</div>
+					
+			</c:forEach>
+			
+		</div>
+		</div>
+	
+			<hr color="red">
+		
 
-					</c:forEach>
-
-				</div>
-			</div>
 
 			<hr color="red">
 
+
+		<%
+			int pages = (int) request.getAttribute("pages"); //int <-- object
+		for (int p = 1; p <= pages; p++) {
+		%>
+		<a href="PetStory_list?page=<%=p%>&story_private=0">
+			<button class="btn btn-primary pages"><%=p%></button>
+		</a>
+		<%
+			}
+		%>
+	
 
 
 			<%
@@ -130,17 +146,12 @@
 				}
 			%>
 
-			<!--  로그인했을때만 글 작성 가능 -->
-				<%
-					if (session.getAttribute("user_id") != null) {
-					
-				%>
-			<button type="button" class="btn btn-primary m-2"
-				style="float: right;" onclick="location.href='PetStory_insert.jsp'">글작성하기</button>
-				<%
-					}
-				
-				%>
+
+		<!-- Content End -->
+		<!-- Back to Top -->
+		<button type="button" class="btn btn-primary m-2"
+			style="float: right;" onclick="location.href='PetStory_insert.jsp'">글작성하기</button>
+
 		</div>
 	</div>
 </body>

@@ -88,11 +88,19 @@
         <h3 class="mb-4">산책 정보 입력</h3>
 		
 		<form action="pet_walk_insert" id="form" method="post"  enctype="multipart/form-data" name="walk_form">
-			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">1.펫 아이디</label> <input
-					name="pet_id" class="form-control" id="exampleInputEmail1" value="${dto.pet_id}"
-					aria-describedby="emailHelp">
-			</div>
+			<input type="hidden" name="user_id" value="<%=session.getAttribute("user_id")%>"> 
+		
+			<select
+				 	name=pet_name
+					class="form-select form-select-sm mb-3"
+					aria-label=".form-select-sm example">
+					<option selected>펫 분류를 선택하세요</option>
+					<option value="1">강아지</option>
+					<option value="2">고양이</option>
+					<option value="3">소동물</option>
+					<option value="4">물고기</option>
+				</select>
+			
 			<div class="mb-3">
 			<label for="exampleInputEmail1" class="form-label">2.산책 날짜</label> <input
 					name="walk_date" class="form-control" id="exampleInputEmail1"

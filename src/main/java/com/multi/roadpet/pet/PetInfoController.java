@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -94,8 +96,22 @@ public class PetInfoController {
 	}
 	
 	@RequestMapping("pet/pet_info_list")
-	public void list(Model model) throws Exception { //view
-		List<PetInfoVO> list = petinfoService.list();
+	public void list(PetInfoVO petinfoVO, Model model , HttpSession session) throws Exception { //view
+		int user_id = (int) session.getAttribute("user_id");
+		System.out.println("펫인포리스트"+user_id);
+		petinfoVO.setUser_id((user_id));
+		
+		List<PetInfoVO> list = petinfoService.list(petinfoVO);
+		System.out.println(list.size());
+		model.addAttribute("list", list);
+	}
+	@RequestMapping("pet/pet_info_namelist")
+	public void namelist(PetInfoVO petinfoVO, Model model , HttpSession session) throws Exception { //view
+		int user_id = (int) session.getAttribute("user_id");
+		System.out.println("펫인포리스트"+user_id);
+		petinfoVO.setUser_id((user_id));
+		
+		List<PetInfoVO> list = petinfoService.list(petinfoVO);
 		System.out.println(list.size());
 		model.addAttribute("list", list);
 	}

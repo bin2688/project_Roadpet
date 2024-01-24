@@ -10,7 +10,6 @@ public class PetStoryVO {
 	private String story_photo;
 	private int story_private;
 	
-
 	public int getStory_no() {
 		return story_no;
 	}
