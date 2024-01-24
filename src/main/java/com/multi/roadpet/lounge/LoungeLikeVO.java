@@ -2,7 +2,7 @@ package com.multi.roadpet.lounge;
 
 public class LoungeLikeVO {
 	private int like_id;
-	private int member_user_id;
+	private int user_id;
 	private int lounge_id;
 	
 	public int getLike_id() {
@@ -11,11 +11,11 @@ public class LoungeLikeVO {
 	public void setLike_id(int like_id) {
 		this.like_id = like_id;
 	}
-	public int getMember_user_id() {
-		return member_user_id;
+	public int getUser_id() {
+		return user_id;
 	}
-	public void setMember_user_id(int member_user_id) {
-		this.member_user_id = member_user_id;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 	public int getLounge_id() {
 		return lounge_id;
@@ -26,7 +26,7 @@ public class LoungeLikeVO {
 	
 	@Override
 	public String toString() {
-		return "LoungeLikeVO [like_id=" + like_id + ", member_user_id=" + member_user_id + ", lounge_id=" + lounge_id
+		return "LoungeLikeVO [like_id=" + like_id + ", user_id=" + user_id + ", lounge_id=" + lounge_id
 				+ "]";
 	}
 	

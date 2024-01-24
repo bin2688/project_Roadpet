@@ -7,7 +7,7 @@
 		values (
 			null,
 			#{reply_oriid},
-			#{reply_user_id},
+			#{user_id},
 			#{reply_content},
 			now()
 			)

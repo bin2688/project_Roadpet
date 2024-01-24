@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <script>
 
  alert("로그인이 완료되었습니다.");
  self.close();
  location.href = "/roadpet/index.jsp";
 </script>
-
 </body>
 </html>

@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%
+    String userId = request.getParameter("user_id");
+
+    // userId를 이용한 원하는 작업 수행
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,8 +88,9 @@
 							</div>
 						</div>
 						<div class="m-n2" style="text-align: center;">
-							<input type="hidden" name="member_user_id" value="2"> 
+							<input type="hidden" name="user_id" value="<%=userId%>">
 							<input type="hidden" name="lounge_replyCount" value="0">
+							<input type="hidden" name="lounge_likeCount" value="0">
 							<button class="btn btn-primary w-40 m-2" type="submit">글작성
 								완료</button>
 						</div>

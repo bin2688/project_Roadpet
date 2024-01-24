@@ -1,3 +1,4 @@
+<%@page import="com.multi.roadpet.story.PetStoryVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -86,18 +87,13 @@
 				<div class="bg-light rounded h-100 p-4">
 					<h6 class="mb-4">스토리 수정하기</h6>
 
-					<form action="update2"  >
+					<form action="update2">
 						<input type="hidden" name="story_id" value="${bag.story_id}">
 						<div class="mb-3">
 							<label for="story_title" class="form-label">제목</label> <input
 								type="text" class="form-control" name="story_title"
 								value="${bag.story_title}">
 						</div>
-
-<!-- 						<div class="mb-3">
-							<button style="background: red; color: white;" id="b1">위치추가하기</button>
-							<div id="map" style="width: 70%; height: 350px;"></div>
-						</div> -->
 
 
 						<div class="mb-3">
@@ -106,9 +102,7 @@
 								style="height: 200px;">${bag.story_content}</textarea>
 						</div>
 
-					
-				
-<!-- 						<fieldset class="row mb-3">
+						<fieldset class="row mb-3">
 							<div class="col-sm-10">
 								<label for="exampleInputEmail1" class="form-label">공개 여부</label>
 								<div class="form-check">
@@ -122,7 +116,7 @@
 										class="form-check-label" for="gridRadios2"> 비공개 </label>
 								</div>
 							</div>
-						</fieldset> -->
+						</fieldset>
 
 						<button class="btn btn-primary w-100 m-2" type="submit">수정하기</button>
 					</form>

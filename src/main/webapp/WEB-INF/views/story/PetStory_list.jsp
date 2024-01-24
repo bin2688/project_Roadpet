@@ -60,25 +60,29 @@
 		</div>
 
 		<div class="content open">
+
 	<%@ include file="/header.jsp"%>
 	<%@ include file="/sidebar.jsp"%>
+
 			<%
-				if (session.getAttribute("id") != null) {
+				if (session.getAttribute("user_id") != null) {
 			%>
 			로그인한사람
-			<%=session.getAttribute("id")%>
+			<%=session.getAttribute("user_id")%>
 
 			<%
 				} else {
 
 			}
 			%>
+
 			
 				<div class="container-fluid pt-4 px-4"> 
              <div class="row g-4"  style="width:60%; margin:auto;">
 				<c:forEach items="${list}" var="vo">
 				
 					
+
 						<div class="card">
 							<div class="card-view">
 								<div class="title">
@@ -94,10 +98,12 @@
 										<dl>
 											<dt>공개여부</dt>
 											<dd>${vo.story_private}</dd>
+
 										</dl>
 									</div>
 								</div>
 								<div class="cont">
+
 									<h3>${vo.story_photo}</h3>
 									<h4>${vo.story_content}</h4>
 								</div>
@@ -113,6 +119,9 @@
 		
 
 
+			<hr color="red">
+
+
 		<%
 			int pages = (int) request.getAttribute("pages"); //int <-- object
 		for (int p = 1; p <= pages; p++) {
@@ -126,13 +135,25 @@
 	
 
 
+			<%
+				int pages = (int) request.getAttribute("pages"); //int <-- object
+			for (int p = 1; p <= pages; p++) {
+			%>
+			<a href="PetStory_list?page=<%=p%>&story_private=0">
+				<button class="btn btn-primary pages"><%=p%></button>
+			</a>
+			<%
+				}
+			%>
+
+
 		<!-- Content End -->
 		<!-- Back to Top -->
 		<button type="button" class="btn btn-primary m-2"
 			style="float: right;" onclick="location.href='PetStory_insert.jsp'">글작성하기</button>
+
 		</div>
 	</div>
 </body>
 
 </html>
-

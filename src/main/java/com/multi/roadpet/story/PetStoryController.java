@@ -26,7 +26,7 @@ public class PetStoryController {
 	ReplyService replyService;
 	
 	@RequestMapping("story/PetStory_insert")
-	public String insert2(PetStoryVO petstoryVO, 
+	public void insert2(PetStoryVO petstoryVO, 
 						HttpServletRequest request, 
 						MultipartFile file, Model model) throws Exception {
 
@@ -47,7 +47,6 @@ public class PetStoryController {
 		System.out.println(petstoryVO);
 		petstoryService.insert(petstoryVO);
 		model.addAttribute("petstoryVO", petstoryVO);
-		return "redirect:PetStory_one?story_id=" + petstoryVO.getStory_id();
 	}
 
 	@RequestMapping("story/PetStory_list")
@@ -60,10 +59,10 @@ public class PetStoryController {
 		System.out.println(list.size());
 		//�쟾泥� �럹�씠吏��닔 援ы븯湲�
 		int count = petstoryService.pageCount();
-		System.out.println("寃뚯떆臾� 媛쒖닔>>" + count);
+		System.out.println("게시물 개수>>" + count);
 		int pages = count / 6;
 		if (count%6 !=0) {
-			pages = count / 6 + 1;
+			pages += 1;
 		}
 	
 		//views/list.jsp源뚯� �꽆�뼱媛��빞 �븿.==>Model
@@ -80,7 +79,7 @@ public class PetStoryController {
 		PetStoryVO bag = petstoryService.one(petstoryVO);//상세정보 
 		//댓글리스트 
 		System.out.println(bag);
-		System.out.println(bag.getStory_id());
+		System.out.println("bag.getStory_id() : " + bag.getStory_id());
 		List<ReplyVO> list = replyService.list(petstoryVO.getStory_id());
 		System.out.println(list.size());
 		model.addAttribute("bag",bag);

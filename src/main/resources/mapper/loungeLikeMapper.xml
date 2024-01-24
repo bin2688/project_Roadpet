@@ -4,14 +4,14 @@
 <mapper namespace="loungeLike">
 
 	<sql id="where">
-		where lounge_id = #{lounge_id} and member_user_id = #{member_user_id}
+		where lounge_id = #{lounge_id} and user_id = #{user_id}
 	</sql>
 	
 	<insert id="insert" parameterType="loungeLikeVO" useGeneratedKeys="true" keyProperty="like_id">
 		insert into lounge_like
 		values (
 			null,
-			#{member_user_id},
+			#{user_id},
 			#{lounge_id}
 			)
 	</insert>

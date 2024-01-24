@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,26 @@ public class MissingController {
 	@ResponseBody
 	public List<MissingVO> all() {
 		return missingService.all();
+	}
+
+	@RequestMapping(value = "map/missingmark", produces = "application/json") // all 검색
+	@ResponseBody
+	public List<MissingVO> missingmark() {
+		return missingService.missingmark();
+	}
+
+	@RequestMapping(value = "map/sheltermark", produces = "application/json") // all 검색
+	@ResponseBody
+	public List<ShelterVO> sheltermark() {
+		return missingService.sheltermark();
+	}
+
+	@RequestMapping(value = "map/getMissingForm", method = RequestMethod.GET)
+	@ResponseBody
+	public MissingVO getMissingForm(@RequestParam("missing_id") String missingId) {
+		// 여기에서 missingId를 이용하여 작업 수행
+		// 결과를 JSON 형태로 반환
+		return missingService.getMissingForm(missingId);
 	}
 
 	@RequestMapping("map/insert")

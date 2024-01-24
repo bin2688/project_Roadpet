@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LoungeReplyService implements LoungeReplyServiceInterface {
@@ -15,13 +16,14 @@ public class LoungeReplyService implements LoungeReplyServiceInterface {
 	LoungeDAOInterface loungeDAO;
 	
 	@Override
+	@Transactional
 	public int rpInsert(LoungeReplyVO lngRpVO) {
-		int result = lngRpDAO.rpInsert(lngRpVO);
-		if (result == 1) {		
-			int lounge_id = lngRpVO.getReply_oriid();
-			loungeDAO.replyCount(lounge_id, 1);
-		}
-		return result;
+				int result = lngRpDAO.rpInsert(lngRpVO);
+		        if (result == 1) {        
+		            int lounge_id = lngRpVO.getReply_oriid();
+		            loungeDAO.replyCount(lounge_id, 1);
+		        } 
+		        return result;  
 	}
 	
 	@Override
@@ -41,7 +43,7 @@ public class LoungeReplyService implements LoungeReplyServiceInterface {
 			int lounge_id = lngRpVO.getReply_oriid();
 			loungeDAO.replyCount(lounge_id, -1);	
 		}
-		return lngRpDAO.rpDelete(lngRpVO);
+		return result;
 	}
 	
 	@Override

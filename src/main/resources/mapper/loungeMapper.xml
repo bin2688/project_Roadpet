@@ -3,14 +3,14 @@
 
 	<mapper namespace="lounge">
 	<insert id="insert" parameterType="loungeVO" useGeneratedKeys="true" keyProperty="lounge_id">
-		insert into lounge (lounge_id, lounge_pet_type, member_user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img, lounge_replyCount)
+		insert into lounge (lounge_id, lounge_pet_type, user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img, lounge_replyCount)
 		values (
 			null,
 			#{lounge_pet_type},
-			#{member_user_id},
+			#{user_id},
 			#{lounge_title},
 			#{lounge_content},
-			(SELECT nickname FROM member WHERE user_id = #{member_user_id}), 
+			(SELECT nickname FROM member WHERE user_id = #{user_id}), 
 			now(),
 			#{lounge_img},
 			#{lounge_replyCount}
@@ -37,7 +37,7 @@
        		count(Ll.like_id) as likeCount,
 	       	(select if((select count(*) 
 	       	from lounge_like
-	       	where member_user_id = #{member_user_id}
+	       	where user_id = #{user_id}
 	       	and lounge_id = #{lounge_id}) = 0, 'N', 'Y')
 	       	) as likeYn
         from lounge AS L
@@ -50,8 +50,8 @@
     select * 
     from
         (select row_number() over(order by L.lounge_id desc) as lounge_no,
-             L.lounge_id, L.member_user_id , L.lounge_pet_type, L.lounge_title, L.lounge_content, 
-             L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replyCount, COUNT(Ll.like_id) as likeCount
+             L.lounge_id, L.user_id , L.lounge_pet_type, L.lounge_title, L.lounge_content, 
+             L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replyCount, COUNT(Ll.like_id) as likeCount            
          from lounge AS L
              left join lounge_like as Ll on L.lounge_id = Ll.lounge_id
          <choose>
@@ -68,7 +68,7 @@
                  where L.lounge_writer like CONCAT('%', #{keyWord}, '%')
              </when>
          </choose>
-         group by L.lounge_id, L.member_user_id, L.lounge_pet_type, L.lounge_title, L.lounge_content, L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replyCount) l2
+         group by L.lounge_id, L.user_id, L.lounge_pet_type, L.lounge_title, L.lounge_content, L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replyCount) l2
      	 where l2.lounge_no between #{start} and #{end}
      	 order by l2.lounge_no;
 	</select>
@@ -111,12 +111,16 @@
 	</update>
 	
 	<select id="bestList" resultType="loungeVO">
-	SELECT L.*, COUNT(LL.like_id) AS likeCount
-	FROM lounge L
-	LEFT JOIN lounge_like LL ON L.lounge_id = LL.lounge_id
-	WHERE L.lounge_date >= CURDATE() - INTERVAL 7 DAY
-	GROUP BY L.lounge_id
-	HAVING likeCount >= 5
+	SELECT * FROM (
+    	SELECT L.*, COUNT(LL.like_id) AS likeCount
+    	FROM lounge L
+    	LEFT JOIN lounge_like LL ON L.lounge_id = LL.lounge_id
+    	WHERE L.lounge_date >= CURDATE() - INTERVAL 7 DAY
+    	GROUP BY L.lounge_id
+   		HAVING likeCount >= 5
+    	ORDER BY likeCount DESC
+   		LIMIT 6
+	) AS s
 	ORDER BY likeCount DESC;	
 	</select>
 
