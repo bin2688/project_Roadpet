@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/roadpet/pet/pet_home.jsp">dasdas</a>
+<a href="/roadpet/index.jsp">dasdas</a>
 <%if(session.getAttribute("user_id")!=null){ %>
 	세션 id 값은 : <%= session.getAttribute("user_id") %>
 <%} %>
