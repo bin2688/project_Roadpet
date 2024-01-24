@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
@@ -96,9 +98,20 @@ public class LoungeController {
 	@RequestMapping("lounge/one")
 	public void one(LoungeVO loungeVO, Model model) throws Exception {
 		LoungeVO bag = loungeService.one(loungeVO);
-		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());	
+		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());
+
 		model.addAttribute("bag", bag);
 		model.addAttribute("rpList", rpList);
-
 	}
+	
+	@RequestMapping("lounge/bestList")
+	@ResponseBody
+	public List<LoungeVO> bestList(LoungeVO loungeVO, Model model) throws Exception {
+		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
+		System.out.println("메인인기글 호출>>" + bestList);
+		model.addAttribute("bestList", bestList);	
+		return bestList;
+	}
+	
+	
 }
