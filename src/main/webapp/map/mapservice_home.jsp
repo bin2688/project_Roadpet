@@ -107,26 +107,24 @@
 							      	    <!-- Pet Image Input & Carousel -->
 							      	    <div class="col-xl-3">
 							      	      <label class="form-label"><h6>펫 사진</h6></label>
-							      	    	<div id="carouselExampleIndicators" class="carousel slide mb-3">
+							      	    	<div id="carouselInput" class="carousel slide mb-3">
 											  <div class="carousel-indicators">
-											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+											    <button type="button" data-bs-target="#carouselInput" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+											    <button type="button" data-bs-target="#carouselInput" data-bs-slide-to="1" aria-label="Slide 2"></button>
+											    <button type="button" data-bs-target="#carouselInput" data-bs-slide-to="2" aria-label="Slide 3"></button>
 											  </div>
 											  <div class="carousel-inner"></div>
-											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselInput" data-bs-slide="prev">
 											    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
 											    <span class="visually-hidden">Previous</span>
 											  </button>
-											  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+											  <button class="carousel-control-next" type="button" data-bs-target="#carouselInput" data-bs-slide="next">
 											    <span class="carousel-control-next-icon" aria-hidden="true"></span>
 											    <span class="visually-hidden">Next</span>
 											  </button>
 											</div>
 											<!-- Input button -->
-											
-							      	    	<input class="form-control mb-3" type="file" name="files" id="petImageInput" accept="image/*" onchange="setFormImageUpload(event);" multiple required>
-							      	    	<!--  <input class="form-control mb-3" type="file" name="file"> -->
+							      	    	<input class="form-control mb-3" type="file" name="files" id="petImageInput" accept="image/*" onchange="setFormImageUpload(event);" multiple required/>
 							      	    </div>
 							      	    <!-- Pet Info Input -->
 							      	    <div class="col-xl-9">
@@ -177,14 +175,14 @@
 							      	  <div class="row mb-3">
 							      	  	<div class="input-group">
 							      	  	  <span class="input-group-text">실종 장소<br>설명</span>
-							      	  	  <textarea class="form-control" aria-label="실종 장소 설명" name="location_explain" id="formMissingLocationExplation" maxlength="500" required></textarea>
+							      	  	  <textarea class="form-control" aria-label="실종 장소 설명" name="location_explain" id="formMissingLocationExplationInput" maxlength="500" required></textarea>
 							      	  	</div>
 							      	  </div>
 							      	  
 							      	  <div class="row mb-3">
 							      	  	<div class="input-group">
 							      	  	  <span class="input-group-text">특이 사항</span>
-							      	  	  <textarea class="form-control" aria-label="특이 사항" name="missing_notice" id="formMissingNotice" maxlength="500" required></textarea>
+							      	  	  <textarea class="form-control" aria-label="특이 사항" name="missing_notice" id="formMissingNoticeInput" maxlength="500" required></textarea>
 							      	  	</div>
 							      	  </div>
 							      	  
@@ -206,7 +204,103 @@
 							  </div>
 							</div>
 							<!-- Modal End -->
-							</form>	             	
+							</form>
+							<!-- Missing Form Modal -->
+							<div class="modal fade" id="missingFormModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+							  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+							    <div class="modal-content">
+							      <!-- Modal Header -->
+							      <div class="modal-header">
+							        <h5 class="modal-title" id="staticBackdropLabel">실종 펫 정보</h5>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="resetModalContent()"></button>
+							      </div>
+							      <!-- Modal Body -->
+							      <div class="modal-body">
+							      	<div class="container-fluid">
+							      	  <div class="row">
+							      	    <!-- Pet Image Input & Carousel -->
+							      	    <div class="col-xl-3">
+							      	      <label class="form-label"><h6>펫 사진</h6></label>
+							      	    	<div id="carouselExampleIndicators" class="carousel slide mb-3">
+											  <div class="carousel-indicators">
+											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+											    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+											  </div>
+											  <div class="carousel-inner carousel-inner-custom"></div>
+											  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+											    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+											    <span class="visually-hidden">Previous</span>
+											  </button>
+											  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+											    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+											    <span class="visually-hidden">Next</span>
+											  </button>
+											</div>
+							      	    </div>
+							      	    <!-- Pet Info Input -->
+							      	    <div class="col-xl-9">
+							      	      <div class="row">
+							      	        <div class="col"><h4>펫 정보</h4></div>
+							      	      </div>
+							      	      
+							      	      <div class="row mb-3">
+							      	        <div class="col form-floating">
+							      	        	<input type="text" class="form-control" name="pet_name" id="formPetname" placeholder="PetName" value="" readonly>
+							      	        	<label for="formPetname">펫 이름</label>
+							      	        </div>
+							      	        <div class="col form-floating">
+							      	        	<input type="text" class="form-control" name="pet_type" id="formPetType" placeholder="PetType"  value="" readonly>
+							      	        	<label for="formPetType">펫 종류</label>
+							      	        </div>
+							      	      </div>
+							      	      
+							      	      <div class="row mb-3">
+							      	        <div class="col form-floating">
+							      	        	<input type="number" min="0" inputmode="numeric" name="pet_age" class="form-control" id="formPetAge" placeholder="PetAge"  value=""  readonly>
+							      	        	<label for="formPetname">펫 나이</label>
+							      	        </div>
+							      	        <div class="col form-floating">
+								      	        <input type="text" class="form-control" name="pet_sex" id="formPetSex" placeholder="PetSex"  value="" readonly>
+							      	        	<label for="formPetSex">펫 성별</label>
+							      	        </div>
+							      	      </div>
+							      	      
+							      	      <div class="row mb-3">
+							      	        <div class="col form-floating">
+							      	        	<input type="text" class="form-control" id="formPhoneNumber" name="user_phone" value="" placeholder="PhoneNumber"  readonly>
+							      	        	<label for="formPhoneNumber">연락처</label>
+							      	        </div>
+							      	      </div>
+							      	      
+							      	      <div class="row">
+								       	    <div class="col"><h6>실종 시간: <input type="datetime-local" name="missing_time" id="formLostTime" readonly></h6></div> 
+								      	  </div>
+							      	    </div>
+							      	  </div>
+							      	  <hr color="black" size="5px">
+							      	  <div class="row mb-3">
+							      	  	<div class="input-group">
+							      	  	  <span class="input-group-text">실종 장소<br>설명</span>
+							      	  	  <textarea class="form-control" aria-label="실종 장소 설명" name="location_explain" id="formMissingLocationExplation" maxlength="500" readonly></textarea>
+							      	  	</div>
+							      	  </div>
+							      	  
+							      	  <div class="row mb-3">
+							      	  	<div class="input-group">
+							      	  	  <span class="input-group-text">특이 사항</span>
+							      	  	  <textarea class="form-control" aria-label="특이 사항" name="missing_notice" id="formMissingNotice" maxlength="500" readonly></textarea>
+							      	  	</div>
+							      	  </div>
+							      	</div>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-primary" onclick="makeCall()" >연락하기</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+							<!-- Missing Form Modal End -->	             	
 	                	</div>
 	                </div>
 	            </div>
@@ -222,6 +316,7 @@
     		let gpsLat;		// gps 위도
     		let gpsLon;		// gps 경도
     		var missingMarkers = [];
+    		var missingInfowindows = [];
     		var shelterMarkers = [];
     		let gpsMarker = new kakao.maps.Marker({
     	        position: new kakao.maps.LatLng(33.450701, 126.570667)
@@ -454,8 +549,8 @@
 			    document.getElementById('formLostTimeInput').value = '';
 
 			    // 실종 장소 및 특이 사항 입력 필드 초기화
-			    document.getElementById('formMissingLocationExplation').value = '';
-			    document.getElementById('formMissingNotice').value = '';
+			    document.getElementById('formMissingLocationExplationInput').value = '';
+			    document.getElementById('formMissingNoticeInput').value = '';
 			    
 			}
 			
@@ -498,14 +593,14 @@
 			    }
 			
 			    // 실종 장소 설명 유효성 검사
-			    var missingLocationExplanation = document.getElementById('formMissingLocationExplation').value;
+			    var missingLocationExplanation = document.getElementById('formMissingLocationExplationInput').value;
 			    if (missingLocationExplanation.trim() === '') {
 			      alert('실종 장소 설명을 입력해주세요.');
 			      return false;
 			    }
 			
 			    // 특이 사항 유효성 검사
-			    var missingNotice = document.getElementById('formMissingNotice').value;
+			    var missingNotice = document.getElementById('formMissingNoticeInput').value;
 			    if (missingNotice.trim() === '') {
 			      alert('특이 사항을 입력해주세요.');
 			      return false;
@@ -531,23 +626,251 @@
 					console.log("error");
 				}
 			}
-			
+		    var missingImageSrc = '../resources/img/missingMark.png', // 마커이미지 주소   
+		    	missingImageSize = new kakao.maps.Size(36, 36); // 마커 이미지 크기
+				// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+			var missingMarkerImage = new kakao.maps.MarkerImage(missingImageSrc, missingImageSize);
 			// 실종 마커 추가 함수
-			var getdatas = [];
 			function getMissingMark(){
 				$.ajax({
-				    url: "all",
-				    type: 'POST',
+				    url: "missingmark",
+				    type: 'GET',
 				    dataType: "json",
 				    success: function(data) {
 				        // 서버로부터 받아온 데이터 활용
-				        console.log(data);
+				        console.log("missing Mark : "+data.length);
 				        // TODO: 데이터를 이용한 추가적인 작업 수행
-				    },
-				    error: function(xhr, status, error) {
+				        for (var i = 0; i < data.length; i++) {
+						    (function (index) {
+						        var markerPosition = new kakao.maps.LatLng(data[index].lat, data[index].lon);
+						        var marker = new kakao.maps.Marker({
+						            position: markerPosition,
+						            image: missingMarkerImage
+						        });
+						
+						        missingMarkers.push(marker);
+						
+						        var thumbnailImage = data[index].pet_img.split(',');
+						        var thumbnailImageSrc = '../resources/upload/s_'+thumbnailImage[0],
+						        	thumbnailImageSize = new kakao.maps.Size(100,100);
+						        var missingThumbnailImage = new kakao.maps.MarkerImage(thumbnailImageSrc,thumbnailImageSize)
+						
+						        kakao.maps.event.addListener(missingMarkers[index], 'mouseover', function () {
+						            missingMarkers[index].setImage(missingThumbnailImage);
+						        });
+						
+						        kakao.maps.event.addListener(missingMarkers[index], 'mouseout', function () {
+						            missingMarkers[index].setImage(missingMarkerImage);
+						        });
+						        
+						        kakao.maps.event.addListener(missingMarkers[index],'click',function(mouseEvent){
+						        	getFormData(data[index].missing_id, function(err, result){
+						        		if(err){
+						        			console.error("ERROR: ",err);
+						        		}else{
+							        		console.log(result);
+							        	    fillModalWithData(result);
+						        		}
+						        	});
+						        });
+						
+						        missingMarkers[index].setMap(map);
+						    })(i);
+						}
+				    },error: function(xhr, status, error) {
 				        console.error("Error from server:", status, error);
 				    }
 				});
+			}
+			function getFormData(missing_id, callback){
+				$.ajax({
+					url: "getMissingForm",
+					type: 'GET',
+					dataType: "json",
+					data: {missing_id: missing_id},
+					success: function(data){
+						console.log(data);
+						callback(null, data);
+					},error: function(xhr, status, error){
+				        console.error("Error from server:", status, error);
+						callback(error, null);
+					}
+				});
+			}
+			var shelterImageSrc = '../resources/img/shelterMark.png', // 마커이미지 주소    
+			shelterImageSize = new kakao.maps.Size(36, 36) // 마커 이미지 크기
+			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+			var shelterMarkerImage = new kakao.maps.MarkerImage(shelterImageSrc, shelterImageSize);
+			getShelterMark();
+			//보호소 마커 추가 함수
+			function getShelterMark(){
+				$.ajax({
+					url: "sheltermark",
+					type: 'GET',
+					dataType: "json",
+					success: function(data){
+						console.log("shelter Mark : "+data.length);
+				        for(var i=0;i<data.length;i++){
+				        	(function (index){
+					        	var markerPosition = new kakao.maps.LatLng(data[index].lat, data[index].lng);
+					        	var marker = new kakao.maps.Marker({
+					        		position: markerPosition,
+					        		image: shelterMarkerImage
+					        	});
+					        	shelterMarkers.push(marker);
+					        	
+					        	var iwContent = generateShelterInfoDiv(data[index], shelterDescriptions),
+					        		iwRemoveable = true;
+					        	var iwContentShort = '<div style="padding: 10px; background-color: #fff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);"><h5 style="margin-bottom: 5px; color: #333;">'+ data[index].careNm +'</h5> </div>'
+					        	var infowindow = new kakao.maps.InfoWindow({
+					        		content : iwContent,
+					        	    removable : iwRemoveable
+					        	});
+					        	var infowindowShort = new kakao.maps.InfoWindow({
+					        		content: iwContentShort
+					        	});
+					        	
+					        	kakao.maps.event.addListener(shelterMarkers[index], 'mouseover', function () {
+						        	infowindowShort.open(map,shelterMarkers[index]);
+					        	});
+						
+						        kakao.maps.event.addListener(shelterMarkers[index], 'mouseout', function () {
+						        	infowindowShort.close();
+						        });
+						        
+						        kakao.maps.event.addListener(shelterMarkers[index], 'click', function () {
+						        	infowindow.open(map,shelterMarkers[index]);
+					        	});
+						        
+					        	shelterMarkers[index].setMap(map);
+				        	})(i);
+				        }
+					},error: function(xhr, status, error){
+						console.error("Error from server:",status, error);
+					}
+				});
+			}
+			
+			// shelter 상세내용 infowindow 생성 함수
+			var shelterDescriptions = {
+			    careNm: '동물보호센터명',
+			    orgNm: '관리기관명',
+			    divisionNm: '동물보호센터유형',
+			    saveTrgtAnimal: '구조대상동물',
+			    careAddr: '소재지도로명주소',
+			    weekOprStime: '평일운영시작시간',
+			    weekOprEtime: '평일운영종료시각',
+			    closeDay: '휴무일',
+			    careTel: '전화번호'
+			};
+			
+			function generateShelterInfoDiv(data, descriptions) {
+			    var containerDiv = document.createElement('div');
+			    containerDiv.style.padding = '10px';
+			    containerDiv.style.border = '1px solid #ccc';
+			    containerDiv.style.borderRadius = '10px';
+			    containerDiv.style.marginBottom = '20px';
+			    containerDiv.style.maxHeight = '500px';
+			    containerDiv.style.overflowY = 'auto'; // 세로 스크롤을 활성화합니다.
+
+			    var rowDiv;
+
+			    for (var key in data) {
+			        if (typeof (data[key]) != 'number') {
+			            // 소재지도로명주소는 한 줄에 하나씩 표시
+			            if (key === 'careAddr') {
+			                var fieldDiv = document.createElement('div');
+			                fieldDiv.style.marginBottom = '8px';
+
+			                var label = document.createElement('strong');
+			                label.textContent = descriptions[key] + ': ';
+			                label.style.display = 'block';
+			                fieldDiv.appendChild(label);
+
+			                var value = document.createElement('span');
+			                value.innerHTML = data[key].replace(/(.{15})/g, '$1<br>'); // 내용이 15글자가 넘어가면 한 줄 띄워서 표시
+			                fieldDiv.appendChild(value);
+
+			                containerDiv.appendChild(fieldDiv);
+			            } else {
+			                // 나머지 항목들은 한 줄에 두 개씩 표시
+			                if (!rowDiv || rowDiv.children.length === 2) {
+			                    rowDiv = document.createElement('div');
+			                    rowDiv.style.display = 'flex';
+			                    rowDiv.style.marginBottom = '8px';
+			                    containerDiv.appendChild(rowDiv);
+			                }
+
+			                var fieldDiv = document.createElement('div');
+			                fieldDiv.style.marginRight = '20px';
+
+			                var label = document.createElement('strong');
+			                label.textContent = descriptions[key] + ': ';
+			                label.style.display = 'block';
+			                fieldDiv.appendChild(label);
+
+			                var value = document.createElement('span');
+			                value.textContent = data[key];
+			                value.style.wordBreak = 'break-all'; // 긴 단어가 표시되는 경우 줄 바꿈
+			                fieldDiv.appendChild(value);
+
+			                rowDiv.appendChild(fieldDiv);
+			            }
+			        }
+			    }
+
+			    containerDiv.style.maxWidth = '100%';
+			    containerDiv.style.overflow = 'hidden';
+			    containerDiv.style.wordWrap = 'break-word';
+
+			    return containerDiv;
+			}
+
+			function fillModalWithData(result) {
+			    // 펫 사진 캐러셀 초기화
+			    var carouselInner = document.querySelector('.carousel-inner-custom');
+			    carouselInner.innerHTML = '';
+
+			    // 펫 사진 캐러셀 채우기
+			    var fillImages = result.pet_img.split(',');
+			    console.log(fillImages);
+			    for (var i = 0; i < fillImages.length; i++) {
+			        var carouselItem = document.createElement('div');
+			        carouselItem.classList.add('carousel-item');
+			        if (i === 0) {
+			            carouselItem.classList.add('active');
+			        }
+
+			        var img = document.createElement('img');
+			        img.src = "../resources/upload/"+fillImages[i];
+			        img.classList.add('d-block', 'w-100');
+			        carouselItem.appendChild(img);
+			        carouselInner.appendChild(carouselItem);
+			    }
+
+			    // 나머지 필드에 데이터 채워 넣기
+			    document.getElementById('formPetname').value = result.pet_name;
+			    document.getElementById('formPetType').value = result.pet_type;
+			    document.getElementById('formPetAge').value = result.pet_age;
+			    if(result.pet_sex=='M'){
+			    	document.getElementById('formPetSex').value = "남♂️";
+			    }else{
+			    	document.getElementById('formPetSex').value = "여♀️";
+			    }
+			    document.getElementById('formPhoneNumber').value = result.user_phone;
+			    document.getElementById('formLostTime').value = result.missing_time;
+			    document.getElementById('formMissingLocationExplation').value = result.location_explain;
+			    document.getElementById('formMissingNotice').value = result.missing_notice;
+
+			    // 모달 열기
+			    var missingmodal = new bootstrap.Modal(document.getElementById('missingFormModal'));
+			    missingmodal.show();
+			}
+			function makeCall() {
+			    var phoneNumber = document.getElementById('formPhoneNumber').value;
+			    
+			    // 전화 걸기
+			    document.location.href = 'tel:' + phoneNumber;
 			}
 		</script>
 		<!-- Map Script End -->
