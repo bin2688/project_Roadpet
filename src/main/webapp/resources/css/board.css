@@ -1,5 +1,5 @@
 
-@font-face {
+/* @font-face {
     font-family: 'KNUTRUTHTTF';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/KNUTRUTHTTF.woff2') format('woff2');
     font-weight: normal;
@@ -8,15 +8,17 @@
 
 * {
 	font-family: 'KNUTRUTHTTF';
-}
+} */
 
 .card{
-	
+	width:30px;
+	height:60px;
 	bax-shawdow: 3px 3px 50px #e6e6e6;
 }
 .card-view{
-	text-align:center;
+	text-align:left;
 	padding:30px;
+	
 	
 }
 .card-view .title {
@@ -54,4 +56,14 @@
 .cont{
 	margin-top:30px;
 	padding-bottom:30px;
+}
+.parent{
+	width:90%;
+	margin:10px auto;
+}
+.child{
+	border: 1px solid red;
+	float:left;
+	width:25%;
+	box-sizing:border-box;
 }

@@ -22,13 +22,17 @@ public class PetWalkDAO {
 		return my.selectOne("petInfo.one", pet_id);	
 	} //산책페이지에서 사진, 이름 가져오기
 	
-	public List<PetWalkVO> list() throws Exception { 
-		List<PetWalkVO> list = my.selectList("petWalk.today_list");	
+	public List<PetWalkVO> list(PetWalkVO petwalkVO) throws Exception { 
+		List<PetWalkVO> list = my.selectList("petWalk.today_list",petwalkVO);	
 		return list;
 	} // 날짜에 따른 산책 정보 가져오기
 	
-	public List<PetWalkVO> list2() throws Exception { 
-		List<PetWalkVO> list = my.selectList("petWalk.week_list");	
-		return list;
+	public List<PetWalkVO> list2(PetWalkVO petwalkVO) throws Exception { 
+		List<PetWalkVO> list2 = my.selectList("petWalk.week_list",petwalkVO);	
+		return list2;
 	} // 날짜에 따른 산책 정보 가져오기
+	public List<PetWalkVO> list3(PetWalkVO petwalkVO) throws Exception { 
+		List<PetWalkVO> list3 = my.selectList("petWalk.all_week_list",petwalkVO);	
+		return list3;
+	} // 날짜에
 }

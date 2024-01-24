@@ -11,7 +11,14 @@ public class PetWalkVO {
 	private String walk_date;
 	private int walk_time;
 	private int walk_distance ;
+	private int user_id;
 	
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 	public int getPet_id() {
 		return pet_id;
 	}

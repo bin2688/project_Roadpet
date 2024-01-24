@@ -7,15 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<a href="/roadpet/pet/pet_home.jsp">dasdas</a>
-<%if(session.getAttribute("user_id")!=null){ %>
-	세션 id 값은 : <%= session.getAttribute("user_id") %>
-<%} %>
-
 <script>
 
  alert("로그인이 완료되었습니다.");
- 
+ self.close();
+ location.href = "/roadpet/index.jsp";
 </script>
 
 </body>

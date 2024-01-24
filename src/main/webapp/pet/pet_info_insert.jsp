@@ -24,11 +24,7 @@
 		
 		<form action="pet_info_insert" id="form" method="post"  enctype="multipart/form-data">
 			
-			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">1.유저 아이디</label> <input
-					name="user_id" class="form-control" id="exampleInputEmail1"
-					aria-describedby="emailHelp">
-			</div>
+			<input type="hidden" name="user_id" value="<%=session.getAttribute("user_id")%>"> 
 			
 			<div class="mb-3">
 				<label for="exampleInputEmail1" class="form-label">2.펫 이름</label> <input
