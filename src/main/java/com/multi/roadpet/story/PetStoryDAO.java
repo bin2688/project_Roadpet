@@ -15,6 +15,7 @@ public class PetStoryDAO {
 	SqlSessionTemplate my;
 	
 	public void insert(PetStoryVO petstoryVO) {
+		System.out.println(petstoryVO);
 		my.insert("petstory.insert", petstoryVO);
 	}
 	
@@ -36,7 +37,7 @@ public class PetStoryDAO {
 	public void update(PetStoryVO petstoryVO) {
 		my.update("petstory.update", petstoryVO);
 	}
-	//¸¶ÀÌÆê view ºÎºÐ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ view ï¿½Îºï¿½
 	public List<PetStoryVO> mystorylist(PetStoryVO petstoryVO) throws Exception {
 		List<PetStoryVO> list2=my.selectList("petstory.mystorylist",petstoryVO);
 		return list2;
