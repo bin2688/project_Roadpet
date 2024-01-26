@@ -12,15 +12,27 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/roadpet/resources/css/style.css">
 <!-- <link rel="stylesheet" href="/roadpet/resources/css/board.css"> -->
+<style>
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+ 
+ .card{
+ 	font-family: 'SOYOMapleBoldTTF', serif;
+ }
+
+</style>
 </head>
 <body>
-	<div class="row g-4">
-		<div>
-			<a href>전체보기</a>
-		</div>
-		<c:forEach items="${list2}" var="vo">
 
-			<div class="col-sm-12 col-md-6 col-xl-4"
+<div class="h-100 bg-light rounded p-4">
+<c:forEach items="${list2}" var="vo">
+			
+			<%-- <div class="col-sm-12 col-md-6 col-xl-4"
+
 				style="display: inline-block;">
 				<div class="h-100 bg-light rounded p-4">
 					<div class="card">
@@ -53,8 +65,46 @@
 				</div>
 			</div>
 
-		</c:forEach>
+		</div> --%>
 
+			<div class="col-sm-12 col-md-6 col-xl-4"
+				style="display: inline-block;">
+				
+					<div class="card">
+						<div class="card-view">
+							<table style="text-align: center; width: 100%; height: 200px; border:1px solid #F7D358; border-radius:15px;">
+								<tr style="ext-align:center;">
+									<td colspan=3 style="ext-align:center; font-size:20px;">${vo.story_title}
+									<hr></td>
+									
+								</tr>
+								<tr>
+									<td></td>
+									<td style="width: 20%; font-size:12px">날짜</td>
+									<td style="width: 20%; font-size:12px">공개여부</td>
+								</tr>
+								<tr>
+									<td></td>
+									<td style="width: 10%; font-size:12px">${vo.story_date}</td>
+									<td style="width: 10%; font-size:12px">${vo.story_private}</td>
+								</tr>
+								<tr>
+
+									<td colspan=3>${vo.story_photo}</td>
+
+								</tr>
+								<tr>
+									<td colspan=3 style="width: 10%; font-size:20px">${vo.story_content}</td>
+
+								</tr>
+
+							</table>
+
+						</div>
+					</div>
+				</div>
+			
+		</c:forEach>
 
 	</div>
 

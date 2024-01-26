@@ -3,41 +3,44 @@
 <%@page import="com.multi.roadpet.pet.PetInfoVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
- <!-- Bootstrap JS (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+	<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> 
+	    
+	  
 <body>
 
-<%
+	<%
  ArrayList<PetWalkVO> list3 =(ArrayList<PetWalkVO>)request.getAttribute("list3");
 for(PetWalkVO dto : list3){
 %>
-<!--model로 views/one.jsp까지 전달한 데이터를 받아 꺼내서 출력 -->
-<div class="week-div" style="flex-direction: column;">
-<div class="d-flex align-items-center border-bottom py-3">				
-				
-				<div class="w-100 ms-3"style="flex-direction: column;" >
-						<span><h4 class="mb-0"><%=dto.getPet_name() %></h4></span>			
-				</div>		
-				<div class="w-100 ms-3" style="flex-direction: column;">
-						<h4 class="mb-0" style="color:orange;"> <%=dto.getWalk_date() %>위</h4><br><br>
-						
-						<h4>최근 7일 평균 시간</h4>
-						<h4 class="mb-0" style="color:orange;"> <%=dto.getWalk_time() %>분</h4><br><br>
-							
-				</div>	
-					
-</div>	
-</div>
 
-<br>
+
+<table cellspacing="10"  width="800" height="200" style="font-size:20px;">
+	<tr>
+		
+		<th scope="col">랭킹</th>
+		<th scope="col" >펫 이름</th>
+		<th scope="col">시간</th>
+		<th scope="col">거리</th>
+	</tr>
+	<tr>
+		<td scope="col" align="center" style="color:red;"><%=dto.getWalk_date() %>위</td>
+		<td scope="col" align="center" style="color:orange;"><%=dto.getPet_name()%></td>
+		<td scope="col" align="center"><%=dto.getWalk_time()%>분</td>
+		<td scope="col" align="center"><%=dto.getWalk_distance() %>m</td>
+	</tr>
+
+</table>
+<hr color="orange">
 <%} %>
 	
 </body>

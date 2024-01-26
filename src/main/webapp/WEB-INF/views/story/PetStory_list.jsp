@@ -109,6 +109,7 @@
 			<hr color="red">
 
 
+
 			<%
 				int pages = (int) request.getAttribute("pages"); //int <-- object
 			for (int p = 1; p <= pages; p++) {
@@ -119,7 +120,7 @@
 			<%
 				}
 			%>
-	
+
 
 			<!-- Content End -->
 			<!-- Back to Top -->

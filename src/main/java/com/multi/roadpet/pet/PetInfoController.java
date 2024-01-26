@@ -105,6 +105,14 @@ public class PetInfoController {
 		System.out.println(list.size());
 		model.addAttribute("list", list);
 	}
+	
+	@RequestMapping("pet/pet_info_alllist")
+	public void all_list(PetInfoVO petinfoVO, Model model) throws Exception { //view
+		List<PetInfoVO> all_list = petinfoService.all_list();
+		System.out.println(all_list.size());
+		model.addAttribute("all_list", all_list);
+	}
+	
 	@RequestMapping("pet/pet_info_namelist")
 	public void namelist(PetInfoVO petinfoVO, Model model , HttpSession session) throws Exception { //view
 		int user_id = (int) session.getAttribute("user_id");
