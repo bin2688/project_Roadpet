@@ -64,17 +64,10 @@
 						        <div id="pagination"></div>
 						    </div>
 	                		<!-- Custom Controller -->
-						    <!-- 지도타입 컨트롤 div 입니다 -->
-						    <!-- <div class="custom_typecontrol radius_border">
-						        <span id="btnRoadmap" class="selected_cusbtn" onclick="setMapType('roadmap')">지도</span>
-						        <span id="btnSkyview" class="cusbtn" onclick="setMapType('skyview')">스카이뷰</span>
-						    </div> -->
 						    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
 						    <div class="custom_zoomcontrol radius_border"> 
 						    	<button type="button" class="btn zoom-btn zoomin mt-1" onClick="javascript:zoomIn();"></button>
 						    	<button type="button" class="btn zoom-btn zoomout mt-2" onClick="javascript:zoomOut();"></button>
-						        <!-- <span onclick="zoomIn()"><img src="../resources/img/ico_plus.png" alt="확대"></span>  
-						        <span onclick="zoomOut()"><img src="../resources/img/ico_minus.png" alt="축소"></span> -->
 						    </div>
 	                		
 	                		<!-- Category -->
