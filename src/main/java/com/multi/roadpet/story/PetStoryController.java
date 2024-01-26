@@ -100,10 +100,10 @@ public class PetStoryController {
 		model.addAttribute("bag", bag);
 	}
 	@RequestMapping("story/update2")
-	public String update2(PetStoryVO petstoryVO, Model model ) {
+	public void update2(PetStoryVO petstoryVO, Model model ) {
 		System.out.println("수정내용 받음. ---- " + petstoryVO);
 		petstoryService.update(petstoryVO);
-		return "redirect:PetStory_one?story_id=" + petstoryVO.getStory_id();
+		model.addAttribute("petstoryVO", petstoryVO);
 	}
 
 	@RequestMapping("pet/PetStory_list2")

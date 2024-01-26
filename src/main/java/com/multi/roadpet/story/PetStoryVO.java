@@ -10,6 +10,12 @@ public class PetStoryVO {
 	private String story_photo;
 	private int story_private;
 	
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 	public int getStory_no() {
 		return story_no;
 	}
