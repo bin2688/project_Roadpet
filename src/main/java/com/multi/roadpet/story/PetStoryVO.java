@@ -10,6 +10,7 @@ public class PetStoryVO {
 	private String story_photo;
 	private int story_private;
 	
+
 	public int getUser_id() {
 		return user_id;
 	}
