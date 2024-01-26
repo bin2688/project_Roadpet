@@ -16,7 +16,7 @@
 		
 		<!-- Script Setting -->
 		<script type="text/javascript" src="../resources/js/jquery-3.7.1.js"></script>
-    	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=APPKEY%>"></script>
+    	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=<%=APPKEY%>&libraries=services,clusterer"></script>
    	    <!-- Google Web Fonts -->
 	    <link rel="preconnect" href="https://fonts.googleapis.com">
 	    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -50,28 +50,28 @@
 				<!-- Navbar & Sidebar -->
 				<%@ include file="../header.jsp"%>
 				<%@ include file="../sidebar.jsp"%>
-							<div id="alertContainer"></div>
+					<div id="alertContainer"></div>
 				<!-- Map Start -->
 				<div class="container-fluid">
 	                <div class="row vh-100 bg-light rounded align-items-start justify-content-center mx-0">
 	                	<div class="mapWrapper">
 	                		<div id="map" style="width:100%;height:100%;"></div>
+	                		<!-- 검색 목록 테스트 -->
+	                		<div id="menu_wrap" class="bg_white" style="visibility:hidden;">
+						        <div class="option">내 근처 동물병원 리스트</div>
+						        <hr>
+						        <ul style="padding-left:0px;" id="placesList"></ul>
+						        <div id="pagination"></div>
+						    </div>
 	                		<!-- Custom Controller -->
-						    <!-- 지도타입 컨트롤 div 입니다 -->
-						    <!-- <div class="custom_typecontrol radius_border">
-						        <span id="btnRoadmap" class="selected_cusbtn" onclick="setMapType('roadmap')">지도</span>
-						        <span id="btnSkyview" class="cusbtn" onclick="setMapType('skyview')">스카이뷰</span>
-						    </div> -->
 						    <!-- 지도 확대, 축소 컨트롤 div 입니다 -->
 						    <div class="custom_zoomcontrol radius_border"> 
 						    	<button type="button" class="btn zoom-btn zoomin mt-1" onClick="javascript:zoomIn();"></button>
 						    	<button type="button" class="btn zoom-btn zoomout mt-2" onClick="javascript:zoomOut();"></button>
-						        <!-- <span onclick="zoomIn()"><img src="../resources/img/ico_plus.png" alt="확대"></span>  
-						        <span onclick="zoomOut()"><img src="../resources/img/ico_minus.png" alt="축소"></span> -->
 						    </div>
 	                		
 	                		<!-- Category -->
-	                		<ul id="category">
+	                		<ul style="padding-left:0px;" id="category">
 								<li id="missingMark" data-order="0"> 
 									<span class="category_bg missing-c"></span>
 									실종
@@ -85,11 +85,18 @@
 									병원
 								</li>
 							</ul>
+							<input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+							<label class="btn btn-outline-primary" for="btncheck1">병원 리스트 보기</label>
 						    <!-- Buttons -->
 							<button type="button" id="myLocationButton" class="btn btn-link btn-outline-danger ml-btn mylocation-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="내 위치 이동" onClick="javascript:getMyLocation();"></button>
 							<button type="button" id="cancelButton" class="btn btn-light btn-outline-danger ca-btn cancel-btn" style="visibility:hidden;" data-bs-toggle="tooltip" data-bs-placement="top" title="양식 작성 취소" onClick="javascript:cancelWritingMark();"></button>
 							<button type="button" id="writingButton" class="btn btn-light btn-outline-primary w-btn writing-btn" data-bs-toggle="tooltip" data-bs-placement="left" title="신고 양식 작성" onClick="javascript:setMissingLocationMark();"></button>
+							
 
+							<div id="paginationContainer">
+				                <div id="pagination"></div>
+				            </div>
+				            
 							<form method="post" enctype="multipart/form-data" action=insert>
 							<!-- Modal -->
 							<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -318,6 +325,7 @@
     		var missingMarkers = [];
     		var missingInfowindows = [];
     		var shelterMarkers = [];
+    		var hospitalMarkers = [];
     		let gpsMarker = new kakao.maps.Marker({
     	        position: new kakao.maps.LatLng(33.450701, 126.570667)
     	    });;	// gps 마커
@@ -342,6 +350,9 @@
 			      
 			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+			    
+			// 장소 검색 객체 생성
+			var ps = new kakao.maps.services.Places();
 
 			let missingFormImage = [];
 			updateCarousel();
@@ -770,7 +781,7 @@
 			    containerDiv.style.border = '1px solid #ccc';
 			    containerDiv.style.borderRadius = '10px';
 			    containerDiv.style.marginBottom = '20px';
-			    containerDiv.style.maxHeight = '500px';
+			    containerDiv.style.maxHeight = '600px';
 			    containerDiv.style.overflowY = 'auto'; // 세로 스크롤을 활성화합니다.
 
 			    var rowDiv;
@@ -788,7 +799,7 @@
 			                fieldDiv.appendChild(label);
 
 			                var value = document.createElement('span');
-			                value.innerHTML = data[key].replace(/(.{15})/g, '$1<br>'); // 내용이 15글자가 넘어가면 한 줄 띄워서 표시
+			                value.innerHTML = data[key].replace(/(.{25})/g, '$1<br>'); // 내용이 15글자가 넘어가면 한 줄 띄워서 표시
 			                fieldDiv.appendChild(value);
 
 			                containerDiv.appendChild(fieldDiv);
@@ -868,10 +879,270 @@
 			}
 			function makeCall() {
 			    var phoneNumber = document.getElementById('formPhoneNumber').value;
-			    
 			    // 전화 걸기
 			    document.location.href = 'tel:' + phoneNumber;
 			}
+			
+			//병원 검색 함수
+			// 사용자의 현재 위치를 기준으로 검색하는 함수
+			function searchHospitalMarks() {
+			    console.log('병원찾기!');
+			    var keyword = "동물병원";
+			    var options = {
+			        location: new kakao.maps.LatLng(gpsLat, gpsLon),
+			        radius: 10000,
+			        sort: kakao.maps.services.SortBy.DISTANCE
+			    };
+			
+			    ps.keywordSearch(keyword, placesSearchCB, options);
+			}
+			
+			//장소 검색 완료시 호출되는 콜백 함수 -> placesSearchCB
+			function placesSearchCB(data, status, pagination) {
+			    if (status === kakao.maps.services.Status.OK) {
+			        // 정상적으로 검색이 완료됐으면
+			        // 검색 목록과 마커를 표출합니다
+			        displayPlaces(data);
+			        // 페이지 번호를 표출합니다
+			        displayPagination(pagination);
+			    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
+			        alert('검색 결과가 존재하지 않습니다.');
+			        return;
+			    } else if (status === kakao.maps.services.Status.ERROR) {
+			        alert('검색 결과 중 오류가 발생했습니다.');
+			        return;
+			    }
+			}
+			
+			// 검색 결과 목록과 마커를 표출하는 함수입니다
+			function displayPlaces(places) {
+			    var listEl = document.getElementById('placesList'),
+			        menuEl = document.getElementById('menu_wrap'),
+			        fragment = document.createDocumentFragment(),
+			        bounds = new kakao.maps.LatLngBounds(),
+			        listStr = '';
+			
+			    // 검색 결과 목록에 추가된 항목들을 제거합니다
+			    removeAllChildNods(listEl);
+			
+			    // 지도에 표시되고 있는 마커를 제거합니다
+			    removeMarker();
+			
+			    // 전역 변수 hospitalMarkers 초기화
+			    hospitalMarkers = [];
+			
+			    for (var i = 0; i < places.length; i++) {
+			        // 마커를 생성하고 지도에 표시합니다
+			        var placePosition = new kakao.maps.LatLng(places[i].y, places[i].x),
+			            marker = addMarker(placePosition, i, places[i].place_name); // 마커 생성 및 hospitalMarkers 배열에 추가
+			        hospitalMarkers.push(marker); // hospitalMarkers 배열에 마커 추가
+			
+			        // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기 위해 LatLngBounds 객체에 좌표를 추가합니다
+			        bounds.extend(placePosition);
+			
+			        // 검색결과 항목 Element를 생성합니다
+			        var itemEl = getListItem(i, places[i]);
+			
+			        // 마커와 검색결과 항목에 mouseover 했을 때 해당 장소에 인포윈도우에 장소명을 표시합니다
+			        // mouseout 했을 때는 인포윈도우를 닫습니다
+			        (function (marker, title) {
+			            kakao.maps.event.addListener(marker, 'mouseover', function () {
+			                displayInfowindow(marker, title);
+			            });
+			
+			            kakao.maps.event.addListener(marker, 'mouseout', function () {
+			                infowindow.close();
+			            });
+			
+			            itemEl.onmouseover = function () {
+			                displayInfowindow(marker, title);
+			            };
+			
+			            itemEl.onmouseout = function () {
+			                infowindow.close();
+			            };
+			        })(marker, places[i].place_name);
+			
+			        fragment.appendChild(itemEl);
+			    }
+			
+			    // 검색결과 항목들을 검색결과 목록 Element에 추가합니다
+			    listEl.appendChild(fragment);
+			    menuEl.scrollTop = 0;
+			
+			    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+			    map.setBounds(bounds);
+			}
+
+			// 검색결과 항목을 Element로 반환하는 함수입니다
+			function getListItem(index, places) {
+				console.log(places);
+			    var el = document.createElement('li'),
+			    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+			                '<div class="info">' +
+			                '   <h5>' + places.place_name + '</h5>';
+
+			    if (places.road_address_name) {
+			        itemStr += '    <span>' + places.road_address_name + '</span>' +
+			                    '   <span class="jibun gray">' +  places.address_name  + '</span>';
+			    } else {
+			        itemStr += '    <span>' +  places.address_name  + '</span>'; 
+			    }
+			                 
+			      itemStr += '  <span class="tel">' + places.phone  + '</span>' +
+			                '</div>';           
+
+			    el.innerHTML = itemStr;
+			    el.className = 'item';
+
+			    return el;
+			}
+			
+			// 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
+			function addMarker(position, idx, title) {
+			    var imageSrc = '../resources/img/hospitalMark.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
+			        imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
+			        imgOptions =  {
+			            spriteSize : new kakao.maps.Size(36, 37), // 스프라이트 이미지의 크기
+			            //spriteOrigin : new kakao.maps.Point(0, (idx*46)+10), // 스프라이트 이미지 중 사용할 영역의 좌상단 좌표
+			            offset: new kakao.maps.Point(13, 37) // 마커 좌표에 일치시킬 이미지 내에서의 좌표
+			        },
+			        markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imgOptions),
+			            marker = new kakao.maps.Marker({
+			            position: position, // 마커의 위치
+			            image: markerImage 
+			        });
+			    marker.setMap(map); // 지도 위에 마커를 표출합니다
+			    hospitalMarkers.push(marker);  // 배열에 생성된 마커를 추가합니다
+
+			    return marker;
+			}
+			
+			// 검색결과 목록 하단에 페이지번호를 표시는 함수입니다
+			function displayPagination(pagination) {
+			    var paginationContainer = document.getElementById('paginationContainer'); // 수정
+			    if (!paginationContainer) {
+			        console.error("paginationContainer not found");
+			        return;
+			    }
+			
+			    var paginationEl = document.getElementById('pagination'); // 수정
+			
+			    // paginationEl이 null인 경우, HTML에 해당 요소를 추가합니다.
+			    if (!paginationEl) {
+			        paginationEl = document.createElement('div');
+			        paginationEl.id = 'pagination';
+			        paginationContainer.appendChild(paginationEl);
+			    }
+			
+			    paginationEl.innerHTML = ''; // 기존에 추가된 페이지번호를 삭제합니다
+			
+			    var fragment = document.createDocumentFragment();
+			    for (var i = 1; i <= pagination.last; i++) {
+			        var el = document.createElement('a');
+			        el.href = "#";
+			        el.innerHTML = i;
+			
+			        if (i === pagination.current) {
+			            el.className = 'on';
+			        } else {
+			            el.onclick = (function (i) {
+			                return function () {
+			                    pagination.gotoPage(i);
+			                }
+			            })(i);
+			        }
+			
+			        fragment.appendChild(el);
+			    }
+			    paginationEl.appendChild(fragment);
+			}
+
+
+			// 검색결과 목록 또는 마커를 클릭했을 때 호출되는 함수입니다
+			// 인포윈도우에 장소명을 표시합니다
+			function displayInfowindow(marker, title) {
+			    var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+
+			    infowindow.setContent(content);
+			    infowindow.open(map, marker);
+			}
+
+			 // 검색결과 목록의 자식 Element를 제거하는 함수입니다
+			function removeAllChildNods(el) {   
+			    while (el.hasChildNodes()) {
+			        el.removeChild (el.lastChild);
+			    }
+			}
+		 	// 기존에 등록된 마커들을 지도에서 제거하는 함수
+		    function removeMarker() {
+		        hospitalMarkers.forEach(function (marker) {
+		            marker.setMap(null);
+		        });
+		        hospitalMarkers = [];
+		    }
+
+		    
+		 	// 실종 마커 클릭 시 이벤트 추가
+		    document.getElementById('missingMark').addEventListener('click', function () {
+		    	console.log('missingMark Click');
+		    	removeShelterMarkers();
+		    	removeHospitalMarkers();
+		    	showMissingMarkers();
+		    });
+		 
+		 	// 보호소 마커 클릭 시 이벤트 추가
+		    document.getElementById('shelterMark').addEventListener('click', function () {
+		    	console.log('shelterMark Click');
+		    	removeMissingMarker();
+		    	removeHospitalMarkers();
+		    	showShelterMarkers();
+		    });
+			
+		    // 병원 마커 클릭 시 이벤트 추가
+		    document.getElementById('hospitalMark').addEventListener('click', function () {
+		    	removeMissingMarker();
+		    	removeShelterMarkers();
+		 		document.getElementById('menu_wrap').style.visibility = 'visible';
+		    	searchHospitalMarks();
+		    });
+		    
+		    // 지도에서 missingMarkers 해제
+		    function removeMissingMarker(){
+		    	for(var i=0; i<missingMarkers.length;i++){
+		    		missingMarkers[i].setMap(null);
+		    	}
+		    }
+		    
+		 	// 지도에서 shelterMarkers 해제
+		    function removeShelterMarkers(){
+		    	for(var i=0; i<shelterMarkers.length;i++){
+		    		shelterMarkers[i].setMap(null);
+		    	}
+		    }
+		 	
+		 	// 지도에서 hospitalMarkers 해제 및 list 해제
+		 	function removeHospitalMarkers(){
+		 		for(var i=0; i<hospitalMarkers.length;i++){
+		    		hospitalMarkers[i].setMap(null);
+		    	}
+		 		document.getElementById('menu_wrap').style.visibility = 'hidden';
+		 	}
+		 	
+		 	// 지도에서 missingMarkers 보이기
+		 	function showMissingMarkers(){
+		 		for(var i=0; i<missingMarkers.length;i++){
+		    		missingMarkers[i].setMap(map);
+		    	}
+		 	}
+		 	
+			// 지도에서 shelterMarkers 보이기
+		 	function showShelterMarkers(){
+		 		for(var i=0; i<shelterMarkers.length;i++){
+		    		shelterMarkers[i].setMap(map);
+		    	}
+		 	}
+		 	
 		</script>
 		<!-- Map Script End -->
 	</body>
