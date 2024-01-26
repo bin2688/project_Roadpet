@@ -12,7 +12,7 @@
 	</insert>
 	<!-- 로그인 -->
 	<select id="login" parameterType="memberVO" resultType="memberVO">
-		select user_id,password from member where login_id = #{login_id}
+		select user_id,password,nickname from member where login_id = #{login_id}
 	</select>
 
 	<!-- 비밀번호찾기 -->

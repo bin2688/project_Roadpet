@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,25 +17,28 @@ public class LoungeLikeController {
 	
 	@ResponseBody
 	@RequestMapping("lounge/likeInsert")
-	public Map<String, Integer> likeInsert(LoungeLikeVO loungeLikeVO, Model model) {
-		LoungeVO result = loungeLikeService.likeInsert(loungeLikeVO);
-		model.addAttribute("result", result);
-		System.out.println("loungeLikeVO.getLike_id() :" + loungeLikeVO.getLike_id());
-		Map<String, Integer> likeCountMap = new HashMap<>();
-		likeCountMap.put("result", result.getLikeCount());
-		likeCountMap.put("likeId", loungeLikeVO.getLike_id());
-		return 	likeCountMap;
+	public Map<String, Integer> likeInsert(LoungeLikeVO loungeLikeVO) {
+		int result = loungeLikeService.likeInsert(loungeLikeVO);
+		int likeCnt = loungeLikeService.likeCount(loungeLikeVO.getLounge_id());
+		Map<String, Integer> likeInsertMap = new HashMap<>();
+		likeInsertMap.put("likeCnt", likeCnt);
+		likeInsertMap.put("likeId", loungeLikeVO.getLike_id());
+
+		return likeInsertMap;
 	}
 	
 	@ResponseBody
 	@RequestMapping("lounge/likeDelete")
-	public String likeDelete(LoungeLikeVO loungeLikeVO, Model model) {
-		//user_id=2&lounge_id=50
-		System.out.println("likeDelete");
-		System.out.println("loungeLikeVO : " + loungeLikeVO);
-		LoungeVO result = loungeLikeService.likeDelete(loungeLikeVO);
-		System.out.println("result : " + result);
-		model.addAttribute("result", result);
-		return "" + result.getLikeCount();	
+	public int likeDelete(LoungeLikeVO loungeLikeVO) {
+		int result = loungeLikeService.likeDelete(loungeLikeVO);
+		int likeCnt = loungeLikeService.likeCount(loungeLikeVO.getLounge_id());	
+		return likeCnt;	
+	}
+	
+	@ResponseBody
+	@RequestMapping("lounge/likeCheck")
+	public LoungeLikeVO likeCheck(int user_id, int lounge_id) {
+		LoungeLikeVO likeState = loungeLikeService.likeCheck(user_id, lounge_id);	
+		return likeState;
 	}
 }

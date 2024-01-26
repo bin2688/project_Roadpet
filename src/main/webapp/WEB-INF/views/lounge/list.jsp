@@ -30,31 +30,20 @@
 
 .search-wrap .search-btn {
 	flex: 0.2;
+	}
+#result div[style*="flex: 1;"] {
+        font-size: 20px; /* 예시로 16px로 지정했으니 필요에 따라 조절하세요. */
+    }
+
+#result div[style*="padding: 5px;"] {
+        font-size: 20px; /* 예시로 14px로 지정했으니 필요에 따라 조절하세요. */
+    }
 }
 </style>
 <%@ include file="/sidebar.jsp"%>
 <script src="https://code.jquery.com/jquery-3.7.1.js"
 	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 	crossorigin="anonymous"></script>
-<script type="text/javascript">
-	$(function() {
-		$('.pages').click(function() {
-			var pageNum = $(this).text();
-			var dataForm = {
-				page : pageNum,
-				searchType : "${searchType}",
-				keyWord : "${keyWord}"
-			};
-			$.ajax({
-				url : "pageList",
-				data : dataForm,
-				success : function(table) {
-					$('#result').html(table);
-				}
-			}) //ajax
-		}) //.pages
-	}) //$
-</script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -63,12 +52,11 @@
 
 			<!-- 인기글  -->
 			<div class="container mt-4">
-				<h4 style="padding: 10px; text-align: center;">라운지 인기글</h4>
+				<h2 style="padding: 10px; text-align: center;">라운지 인기글</h2>
 				<br>
 				<div style="display: flex; flex-direction: row; gap: 20px;">
 					<c:forEach items="${bestList}" var="vo">
-						<div class="bg-light rounded"
-							style="max-width: 200px; overflow: hidden; white-space: nowrap;">
+						<div class="bg-light rounded" style="max-width: 400px; overflow: hidden; white-space: nowrap;">
 							<div style="display: flex; gap: 20px;">
 								<div>
 									<span class="badge bg-warning">${vo.lounge_pet_type}</span>
@@ -76,29 +64,32 @@
 							</div>
 							<a href="one?lounge_id=${vo.lounge_id}">
 								<div>
-									<h6 style="padding: 5px;">${vo.lounge_title}</h6>
+									<h5 style="padding: 5px;  overflow: hidden; text-overflow: ellipsis;"">${vo.lounge_title}</h5>
 								</div>
 								<div style="display: flex; align-items: center; padding: 5px;">
 									<div style="flex: 1; padding-right: 10px; overflow: hidden; text-overflow: ellipsis;">${vo.lounge_content}</div>
-									<img alt="" src="../resources/upload/${vo.lounge_img}" width="40" height="40">
+									<c:if test="${not empty vo.lounge_img and vo.lounge_img ne null}">
+   										 <img alt="" src="../resources/upload/${vo.lounge_img}" width="40" height="40">
+										</c:if>
+												
 								</div>
 							</a>
-							<div style="display: flex; justify-content: space-between;">
-								<div style="padding: 2px;">${vo.lounge_writer}</div>
-								<div style="padding: 2px;">댓글: ${vo.lounge_replyCount}</div>
-								<div style="padding: 2px;">
-									<img alt="like" src="../resources/img/heartDefault.png">
-									${vo.likeCount}
+							<div style="display: flex; justify-content: space-between; ">
+								<div style="flex: 1; padding: 10px;">${vo.lounge_writer}</div>
+								<div style="flex: 1; padding: 10px;">댓글: ${vo.lounge_replyCount}</div>
+								<div style="flex: 1; padding: 10px;">
+									<img alt="like" src="../resources/img/heartDefault.png"> ${vo.likeCnt}
+									
 								</div>
-								<div style="padding: 2px;">${vo.lounge_date}</div>
+								<div style="flex: 1; padding: 7px;">${vo.lounge_date}</div>
 							</div>
-
 						</div>
 					</c:forEach>
 				</div>
-				<br>
+				<br><br><br>
+
 				<!-- 라운지  -->
-				<h4 style="padding: 10px; text-align: center;">라운지</h4>
+				<h2 style="padding: 10px; text-align: center;">라운지</h2>
 				<br>
 				<form id="searchForm" action="list" method="get">
 					<div class="search-wrap">
@@ -118,25 +109,23 @@
 				<br>
 
 
-
-<% if (session.getAttribute("user_id") != null) { %>
+<c:if test="${sessionScope.user_id != null}">
     <!-- 로그인한 경우 -->
     <div style="display: flex; justify-content: flex-end;">
-    <span class="alert alert-success"> 
-				<%=session.getAttribute("user_id")%>님 환영합니다.
-			</span>
-        <a href="lounge_insert.jsp?user_id=<%=session.getAttribute("user_id")%>">
+        <a href="lounge_insert.jsp?user_id=${sessionScope.user_id}">
             <button type="button" class="btn btn-outline-danger m-2" id="insertType" aria-hidden="true">글쓰기</button>
         </a>
     </div>
-<% } else { %>
+</c:if>
+<c:if test="${sessionScope.user_id == null}">
     <!-- 로그인하지 않은 경우 -->
     <div style="display: flex; justify-content: flex-end;">
         <a href="/roadpet/member/login.jsp">
             <button type="button" class="btn btn-outline-danger m-2" id="insertType" aria-hidden="true">로그인 후 글쓰기</button>
         </a>
     </div>
-<% } %>
+</c:if>
+
 
 				<!-- 게시글 목록 -->
 	
@@ -150,23 +139,23 @@
 							</div>
 							<a href="one?lounge_id=${bag.lounge_id}">
 								<div>
-									<h6 style="padding: 5px;">${bag.lounge_title}</h6>
+									<h5 style="padding: 6px; overflow: hidden; text-overflow: ellipsis;" >${bag.lounge_title}</h5>
 								</div>
 								<div style="display: flex; align-items: center; padding: 5px;">
 									<div style="flex: 1; padding-right: 10px; overflow: hidden; text-overflow: ellipsis;">${bag.lounge_content}</div>									
-										<c:if test="${not empty bag.lounge_img and bag.lounge_img ne ''}">
+										<c:if test="${not empty bag.lounge_img and bag.lounge_img ne null}">
    										 <img alt="" src="../resources/upload/${bag.lounge_img}" width="80" height="80">
 										</c:if>
 								</div>
 							</a>
 							<div style="display: flex; justify-content: space-between;">
-								<div style="padding: 5px;">${bag.lounge_writer}</div>
-								<div style="padding: 5px;">댓글: ${bag.lounge_replyCount}</div>
-								<div style="padding: 5px;">
-									<img alt="like" src="../resources/img/heartDefault.png">
-									${bag.likeCount}
+								<div style="flex: 1; padding: 5px;">${bag.lounge_writer}</div>
+								<div style="flex: 1; padding: 5px;">댓글: ${bag.lounge_replyCount}</div>
+								<div style="flex: 1; padding: 5px;">
+										 <img alt="like" src="../resources/img/heartDefault.png"> ${bag.likeCnt}
+										
 								</div>
-								<div style="padding: 5px;">${bag.lounge_date}</div>
+								<div style="flex: 1; padding:1px;">${bag.lounge_date}</div>
 							</div>
 							<hr>
 						</div>
@@ -196,6 +185,25 @@
 			class="bi bi-arrow-up"></i></a>
 
 	</div>
+<script type="text/javascript">
+	$(function() {
+		$('.pages').click(function() {
+			var pageNum = $(this).text();
+			var dataForm = {
+				page : pageNum,
+				searchType : "${searchType}",
+				keyWord : "${keyWord}"
+			};
+			$.ajax({
+				url : "pageList",
+				data : dataForm,
+				success : function(table) {
+					$('#result').html(table);
+				}
+			}) //ajax
+		}) //.pages
+	}) //$
+</script>
 
 	<!-- JavaScript Libraries -->
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

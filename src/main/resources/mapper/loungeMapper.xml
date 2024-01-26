@@ -34,12 +34,7 @@
 	
 	<select id="one" parameterType="int" resultType="loungeVO">
 	 	select L.*,
-       		count(Ll.like_id) as likeCount,
-	       	(select if((select count(*) 
-	       	from lounge_like
-	       	where user_id = #{user_id}
-	       	and lounge_id = #{lounge_id}) = 0, 'N', 'Y')
-	       	) as likeYn
+       		count(Ll.like_id) as likeCnt	       
         from lounge AS L
         left join lounge_like as Ll on L.lounge_id = Ll.lounge_id
         where L.lounge_id = #{lounge_id}               
@@ -51,7 +46,7 @@
     from
         (select row_number() over(order by L.lounge_id desc) as lounge_no,
              L.lounge_id, L.user_id , L.lounge_pet_type, L.lounge_title, L.lounge_content, 
-             L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replyCount, COUNT(Ll.like_id) as likeCount            
+             L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replyCount, COUNT(Ll.like_id) as likeCnt            
          from lounge AS L
              left join lounge_like as Ll on L.lounge_id = Ll.lounge_id
          <choose>
@@ -112,16 +107,16 @@
 	
 	<select id="bestList" resultType="loungeVO">
 	SELECT * FROM (
-    	SELECT L.*, COUNT(LL.like_id) AS likeCount
+    	SELECT L.*, COUNT(LL.like_id) AS likeCnt
     	FROM lounge L
     	LEFT JOIN lounge_like LL ON L.lounge_id = LL.lounge_id
     	WHERE L.lounge_date >= CURDATE() - INTERVAL 7 DAY
     	GROUP BY L.lounge_id
-   		HAVING likeCount >= 5
-    	ORDER BY likeCount DESC
+   		HAVING likeCnt >= 1
+    	ORDER BY likeCnt DESC
    		LIMIT 6
 	) AS s
-	ORDER BY likeCount DESC;	
+	ORDER BY likeCnt DESC;	
 	</select>
 
 </mapper>
