@@ -8,19 +8,33 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<%@ include file="../header.jsp"%>
-<%@ include file="../sidebar.jsp"%>
+
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
 </head>
 <body>
+	<div class="container-fluid position-relative bg-white d-flex p-0">
+		<!-- Spinner Start -->
+		<div id="spinner"
+			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+			<div class="spinner-border text-primary"
+				style="width: 3rem; height: 3rem;" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+
+		<div class="content open">
+		<%@ include file="../header.jsp"%>
+		<%@ include file="../sidebar.jsp"%>
+	
+	
 	<!-- 로그인 -->
 	<%
 		if (session.getAttribute("user_id") == null) {
 	%>
 	<!--로그인이 되지 않았을 때 화면을 보이게 하면 됨.  -->
-	<div class="bg-light rounded h-100 p-4">
+	<div class="bg-light rounded h-100 p-4" >
 		<h3 class="mb-4">로그인</h3>
 		<form action="login">
 			<div class="mb-3">
@@ -63,7 +77,7 @@
 		}
 	%>
 	<!-- 컨트롤 + 쉬프트 + 슬러시(/) : 자동주석 -->
-
-
+</div>
+</div>
 </body>
 </html>

@@ -12,7 +12,7 @@
 <%@ include file="../sidebar.jsp"%>
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid position-relative bg-white d-flex p-0">
 		<!-- Spinner Start -->
 		<div id="spinner"
 			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -27,10 +27,11 @@
 		<!-- views 파일에서 구현예정 -->
 			<div class="content open">
 				<%@ include file="../header.jsp"%>
+				
 				<h3 >전체글</h3>
 				<div style="display: flex; justify-content: flex-end;">
 				<a href="lounge_insert.jsp">
-					<button type="button" class="btn btn-outline-danger m-2" id="insertType"
+					<button type="button"class="btn btn-outline-danger m-2" id="insertType"
 					aria-hidden="true">글쓰기</button> </a>	
 				</div>
 	

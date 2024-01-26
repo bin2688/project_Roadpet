@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="../resources/css/mapservice.css">
 		<title>로드펫 메인페이지</title>		
@@ -33,6 +34,8 @@
 	
 	    <!-- Template Stylesheet -->
 	    <link href="../resources/css/style.css" rel="stylesheet">
+	
+	
 	</head>
 <body>
 
@@ -62,7 +65,9 @@
 			<div class="row g-4" style="width:80%; margin:auto;" >
 				<div class="col-sm-6 col-xl-3">
 					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+						<a href="/roadpet/pet/pet_home.jsp">
 						<img src="/roadpet/resources/img/mypet_logo.png">
+						</a>
 						<div class ="ms-3" style="text-align:center;">
 						<h4 class="mb-0">마이 펫</h4><br>
 						<h6 class="mb-0">반려동물을 등록하고 나의 펫 정보 보기,산책기록 등의 서비스를 이용할 수 있어요.</h6>
@@ -71,7 +76,9 @@
 				</div>
 			<div class="col-sm-6 col-xl-3">
 					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+						<a href="/roadpet/story/PetStory_list?page=1&story_private=0">
 						<img src="/roadpet/resources/img/storylogo2.png">
+						</a>
 						<div class ="ms-3" style="text-align:center;">
 						<h4 class="mb-0">펫 스토리</h4><br>
 						<h6 class="mb-0">나와 반려동물의 일상을 올려 다른 사람과 공유하고 공감할 수 있어요.</h6>
@@ -80,8 +87,11 @@
 				</div>
 				<div class="col-sm-6 col-xl-3">
 					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+						<a href="/roadpet/lounge/list?page=1">
 						<img src="/roadpet/resources/img/community_logo.png">
+						</a>
 						<div class ="ms-3" style="text-align:center;">
+						
 						<h4 class="mb-0">펫 커뮤니티</h4><br>
 						<h6 class="mb-0">반려동물에 대한 정보나 그 외의 여러가지 정보를 공유할 수 있어요.</h6>
 						</div>
@@ -89,7 +99,9 @@
 				</div>
 				<div class="col-sm-6 col-xl-3">
 					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+						<a href="/roadpet/map/mapservice_home.jsp">
 						<img src="/roadpet/resources/img/map_logo.png">
+						</a>
 						<div class ="ms-3" style="text-align:center;">
 						<h4 class="mb-0">펫 지도</h4><br>
 						<h6 class="mb-0">동물병원,보호소 위치정보를 제공하고 실종동물정보를 등록하고 공유할 수 있어요 .</h6>
@@ -137,9 +149,10 @@
 				<div class="row g-4" style="width:80%; margin:auto;" >
 					<div class="bg-light text-center rounded p-4">
 						<div class="d-flex align-items-center justify-content-between mb-4">
-						<h2 style="text-align: left;">산책 랭킹</h2>				
+						<h2 style="text-align: left;">산책 랭킹</h2>
+						<h6>* 시간 기준 랭킹이며 최근 7일 기록을 기준으로 산정합니다.</h6>				
 						</div>	
-						<div id="main_result3" style="text-align: left;">
+						<div id="main_result3">
 										
 						</div>		
 					</div>
@@ -149,19 +162,21 @@
 			<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
 			class="bi bi-arrow-up"></i></a>
 		
-		</div>
-	</div>
-
-	<script>
-	$(function() {
-		 $.ajax({
+			<script>
+			$(function() {
+			 $.ajax({
 				url : "pet/all_walk_week",
 				success : function(x) {	
 					$("#main_result3").html(x)
 				}//success
 			})//ajax	
-	})
+			})
 	
-	</script>
+			</script>
+		
+		</div>
+	</div>
+
+
 </body>
 </html>

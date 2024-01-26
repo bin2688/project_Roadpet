@@ -15,7 +15,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<%@ include file="../sidebar.jsp"%>
+<%-- <%@ include file="../sidebar.jsp"%> --%>
 <style>
 .preview-image {
     max-width: 100%;
@@ -50,6 +50,7 @@
 		<!-- Content Start -->
 		<div class="content open">
 			<%@ include file="../header.jsp"%>
+			<%@ include file="../sidebar.jsp"%>
 			<!-- Form Start -->
 			<div class="container-fluid pt-4 px-4">
 				<div class="row g-4">
