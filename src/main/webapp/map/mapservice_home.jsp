@@ -52,7 +52,7 @@
 				<%@ include file="../sidebar.jsp"%>
 					<div id="alertContainer"></div>
 				<!-- Map Start -->
-				<div class="container-fluid">
+				<div class="container-fluid" style="height:80%">
 	                <div class="row vh-100 bg-light rounded align-items-start justify-content-center mx-0">
 	                	<div class="mapWrapper">
 	                		<div id="map" style="width:100%;height:100%;"></div>
@@ -311,6 +311,7 @@
 							</div>
 							<!-- Missing Form Modal End -->	             	
 	                	</div>
+	                		                <%@ include file="../footer.jsp"%>
 	                </div>
 	            </div>
 				<!-- Map End -->
