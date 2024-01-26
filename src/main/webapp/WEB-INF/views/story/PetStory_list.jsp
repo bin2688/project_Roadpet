@@ -2,127 +2,50 @@
 <%@page import="com.multi.roadpet.story.PetStoryVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css"
-	href="../resources/css/mapservice.css">
 <title>스토리 작성</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
 
-<!-- Script Setting -->
-<script type="text/javascript" src="../resources/js/jquery-3.7.1.js"></script>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1991e110a0fbe362aac08fce1f5fba8c"></script>
+<style>
+.search-wrap {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
 
-<!-- Google Web Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap"
-	rel="stylesheet">
+.search-wrap .search-select {
+	flex: 0.8;
+}
 
-<!-- Icon Font Stylesheet -->
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
-	rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
-	rel="stylesheet">
+.search-wrap .search-input {
+	flex: 2;
+}
 
-<!-- Libraries Stylesheet -->
-<link href="../resources/lib/owlcarousel/assets/owl.carousel.min.css"
-	rel="stylesheet">
-<link
-	href="../resources/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css"
-	rel="stylesheet" />
-
-<!-- Customized Bootstrap Stylesheet -->
-<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Template Stylesheet -->
-<link href="../resources/css/style.css" rel="stylesheet">
-<link rel="stylesheet" href="/roadpet/resources/css/board.css">
+.search-wrap .search-btn {
+	flex: 0.2;
+}
+</style>
+<%@ include file="/sidebar.jsp"%>
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+	integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+	crossorigin="anonymous"></script>
 </head>
-
 <body>
-	<div class="container-fluid position-relative bg-white d-flex p-0">
-		<!-- Spinner Start -->
-		<div id="spinner"
-			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-			<div class="spinner-border text-primary"
-				style="width: 3rem; height: 3rem;" role="status">
-				<span class="sr-only">Loading...</span>
-			</div>
-		</div>
-
+	<div class="container-fluid">
 		<div class="content open">
-
 			<%@ include file="/header.jsp"%>
-			<%@ include file="/sidebar.jsp"%>
-
-			<div class="container-fluid pt-4 px-4">
-				<div class="row g-4" style="width: 60%; margin: auto;">
-					<c:forEach items="${list}" var="vo">
-						<div class="bg-light rounded">
-							<div style="display: flex; gap: 20px;">
-								<div>
-									<h6 style="padding: 5px;">${vo.story_title}</h6>
-											</div>
-											<div class="myinfo">
-												<div
-													class="d-flex align-items-center justify-content-right mb-2">
-													<dl>
-														<dt>날짜</dt>
-														<dd>${vo.story_date}</dd>
-													</dl>
-													<dl>
-														<dt>작성자</dt>
-														<dd>${vo.user_id}</dd>
-													</dl>
-												</div>
-											</div>
-											<div class="cont">
-												<h3>
-													<img src="../resources/upload/${vo.story_photo}"
-														width="250" height="200">
-												</h3>
-												<button type="button" class="btn btn-primary m-2"
-													onclick="location.href='PetStory_one?story_id=${vo.story_id}'">상세보기
-												</button>
-											</div>
-										</div>
-									</div>
-					</c:forEach>
-
-				</div>
-			</div>
-
-			<hr color="red">
-
-
-
-			<hr color="red">
-
-
-			<%
-				int pages = (int) request.getAttribute("pages"); //int <-- object
-			for (int p = 1; p <= pages; p++) {
-			%>
-			<a href="PetStory_list?page=<%=p%>&story_private=0">
-				<button class="btn btn-primary pages"><%=p%></button>
-			</a>
-			<%
-				}
-			%>
-
-
-
-			<!-- Content End -->
-			<!-- Back to Top -->
+			<!-- 글 목록 -->
+			<div class="container mt-4">
+			<h4 style="padding: 10px; text-align: center;">펫 스토리</h4>
+			<br>
+			
 			<%
 				if (session.getAttribute("user_id") != null) {
 			%>
@@ -142,17 +65,64 @@
 			<!-- 로그인하지 않은 경우 -->
 			<div style="display: flex; justify-content: flex-end;">
 				<a href="/roadpet/member/login.jsp">
-					<button type="button" class="btn btn-primary m-2"
+					<button type="button" class="btn btn-outline-danger m-2"
 						style="float: right;">로그인 후 작성하기</button>
 				</a>
 			</div>
 			<%
 				}
 			%>
-
-
+			<!-- 스토리 목록 -->
+				<div id="result">
+				<c:forEach items="${list}" var="vo">
+						<div class="bg-light rounded">
+							<div style="display: flex; gap: 20px;">
+								<div>
+									<span class="badge bg-warning">${vo.story_id}</span>
+								</div>
+							</div>
+							<a href="PetStory_one?story_id=${vo.story_id}">
+								<div>
+									<h6 style="padding: 5px;">${vo.story_title}</h6>
+								</div>
+								<div style="display: flex; align-items: center; padding: 5px;">
+									<div style="flex: 1; padding-right: 10px; overflow: hidden; text-overflow: ellipsis;">${vo.story_content}</div>
+									<img img src="../resources/upload/${vo.story_photo}" width="80" height="80">
+								</div>
+							</a>
+							<div style="display: flex; justify-content: space-between;">
+								<div style="padding: 2px;">${vo.user_id}</div>
+								<div style="padding: 5px;">${vo.story_date}</div>
+							</div>
+						<hr>								
+					</div>			
+				</c:forEach>
+			</div>
 		</div>
-	</div>
+			
+				<!-- 페이징 -->
+				<c:forEach begin="1" end="${pages}" var="p">
+					<div class="btn-group me-2" role="group" aria-label="First group">
+						<button class="btn btn-primary pages">${p}</button>
+					</div>
+				</c:forEach>
+			</div>
+		</div>
+	<!-- JavaScript Libraries -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../resources/lib/easing/easing.min.js"></script>
+	<script src="../resources/lib/waypoints/waypoints.min.js"></script>
+	<script src="../resources/lib/owlcarousel/owl.carousel.min.js"></script>
+	<script src="../resources/lib/tempusdominus/js/moment.min.js"></script>
+	<script src="../resources/lib/tempusdominus/js/moment-timezone.min.js"></script>
+	<script
+		src="../resources/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+	<!-- Template Javascript -->
+	<script src="../resources/js/main.js"></script>			
+
 </body>
 
 </html>
