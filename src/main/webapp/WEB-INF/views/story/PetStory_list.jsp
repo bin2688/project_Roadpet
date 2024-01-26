@@ -61,84 +61,94 @@
 
 		<div class="content open">
 
-	<%@ include file="/header.jsp"%>
-	<%@ include file="/sidebar.jsp"%>
+			<%@ include file="/header.jsp"%>
+			<%@ include file="/sidebar.jsp"%>
 
+			<div class="container-fluid pt-4 px-4">
+				<div class="row g-4" style="width: 60%; margin: auto;">
+					<c:forEach items="${list}" var="vo">
+						<div class="bg-light rounded">
+							<div style="display: flex; gap: 20px;">
+								<div>
+									<h6 style="padding: 5px;">${vo.story_title}</h6>
+											</div>
+											<div class="myinfo">
+												<div
+													class="d-flex align-items-center justify-content-right mb-2">
+													<dl>
+														<dt>날짜</dt>
+														<dd>${vo.story_date}</dd>
+													</dl>
+													<dl>
+														<dt>작성자</dt>
+														<dd>${vo.user_id}</dd>
+													</dl>
+												</div>
+											</div>
+											<div class="cont">
+												<h3>
+													<img src="../resources/upload/${vo.story_photo}"
+														width="250" height="200">
+												</h3>
+												<button type="button" class="btn btn-primary m-2"
+													onclick="location.href='PetStory_one?story_id=${vo.story_id}'">상세보기
+												</button>
+											</div>
+										</div>
+									</div>
+					</c:forEach>
+
+				</div>
+			</div>
+
+			<hr color="red">
+
+
+
+
+			<hr color="red">
+
+
+			<%
+				int pages = (int) request.getAttribute("pages"); //int <-- object
+			for (int p = 1; p <= pages; p++) {
+			%>
+			<a href="PetStory_list?page=<%=p%>&story_private=0">
+				<button class="btn btn-primary pages"><%=p%></button>
+			</a>
+			<%
+				}
+			%>
+	
+
+			<!-- Content End -->
+			<!-- Back to Top -->
 			<%
 				if (session.getAttribute("user_id") != null) {
 			%>
-			로그인한사람
-			<%=session.getAttribute("user_id")%>
-
+			<!-- 로그인한 경우 -->
+			<div style="display: flex; justify-content: flex-end;">
+				<span class="alert alert-success"> <%=session.getAttribute("user_id")%>님
+					환영합니다.
+				</span> <a
+					href="PetStory_insert.jsp?user_id=<%=session.getAttribute("user_id")%>">
+					<button type="button" class="btn btn-outline-danger m-2"
+						id="insertType" aria-hidden="true">글쓰기</button>
+				</a>
+			</div>
 			<%
 				} else {
-
-			}
 			%>
-
-			
-				<div class="container-fluid pt-4 px-4"> 
-             <div class="row g-4"  style="width:60%; margin:auto;">
-				<c:forEach items="${list}" var="vo">
-				
-					
-
-						<div class="card">
-							<div class="card-view">
-								<div class="title">
-									<h4 class="mb-0">${vo.story_title}</h4>
-								</div>
-								<div class="myinfo">
-									<div
-										class="d-flex align-items-center justify-content-right mb-2">
-										<dl>
-											<dt>날짜</dt>
-											<dd>${vo.story_date}</dd>
-										</dl>
-										<dl>
-											<dt>공개여부</dt>
-											<dd>${vo.story_private}</dd>
-
-										</dl>
-									</div>
-								</div>
-								<div class="cont">
-
-									<h3>${vo.story_photo}</h3>
-									<h4>${vo.story_content}</h4>
-								</div>
-							</div>
-						</div>
-					
-			</c:forEach>
-			
-		</div>
-		</div>
-	
-			<hr color="red">
-		
-
-
-			<hr color="red">
-
-
-		<%
-			int pages = (int) request.getAttribute("pages"); //int <-- object
-		for (int p = 1; p <= pages; p++) {
-		%>
-		<a href="PetStory_list?page=<%=p%>&story_private=0">
-			<button class="btn btn-primary pages"><%=p%></button>
-		</a>
-		<%
-			}
-		%>
-	
-
-
-		<!-- Content End -->
-		<!-- Back to Top -->
-		<button type="button" class="btn btn-primary m-2"
-			style="float: right;" onclick="location.href='PetStory_insert.jsp'">글작성하기</button>
+			<!-- 로그인하지 않은 경우 -->
+			<div style="display: flex; justify-content: flex-end;">
+				<a href="/roadpet/member/login.jsp">
+					<button type="button" class="btn btn-primary m-2"
+						style="float: right;">로그인 후 작성하기</button>
+				</a>
+			</div>
+			<%
+				}
+			%>
 
 		</div>
 	</div>

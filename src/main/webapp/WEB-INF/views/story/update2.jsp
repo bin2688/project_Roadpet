@@ -59,7 +59,7 @@
 				<i class="bi bi-exclamation-triangle display-1 text-primary"></i>
 				<h1 class="display-1 fw-bold">완료!</h1>
 				<h1 class="mb-4">스토리 수정 성공</h1>
-				<a class="btn btn-primary rounded-pill py-3 px-5" href="PetStory_list">전체목록</a>
+				<a class="btn btn-primary rounded-pill py-3 px-5" href="PetStory_list?page=1&story_private=0">전체목록</a>
 			</div>
 		</div>
 	</div>
