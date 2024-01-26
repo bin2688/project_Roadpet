@@ -58,7 +58,7 @@
 	                		<div id="map" style="width:100%;height:100%;"></div>
 	                		<!-- 검색 목록 테스트 -->
 	                		<div id="menu_wrap" class="bg_white" style="visibility:hidden;">
-						        <div class="option">내 근처 동물병원 리스트</div>
+						        <div class="option">리스트를 누르면 상세 페이지 창이 열립니다.</div>
 						        <hr>
 						        <ul style="padding-left:0px;" id="placesList"></ul>
 						        <div id="pagination"></div>
@@ -85,8 +85,10 @@
 									병원
 								</li>
 							</ul>
-							<input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-							<label class="btn btn-outline-primary" for="btncheck1">병원 리스트 보기</label>
+							<div class="showlist-btn" role="group" id="hospitallistbtn" aria-label="병원 리스트 체크리스트" style="visibility:hidden;">
+								<input type="checkbox" class="btn-check " id="showlistbtn" onClick="javascript:isCheckedShowListBtn()" autocomplete="off">
+								<label class="btn btn-outline-primary" id="showlistbtnlb" for="showlistbtn" style="bgcolor:#fff">병원 리스트 보기</label>
+							</div>
 						    <!-- Buttons -->
 							<button type="button" id="myLocationButton" class="btn btn-link btn-outline-danger ml-btn mylocation-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="내 위치 이동" onClick="javascript:getMyLocation();"></button>
 							<button type="button" id="cancelButton" class="btn btn-light btn-outline-danger ca-btn cancel-btn" style="visibility:hidden;" data-bs-toggle="tooltip" data-bs-placement="top" title="양식 작성 취소" onClick="javascript:cancelWritingMark();"></button>
@@ -323,9 +325,11 @@
     		let gpsLat;		// gps 위도
     		let gpsLon;		// gps 경도
     		var missingMarkers = [];
-    		var missingInfowindows = [];
     		var shelterMarkers = [];
     		var hospitalMarkers = [];
+    		var missingClusterer;
+    		var shelterClusterer;
+    		var hospitalClusterer;
     		let gpsMarker = new kakao.maps.Marker({
     	        position: new kakao.maps.LatLng(33.450701, 126.570667)
     	    });;	// gps 마커
@@ -688,6 +692,7 @@
 						        missingMarkers[index].setMap(map);
 						    })(i);
 						}
+				        missingClusterer = createAndAddClusterer(missingMarkers, map);
 				    },error: function(xhr, status, error) {
 				        console.error("Error from server:", status, error);
 				    }
@@ -756,6 +761,7 @@
 					        	shelterMarkers[index].setMap(map);
 				        	})(i);
 				        }
+				        shelterClusterer = createAndAddClusterer(shelterMarkers, map);
 					},error: function(xhr, status, error){
 						console.error("Error from server:",status, error);
 					}
@@ -893,8 +899,9 @@
 			        radius: 10000,
 			        sort: kakao.maps.services.SortBy.DISTANCE
 			    };
-			
+				
 			    ps.keywordSearch(keyword, placesSearchCB, options);
+			    hospitalClusterer = createAndAddClusterer(hospitalMarkers, map);
 			}
 			
 			//장소 검색 완료시 호출되는 콜백 함수 -> placesSearchCB
@@ -994,7 +1001,15 @@
 
 			    el.innerHTML = itemStr;
 			    el.className = 'item';
-
+			 	// 클릭 이벤트 추가
+			    el.addEventListener('click', function() {
+			        // 새 창을 열어서 place_url 값으로 이동
+			        window.open(places.place_url);
+			    });
+			 	el.addEventListener('mouseenter', function() {
+			 		var moveLatLon = new kakao.maps.LatLng(parseFloat(places.y),parseFloat(places.x));
+			 		map.setCenter(moveLatLon);
+			 	});
 			    return el;
 			}
 			
@@ -1012,6 +1027,9 @@
 			            position: position, // 마커의 위치
 			            image: markerImage 
 			        });
+			    kakao.maps.event.addListener(marker, 'click', function () {
+			    	map.panTo(marker.getPosition());
+			    });
 			    marker.setMap(map); // 지도 위에 마커를 표출합니다
 			    hospitalMarkers.push(marker);  // 배열에 생성된 마커를 추가합니다
 
@@ -1089,6 +1107,9 @@
 		    	removeShelterMarkers();
 		    	removeHospitalMarkers();
 		    	showMissingMarkers();
+		    	missingClusterer = createAndAddClusterer(missingMarkers, map);
+		    	destroyClusterer(shelterClusterer);
+		    	destroyClusterer(hospitalClusterer);
 		    });
 		 
 		 	// 보호소 마커 클릭 시 이벤트 추가
@@ -1097,14 +1118,21 @@
 		    	removeMissingMarker();
 		    	removeHospitalMarkers();
 		    	showShelterMarkers();
+		    	destroyClusterer(missingClusterer);
+		    	shelterClusterer = createAndAddClusterer(shelterMarkers, map);
+		    	destroyClusterer(hospitalClusterer);
 		    });
 			
 		    // 병원 마커 클릭 시 이벤트 추가
 		    document.getElementById('hospitalMark').addEventListener('click', function () {
+		    	console.log('hospitalMark Click');
 		    	removeMissingMarker();
 		    	removeShelterMarkers();
-		 		document.getElementById('menu_wrap').style.visibility = 'visible';
+		 		document.getElementById('hospitallistbtn').style.visibility = 'visible';
 		    	searchHospitalMarks();
+		    	destroyClusterer(missingClusterer);
+		    	destroyClusterer(shelterClusterer);
+		    	hospitalClusterer = createAndAddClusterer(hospitalMarkers, map);
 		    });
 		    
 		    // 지도에서 missingMarkers 해제
@@ -1123,10 +1151,13 @@
 		 	
 		 	// 지도에서 hospitalMarkers 해제 및 list 해제
 		 	function removeHospitalMarkers(){
+		 		document.getElementById('menu_wrap').style.visibility = 'hidden';
+		 		document.getElementById('hospitallistbtn').style.visibility = 'hidden';
+		 		document.getElementById('showlistbtnlb').value = "병원 리스트 보기";
+		 		document.getElementById('showlistbtn').checked = false;
 		 		for(var i=0; i<hospitalMarkers.length;i++){
 		    		hospitalMarkers[i].setMap(null);
 		    	}
-		 		document.getElementById('menu_wrap').style.visibility = 'hidden';
 		 	}
 		 	
 		 	// 지도에서 missingMarkers 보이기
@@ -1142,7 +1173,90 @@
 		    		shelterMarkers[i].setMap(map);
 		    	}
 		 	}
-		 	
+			
+			function isCheckedShowListBtn(){
+				var showListBtn = document.getElementById('showlistbtn');
+				if(showListBtn.checked){
+			 		document.getElementById('menu_wrap').style.visibility = 'visible';
+			 		document.getElementById('showlistbtnlb').value = "병원 리스트 숨기기";
+				}
+				else{
+			 		document.getElementById('menu_wrap').style.visibility = 'hidden';
+			 		document.getElementById('showlistbtnlb').value = "병원 리스트 보기";
+				}
+			}
+			
+			// 수정된 클러스터러 옵션
+			var clustererOptions = {
+			    averageCenter: true,
+			    minLevel: 4, // 지도 레벨 4부터 적용
+			    disableClickZoom: true,
+			    gridSize: 50,
+			    minClusterSize: 2, // 3개 이상일 때 클러스터로 보이도록 설정
+			    calculator: [10, 30, 50, 100, 200], // 클러스터 단계에 따른 아이콘 크기
+			    styles: [{
+			            width: '30px', height: '30px',
+			            background: 'rgba(245,139,15,0.7)',
+			            border: '1px solid rgba(245,139,15,0.7)',
+			            borderRadius: '50%',
+			            color: '#fff',
+			            textAlign: 'center',
+			            lineHeight: '30px'
+			        },
+			        {
+			            width: '40px', height: '40px',
+			            background: 'rgba(245,139,15,0.7)',
+			            border: '1px solid rgba(245,139,15,0.7)',
+			            borderRadius: '50%',
+			            color: '#fff',
+			            textAlign: 'center',
+			            lineHeight: '40px'
+			        },
+			        {
+			            width: '50px', height: '50px',
+			            background: 'rgba(245,139,15,0.7)',
+			            border: '1px solid rgba(245,139,15,0.7)',
+			            borderRadius: '50%',
+			            color: '#fff',
+			            textAlign: 'center',
+			            lineHeight: '50px'
+			        }
+			    ]
+			};
+			
+			// 클러스터러를 생성하고 마커를 추가하는 함수
+			function createAndAddClusterer(markers, map) {
+			    var clusterer = new kakao.maps.MarkerClusterer({
+			        map: map,
+			        averageCenter: clustererOptions.averageCenter,
+			        minLevel: clustererOptions.minLevel,
+			        disableClickZoom: clustererOptions.disableClickZoom,
+			        gridSize: clustererOptions.gridSize,
+			        minClusterSize: clustererOptions.minClusterSize,
+			        styles: clustererOptions.styles,
+			        calculator: clustererOptions.calculator
+			    });
+
+			    clusterer.addMarkers(markers);
+			    
+			 	// 클러스터 클릭 이벤트 추가
+			    kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+			        var level = map.getLevel();
+			        var center = cluster.getCenter();
+
+			        // 클러스터를 클릭하면 해당 위치로 맵 중앙 이동
+			        map.setLevel(level - 1); // 지도 레벨을 하나 줄임
+			        map.setCenter(center);
+			    });
+			    return clusterer;
+			}
+			
+			// 클러스터러를 소멸시키고 마커를 지도에서 제거하는 함수
+			function destroyClusterer(clusterer) {
+			    clusterer.clear(); // 클러스터러에서 마커 제거
+			    clusterer.setMap(null); // 클러스터러 소멸
+			}
+			
 		</script>
 		<!-- Map Script End -->
 	</body>
