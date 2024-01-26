@@ -27,11 +27,6 @@ public class LoungeReplyController {
 		String insFormat = dateFormat.format(now1);
 		Date resultDate = dateFormat.parse(insFormat);	
 		lngRpVO.setReply_date(resultDate);
-		/* model.addAttribute("result", result);
-		 * model.addAttribute("reply_date", lngRpVO.getReply_date());
-		 * model.addAttribute("reply_content", lngRpVO.getReply_content());
-		 * model.addAttribute("reply_id", lngRpVO.getReply_id());
-		 */
 		return "redirect:one?lounge_id=" + lngRpVO.getReply_oriid();	
 	}
 	
@@ -45,11 +40,6 @@ public class LoungeReplyController {
 		Date resultDate = dateFormat.parse(insFormat);
 	
 		lngRpVO.setReply_date(resultDate);
-		/* model.addAttribute("result", result);
-		 * model.addAttribute("reply_date", lngRpVO.getReply_date());
-		 * model.addAttribute("reply_id", lngRpVO.getReply_id());
-		 * model.addAttribute("reply_content", lngRpVO.getReply_content());
-		 */
 		return "redirect:one?lounge_id=" + lngRpVO.getReply_oriid();
 
 	}

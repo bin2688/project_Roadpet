@@ -46,9 +46,11 @@ public class MemberController {
 		System.out.println(result2);
 		boolean result = (boolean)result2.get("result");
 		int user_id = (int)result2.get("user_id");
-		System.out.println(user_id);
+		String nickName = (String)result2.get("nickName");
+
 		if (result == true) {
 			session.setAttribute("user_id", user_id);
+			session.setAttribute("nickName", nickName);
 		}
 	}
 
