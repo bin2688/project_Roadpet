@@ -27,7 +27,7 @@ for(PetWalkVO dto : list){
 <div class="d-flex align-items-center border-bottom py-3">
 				<div class="w-100 ms-3">
 					<div class="d-flex w-100 justify-content-between">
-						<span style="color:blue;border:2px;font-size:20px;"><%=dto.getPet_name() %></span>
+						<span style="color:green;border:2px;font-size:20px;"><%=dto.getPet_name() %></span>
 						
 					</div>
 				</div>		

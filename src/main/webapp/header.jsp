@@ -5,6 +5,8 @@
 <head>
 <meta charset="utf-8">
 <title>Roadpet-header</title>
+
+
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -70,6 +72,19 @@
 <!-- Template Stylesheet -->
 
 <link rel="stylesheet" href="/roadpet/resources/css/style.css">
+<style>
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+ 
+ *{
+ 	font-family: 'SOYOMapleBoldTTF', serif;
+ }
+
+</style>
 </head>
 
 <body>
@@ -100,6 +115,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                            
                             <a href="/roadpet/member/login.jsp" class="dropdown-item">로그인</a>
+                            <a href="/roadpet/member/signUp.jsp" class="dropdown-item">회원가입</a>
                         </div>
                     </div>
                     <%

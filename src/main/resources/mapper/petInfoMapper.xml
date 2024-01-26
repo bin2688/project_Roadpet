@@ -47,5 +47,10 @@
 		select * from pet_info where user_id=#{user_id}
 	</select>
 	
+	<select id="all_list" resultType="petInfoVO">
+		select * from pet_info limit 5
+		
+	</select>
+	
 </mapper>
 

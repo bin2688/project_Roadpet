@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.multi.roadpet.lounge.LoungeVO;
+
 @Repository
 public class PetWalkDAO {
 
@@ -27,6 +29,11 @@ public class PetWalkDAO {
 		return list;
 	} // 날짜에 따른 산책 정보 가져오기
 	
+	public List<PetWalkVO> list4(PetWalkVO petwalkVO) throws Exception { 
+		List<PetWalkVO> list4 = my.selectList("petWalk.my_walk_list",petwalkVO);	
+		return list4;
+	} // 내 산책기록 가져오기
+	
 	public List<PetWalkVO> list2(PetWalkVO petwalkVO) throws Exception { 
 		List<PetWalkVO> list2 = my.selectList("petWalk.week_list",petwalkVO);	
 		return list2;
@@ -35,4 +42,6 @@ public class PetWalkDAO {
 		List<PetWalkVO> list3 = my.selectList("petWalk.all_week_list",petwalkVO);	
 		return list3;
 	} // 날짜에
+	
+	
 }

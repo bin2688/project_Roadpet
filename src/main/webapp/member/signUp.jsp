@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입 페이지</title>
-<%@ include file="../header.jsp"%>
-<%@ include file="../sidebar.jsp"%>
+
 <script src="http://code.jquery.com/jquery-latest.min.js"
 	src="js/jquery-3.6.0.min.js"></script>
 	
@@ -59,7 +58,19 @@
 
 </head>
 <body>
-
+	<div class="container-fluid position-relative bg-white d-flex p-0">
+		<!-- Spinner Start -->
+		<div id="spinner"
+			class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+			<div class="spinner-border text-primary"
+				style="width: 3rem; height: 3rem;" role="status">
+				<span class="sr-only">Loading...</span>
+			</div>
+		</div>
+		<div class="content open">
+		<%@ include file="../header.jsp"%>
+		<%@ include file="../sidebar.jsp"%>
+	
 	<div class="bg-light rounded h-100 p-4">
 		<h3 class="mb-4">회원가입</h3>
 
@@ -104,6 +115,8 @@
 			</div>
 
 		</form>
+	</div>
+	</div>
 	</div>
 </body>
 </html>

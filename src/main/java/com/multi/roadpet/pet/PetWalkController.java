@@ -38,6 +38,14 @@ public class PetWalkController {
 		System.out.println("오늘 산책 "+list.size());
 		model.addAttribute("list",list);
 	}
+	@RequestMapping("pet/my_walk_list")
+	public void list4( PetWalkVO petwalkVO, Model model , HttpSession session) throws Exception {
+		int user_id = (int) session.getAttribute("user_id");
+		petwalkVO.setUser_id(user_id);
+		List<PetWalkVO> list4= petwalkService.list4(petwalkVO);
+		System.out.println("내 산책 "+list4.size());
+		model.addAttribute("list4",list4);
+	}
 	
 	@RequestMapping("pet/pet_walk_week")
 	public void list2(PetWalkVO petwalkVO, Model model , HttpSession session) throws Exception {
