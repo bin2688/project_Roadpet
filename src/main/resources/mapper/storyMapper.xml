@@ -41,7 +41,7 @@
 
 	<delete id="delete" parameterType="petStoryVO" >
 		delete from pet_story where
-		user_id = #{user_id}
+		story_id = #{story_id}
 	</delete>
 	
 	<update id="update" parameterType="petStoryVO">
@@ -51,7 +51,7 @@
 			story_content = #{story_content},
 			story_date = now(),
 			story_private = #{story_private}
-		where user_id = #{user_id}
+		where story_id = #{story_id}
 	</update>
 
 </mapper>
