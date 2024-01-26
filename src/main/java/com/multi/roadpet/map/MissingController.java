@@ -46,19 +46,15 @@ public class MissingController {
 	@RequestMapping(value = "map/getMissingForm", method = RequestMethod.GET)
 	@ResponseBody
 	public MissingVO getMissingForm(@RequestParam("missing_id") String missingId) {
-		// 여기에서 missingId를 이용하여 작업 수행
-		// 결과를 JSON 형태로 반환
 		return missingService.getMissingForm(missingId);
 	}
 
 	@RequestMapping("map/insert")
 	public void insert(MissingVO missingVO, @RequestParam("files") List<MultipartFile> files, HttpServletRequest request, Model model) throws Exception {
-
-		System.out.println(missingVO);// test
+		// UUID로 생성된 이름 앞에 'fileNameCount를 붙여 파일 구분'
 		String saveToDataBaseFileName = ""; // DB에 보낼 이름 저장변수
 		String id = UUID.randomUUID().toString(); // 사진 파일 변환할 ID
 		int fileNameCount = 0;
-		System.out.println(id);// test
 		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
 		System.out.println(uploadPath);
 

@@ -82,8 +82,9 @@
 				url : "insert4",
 				data : {
 					reply_user_id : '<%=bag.getUser_id()%>',
-					reply_oriid : '<%=bag.getStory_id()%>',
-					reply_content : $('#reply').val()
+					reply_oriid : '<%=bag.getStory_id()%>
+				',
+								reply_content : $('#reply').val()
 							},
 							success : function(response) {
 								alert('댓글이 성공적으로 작성되었습니다!' + response)
@@ -128,6 +129,10 @@
 				</table>
 				<br>
 				<!-- 댓글 작성 부분 -->
+				<%
+					if (session.getAttribute("user_id") != null) {
+				%>
+				<!-- 로그인한 경우 -->
 				<div class="container-fluid pt-4 px-4">
 					<div class="input-group mb-3">
 						<textarea id="reply" class="form-control"
@@ -135,22 +140,37 @@
 						<button class="btn btn-primary" id="b1">댓글등록</button>
 					</div>
 				</div>
+				<%
+					} else {
+				%>
+				<!-- 로그인하지 않은 경우 -->
+				<div style="display: flex; justify-content: flex-end;">
+					<a href="/roadpet/member/login.jsp">
+						<button type="button" class="btn btn-primary m-2"
+							style="float: right;">로그인 후 댓글 달기</button>
+					</a>
+				</div>
+				<%
+					}
+				%>
+
 
 				<button type="button" class="btn btn-primary m-2"
 					onclick="location.href='PetStory_list?page=1'">글목록</button>
 				<!-- 로그인했을때 수정 삭제 버튼 보여주기 -->
 				<%
 					if (session.getAttribute("user_id") != null) {
+						if (session.getAttribute("user_id").equals(bag.getUser_id())) {
 				%>
-				<a href="PetStory_update?user_id=<%=bag.getUser_id()%>">
+				<a href="PetStory_update?story_id=<%=bag.getStory_id()%>">
 					<button type="button" class="btn btn-primary m-2">수정</button>
 				</a>
-				<a href="PetStory_delete?user_id=<%=bag.getUser_id()%>">
+				<a href="PetStory_delete?story_id=<%=bag.getStory_id()%>">
 					<button type="button" class="btn btn-primary m-2">삭제</button>
 				</a>
 				<%
 					}
-
+				}
 				%>
 
 				<div id="result">

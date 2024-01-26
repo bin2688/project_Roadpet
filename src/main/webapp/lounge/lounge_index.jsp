@@ -23,7 +23,6 @@
 		</div>
 		<!-- Spinner End -->
 
-
 		<!-- views 파일에서 구현예정 -->
 			<div class="content open">
 				<%@ include file="../header.jsp"%>

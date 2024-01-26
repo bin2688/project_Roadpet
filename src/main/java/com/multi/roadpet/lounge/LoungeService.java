@@ -29,6 +29,7 @@ public class LoungeService implements LoungeServiceInterface {
 	
 	@Override
 	public List<LoungeVO> list(LoungePageVO loungePageVO) {	
+		
 		return loungeDAO.list(loungePageVO);
 	}
 	

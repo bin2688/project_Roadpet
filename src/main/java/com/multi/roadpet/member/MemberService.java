@@ -47,6 +47,7 @@ public class MemberService {
 		HashMap<String, Object> result2 = new HashMap<String, Object>();
 		result2.put("result",result);
 		result2.put("user_id",dto2.getUser_id());
+		result2.put("nickName",dto2.getNickname());
 		return result2;
 	}
 	
