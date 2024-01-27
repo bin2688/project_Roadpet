@@ -3,53 +3,48 @@
 
 <mapper namespace="loungeLike">
 
+		
 	<sql id="whereId">
-		where lounge_id = #{lounge_id} and user_id = #{user_id}
+	    WHERE lounge_id = #{lounge_id} AND user_id = #{user_id}
 	</sql>
 	
+	
+	<!-- 유저한명의 동일 게시판 체크없을시 row INSERT QUERY -->
 	<insert id="insert" parameterType="loungeLikeVO" useGeneratedKeys="true" keyProperty="like_id">
-		insert into lounge_like
-		values (
-			null,
-			#{user_id},
-			#{lounge_id}
-			)
+	    INSERT INTO lounge_like
+	    VALUES (
+	        null,
+	        #{user_id},
+	        #{lounge_id}
+	    )
 	</insert>
 	
+	
+	<!-- 유저한명의 동일 게시판 중복체크시 row DELETE QUERY -->
 	<delete id="delete" parameterType="loungeLikeVO">
-		delete from lounge_like 
-		 <include refid="whereId"></include>
+	    DELETE FROM lounge_like 
+	    <include refid="whereId"></include>
 	</delete>
 	
+	
+	<!-- 하나의 게시판에 관한 좋아요 개수 SELECT QUERY -->
 	<select id="likeCount" parameterType="int" resultType="int">
-		select count(like_id) as likeCnt
-		from lounge_like 
-		where lounge_id = #{lounge_id} 
+	    SELECT COUNT(like_id) AS likeCnt
+	    FROM lounge_like 
+	    WHERE lounge_id = #{lounge_id} 
 	</select>
 	
-	<select id="likeCountAll" parameterType="loungeLikeVO" resultType="loungeLikeVO">
-  SELECT lounge_id, user_id,
-       IF(COUNT(like_id) = 0, 'off', 'on') AS likeState,
-       COUNT(like_id) AS likeCnt
-		FROM lounge_like
-	WHERE user_id = #{user_id} 
-	group by lounge_id
-	</select>
 	
-
+	<!-- 좋아요 여부 SELECT QUERY -->
 	<select id="likeCheck" parameterType="int" resultType="loungeLikeVO">
-		select like_id,
-		if((select  count(like_id) 
-			from lounge_like 
-			<include refid="whereId"></include>) = 0, 'off', 'on') as likeState
-	    from lounge_like
-        where lounge_id = #{lounge_id} 
+	    SELECT like_id, user_id,
+	           IF((SELECT COUNT(like_id) 
+	               FROM lounge_like 
+	               <include refid="whereId"></include>) = 0, 'off', 'on') AS likeState
+	    FROM lounge_like
+	    WHERE lounge_id = #{lounge_id} 
 	</select>
-	
-	
-	
-	
-	
+
 </mapper>
  
   
