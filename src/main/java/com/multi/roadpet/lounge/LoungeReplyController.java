@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoungeReplyController {
 	
 	@Autowired
-	LoungeReplyServiceInterface lngRpService;	
+	LoungeReplyService lngRpService;	
 	
 	@RequestMapping("lounge/rpInsert")
 	public String rpInsert(LoungeReplyVO lngRpVO, Model model) throws ParseException {
@@ -49,12 +49,6 @@ public class LoungeReplyController {
 		 lngRpService.rpDelete(lngRpVO);
 		return "redirect:one?lounge_id=" + lngRpVO.getReply_oriid();
 	}
-	
-	@RequestMapping("lounge/rpOne")
-	public void rpOne(LoungeReplyVO lngRpVO) {
-		lngRpService.rpOne(lngRpVO);
-	}
-	
 	
 	
 }

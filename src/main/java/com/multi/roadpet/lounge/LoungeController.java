@@ -2,6 +2,7 @@
 package com.multi.roadpet.lounge;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,9 +23,9 @@ import java.io.File;
 public class LoungeController {
 	
 	@Autowired
-	LoungeServiceInterface loungeService;	
+	LoungeService loungeService;	
 	@Autowired
-	LoungeReplyServiceInterface lngRpService;
+	LoungeReplyService lngRpService;
 	@Autowired
 	LoungeLikeService loungeLikeService;
 	
@@ -36,7 +36,6 @@ public class LoungeController {
 	        String savedName = file.getOriginalFilename();
 	        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
 	        File target = new File(uploadPath, savedName);
-
 	        // 이미지 파일이 존재하면 업로드
 	        file.transferTo(target);
 	        loungeVO.setLounge_img(savedName);
@@ -48,11 +47,13 @@ public class LoungeController {
 		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();	
 	}
 
+	
 	@RequestMapping("lounge/update")
 	public void update(LoungeVO loungeVO,Model model) {
 		LoungeVO bag = loungeService.one(loungeVO);
 		model.addAttribute("bag", bag);
 	}
+	
 	
 	@RequestMapping("lounge/updateTr")
 	public String updateTr(LoungeVO loungeVO,
@@ -61,7 +62,6 @@ public class LoungeController {
 	        String savedName = file.getOriginalFilename();
 	        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
 	        File target = new File(uploadPath, savedName);
-
 	        // 이미지 파일이 존재하면 업로드
 	        file.transferTo(target);
 	        loungeVO.setLounge_img(savedName);
@@ -73,36 +73,41 @@ public class LoungeController {
 		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();	
 	}
 	
+	
 	@RequestMapping("lounge/delete")
 	public String delete(LoungeVO loungeVO) {
 		loungeService.delete(loungeVO);
 		return "redirect:list?page=1";
 	}
 	
+	
 	@RequestMapping("lounge/list")
 	public void list(@RequestParam(value = "searchType", required = false) String searchType, HttpSession session,
 					 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO, Model model) throws Exception {	
+
 		loungePageVO.setSearchType(searchType);
 		loungePageVO.setKeyWord(keyWord);
 		loungePageVO.setStartEnd();
-		LoungeVO loungeVO = new LoungeVO();
-		LoungeLikeVO loungeLikeVO = new LoungeLikeVO();
-		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
-		List<LoungeVO> list = loungeService.list(loungePageVO);
-
+		LoungeVO loungeVO = new LoungeVO();	
 		if(session.getAttribute("user_id") != null) {
-			int sessionUserId = (int)session.getAttribute("user_id");
-			loungeLikeVO.setUser_id(sessionUserId);
-			model.addAttribute("likeCheck", loungeLikeService.likeCountAll(loungeLikeVO));
-			
-		}
-	
+			loungeVO.setUser_id((int)session.getAttribute("user_id"));
+		}else {
+			loungeVO.setUser_id(0);
+		}		
+		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
+		HashMap<String, Object> loungeMap = new HashMap<String, Object>();
+		
+		loungeMap.put("loungePageVO", loungePageVO);
+		loungeMap.put("loungeVO", loungeVO);		
+
+		List<LoungeVO> list = loungeService.list(loungeMap);
+
 		int count = loungeService.pageCount(keyWord, searchType);
 		int pages = count/5;
 		if (count%5 != 0) {
 			pages += 1;
-		}
-	
+		}	
+
 		model.addAttribute("bestList", bestList);	
 		model.addAttribute("list", list);	
 		model.addAttribute("pages", pages);	
@@ -111,17 +116,33 @@ public class LoungeController {
 
 		}
 	
+	
 	@RequestMapping("lounge/pageList")
-	public void pageList(@RequestParam(value = "searchType", required = false) String searchType,
+	public void pageList(@RequestParam(value = "searchType", required = false) String searchType, HttpSession session,
 						 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO, Model model) throws Exception {
 		loungePageVO.setSearchType(searchType);
 		loungePageVO.setKeyWord(keyWord);
 		loungePageVO.setStartEnd();
-		List<LoungeVO> list = loungeService.list(loungePageVO);
-		model.addAttribute("list", list);	
+		LoungeVO loungeVO = new LoungeVO();
+		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
+		
+		if(session.getAttribute("user_id") != null) {
+			loungeVO.setUser_id((int)session.getAttribute("user_id"));
+		}else {
+			loungeVO.setUser_id(0);
+		}		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("loungePageVO", loungePageVO);
+		map.put("loungeVO", loungeVO);		
+		List<LoungeVO> list = loungeService.list(map);
+		System.out.println("페이지 VO>>>" + loungePageVO);
+		model.addAttribute("list", list);
 		model.addAttribute("searchType", searchType);	
 		model.addAttribute("keyWord", keyWord);	
 		}
+
 	
 	@RequestMapping("lounge/one")
 	public void one(LoungeVO loungeVO, HttpSession session, Model model) throws Exception {
@@ -133,16 +154,20 @@ public class LoungeController {
 			model.addAttribute("likeCheck", loungeLikeService.likeCheck(sessionUserId, loungeVO.getLounge_id()));
 		}
 
-		model.addAttribute("likeCnt", loungeLikeService.likeCount(loungeVO.getLounge_id()));
+
 		model.addAttribute("bag", bag);
 		model.addAttribute("rpList", rpList);
-
 	}
 	
+	
 	@RequestMapping("lounge/bestList")
-	public void bestList(LoungeVO loungeVO, HttpSession session, Model model) throws Exception {
+	public void bestList(LoungeVO loungeVO, HttpSession session, Model model) throws Exception {		
+		if(session.getAttribute("user_id") != null) {
+			loungeVO.setUser_id((int)session.getAttribute("user_id"));
+		}else {
+			loungeVO.setUser_id(0);
+		}		
 		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
-		
 
 		model.addAttribute("bestList", bestList);	
 		
