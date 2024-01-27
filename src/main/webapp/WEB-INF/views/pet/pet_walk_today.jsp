@@ -12,6 +12,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
  <!-- Bootstrap JS (optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
 </head>
 <body>
 
@@ -21,44 +23,37 @@
 for(PetWalkVO dto : list){
 	 count++;
 %>
-	<hr color="blue">
-<!--model로 views/one.jsp까지 전달한 데이터를 받아 꺼내서 출력 -->
+	
 
-<div class="d-flex align-items-center border-bottom py-3">
-				<div class="w-100 ms-3">
-					<div class="d-flex w-100 justify-content-between">
-						<span style="color:green;border:2px;font-size:20px;"><%=dto.getPet_name() %></span>
-						
-					</div>
-				</div>		
+<div style="width:70%; margin:auto; border:2px solid black; margin-top:50px;">
+<h3 style="color:green; text-align:center; margin-top:20px;"><%=dto.getPet_name() %></h3>
+<table class="table" style="text-align:center;">
+	
+	<tr>
+	<td colspan=2 style="text-align:right;"><a href="/roadpet/pet/pet_walk_delete?walk_id=<%=dto.getWalk_id() %>">삭제</a></td>
+	</tr>
+	<tr>
+		<td style="width:50%; color:orange;">날짜</td>
+		<td><%=dto.getWalk_date() %></td>
+	</tr>
+	<tr>
+		<td style="width:50%; color:orange;">시간</td>
+		<td><%=dto.getWalk_time()%> 분</td>
+	</tr>
+	
+	<tr>
+		<td style="width:50%; color:orange;">거리</td>
+		<td><%=dto.getWalk_distance()%> m</td>
+	</tr>
+	
+</table>
 </div>
-
-<div class="d-flex align-items-center border-bottom py-3">
-				<div class="w-100 ms-3">
-					<div class="d-flex w-100 justify-content-between">
-						<span>날짜</span>
-						<h6 class="mb-0"> <%=dto.getWalk_date() %></h6>
-					</div>
-				</div>		
-</div>
-<div class="d-flex align-items-center border-bottom py-3">
-				<div class="w-100 ms-3">
-					<div class="d-flex w-100 justify-content-between">
-						<span>거리</span>
-						<h6 class="mb-0"> <%=dto.getWalk_distance()%>m</h6>
-					</div>
-				</div>		
-</div>
-<div class="d-flex align-items-center border-bottom py-3">
-				<div class="w-100 ms-3">
-					<div class="d-flex w-100 justify-content-between">
-						<span>시간</span>
-						<h6 class="mb-0"> <%=dto.getWalk_time()%> 분</h6>
-					</div>
-				</div>		
-</div>	
-<br><br>
 <%} %>
+
+
+
+
+
 	
 </body>
 </html>

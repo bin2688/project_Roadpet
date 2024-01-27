@@ -28,6 +28,7 @@
 	limit 6;
 	</select>
 	
+	
 	<select id="one" parameterType="petStoryVO"
 		resultType="petStoryVO">
 		select story_id, user_id, story_date, story_photo, story_title,

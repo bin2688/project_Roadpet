@@ -17,9 +17,9 @@
 	PetInfoVO dto = (PetInfoVO)request.getAttribute("dto");
 %>
 	 
-		<div class="h-100 bg-light rounded p-4">
+		<div style= "border:2px solid black; padding:20px;margin-top:40px; margin-bottom:40px;">
 		<span>
-				<img class="petprofile" src="../resources/upload/<%=dto.getPet_photo()%>" style="width:120px; height:120px; border-radius:70%; border: 3px solid gold;"  >
+				<img class="petprofile" src="../resources/upload/<%=dto.getPet_photo()%>" style="width:130px; height:130px; border-radius:70%; border: 3px solid gray;"  >
 		</span>
 		<div align="right">
 			<a href="/roadpet/pet/pet_info_update?pet_id=${dto.pet_id}">수정</a>
