@@ -311,7 +311,7 @@
 							</div>
 							<!-- Missing Form Modal End -->	             	
 	                	</div>
-	                		                <%@ include file="../footer.jsp"%>
+	                	<%@ include file="../footer.jsp"%>
 	                </div>
 	            </div>
 				<!-- Map End -->
