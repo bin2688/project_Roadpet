@@ -13,7 +13,7 @@ public class LoungeVO {
     private String lounge_img;
     private int lounge_replyCount;
     private int likeCnt;
-    private String likeState;
+    private int likeState;
 
     
     
@@ -23,10 +23,10 @@ public class LoungeVO {
 	public void setLikeCnt(int likeCnt) {
 		this.likeCnt = likeCnt;
 	}
-	public String getLikeState() {
+	public int getLikeState() {
 		return likeState;
 	}
-	public void setLikeState(String likeState) {
+	public void setLikeState(int likeState) {
 		this.likeState = likeState;
 	}
 	public int getLounge_replyCount() {
