@@ -19,20 +19,20 @@ public class LoungeTimeDisplay {
 		long insTime = date.getTime();
 		long difTime = (timeNow - insTime) / 1000;
 		String displayTime = null;
-		if (difTime < Time.sec) { 
-			displayTime = "ë°©ê¸ˆ ì „"; //60ì´ˆ ë¯¸ë§Œ
+		if (difTime < Time.sec) {
+			displayTime = "¹æ±Ý Àü"; //60ÃÊ ¹Ì¸¸
 		} else if ((difTime /= Time.sec) < Time.min) {
-			displayTime = difTime + "ë¶„ ì „"; //60ë¶„ ë¯¸ë§Œ
+			displayTime = difTime + "ºÐ Àü"; //60ºÐ ¹Ì¸¸
 		} else if ((difTime /= Time.min) < Time.hour) {
-			displayTime = (difTime) + "ì‹œê°„ ì „"; //24ì‹œê°„ ë¯¸ë§Œ
+			displayTime = (difTime) + "½Ã°£ Àü"; //24½Ã°£ ¹Ì¸¸
 		} else if ((difTime /= Time.hour) < Time.day) {
-			displayTime = (difTime) + "ì¼ ì „"; //30ì¼ ë¯¸ë§Œ
+			displayTime = (difTime) + "ÀÏ Àü"; //30ÀÏ ¹Ì¸¸
 		} else if ((difTime /= Time.day) < Time.month) {
-			displayTime = (difTime) + "ë‹¬ ì „"; //12ê°œì›” ë¯¸ë§Œ
+			displayTime = (difTime) + "´Þ Àü"; //12°³¿ù ¹Ì¸¸
 		} else if ((difTime /= Time.month) < Time.year) {
-			displayTime = (difTime) + "ë…„ ì „"; //12ë…„ ë¯¸ë§Œ
+			displayTime = (difTime) + "³â Àü"; //12³â ¹Ì¸¸
 		} else {
-			displayTime = "ì˜¤ëž˜ ì „";
+			displayTime = "¿À·¡ Àü";
 		}
 		return displayTime;		
 	}

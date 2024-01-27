@@ -27,10 +27,10 @@ for(PetWalkVO dto : list3){
 <table cellspacing="10"  width="800" height="200" style="font-size:20px;">
 	<tr>
 		
-		<th scope="col">랭킹</th>
-		<th scope="col" >펫 이름</th>
-		<th scope="col">시간</th>
-		<th scope="col">거리</th>
+		<th scope="col"><h5>랭킹</h5></th>
+		<th scope="col" ><h5>펫 이름</h5></th>
+		<th scope="col"><h5>시간</h5></th>
+		<th scope="col"><h5>거리</h5></th>
 	</tr>
 	<tr>
 		<td scope="col" align="center" style="color:red;"><%=dto.getWalk_date() %>위</td>

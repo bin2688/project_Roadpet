@@ -46,6 +46,20 @@
 <meta charset="utf-8">
 <title>선의 거리 계산하기</title>
 <style>
+
+
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+ 
+ 	*{
+ 	font-family: 'SOYOMapleBoldTTF', serif;
+ }
+
+
 .dot {
 	overflow: hidden;
 	float: left;
@@ -115,35 +129,35 @@
 <p>
     <em>지도를 마우스로 클릭하면 선 그리기가 시작되고<br>오른쪽 마우스를 클릭하면 선 그리기가 종료됩니다<br>자동으로 시간과 거리가 입력되며 직접 수정 할 수 있습니다</em>
     <br>
-   
+   <div style="width:80%; margin:70px;" >
    <form action="pet_walk_insert" id="form" method="post"  enctype="multipart/form-data" name="walk_form">
 			<div class="mb-3">
 					<input type="hidden" name="user_id" value="<%=session.getAttribute("user_id")%>"> 
 			</div>
 			
-				<label for="exampleInputEmail1" class="form-label">1.펫</label>
+				<h5>1.펫</h5>
 				<div id="namelist">
 				
+			</div><br>
+			<div class="mb-3">
+			<h5>2.산책 날짜</h5>
+			 <input name="walk_date" class="form-control" id="walk_date" ><br>
 			</div>
 			<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label" >2.산책 날짜</label>
-			 <input name="walk_date" class="form-control" id="walk_date" >
+			<h5>3.산책 거리</h5>
+			 <input name="walk_distance" class="form-control" id="walk_distance" placeholder="미터"><br>		
 			</div>
 			<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">3.산책 거리</label>
-			 <input name="walk_distance" class="form-control" id="walk_distance" placeholder="미터"><br>
-					
-			</div>
-			<div class="mb-3">
-			<label for="exampleInputEmail1" class="form-label">4.산책 시간</label> <input
+			<h5>4.산책 시간(분)</h5>
+			 <input
 					name="walk_time" class="form-control" id="walk_time" placeholder="분">
-			</div>
+			</div><br>
 			<div class="button-login-box">
-				<button id="bt__ok" type="submit" class="btn btn-primary">등록</button>
+				<button id="bt__ok" type="submit" class="btn btn-primary" style="width:120px;">등록</button>
 			</div>
 		</form>
    
-   
+   </div>
 </p>
 
 

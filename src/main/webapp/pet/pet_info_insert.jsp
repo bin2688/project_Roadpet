@@ -20,6 +20,7 @@
 <body>
 	
    <div class="bg-light rounded h-100 p-4">
+        <div style="width:60%; margin:auto;">
         <h3 class="mb-4">펫정보 입력</h3>
 		
 		<form action="pet_info_insert" id="form" method="post"  enctype="multipart/form-data">
@@ -27,12 +28,12 @@
 			<input type="hidden" name="user_id" value="<%=session.getAttribute("user_id")%>"> 
 			
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">2.펫 이름</label> <input
+				<h5 style="margin-top:20px; margin-bottom:20px;">1.펫 이름</h5> <input
 					name="pet_name" class="form-control" id="exampleInputEmail1"
 					aria-describedby="emailHelp">
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">3.펫 분류</label>
+				<h5 style="margin-top:20px; margin-bottom:20px;">2.분류</h5>
 				 <select
 				 	name=pet_type
 					class="form-select form-select-sm mb-3"
@@ -45,14 +46,14 @@
 				</select>
 			</div>
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">4.펫 품종</label>
+				<h5 style="margin-top:20px; margin-bottom:20px;">3.품종</h5>
 				 <input name="pet_detail" class="form-control" id="exampleInputEmail1"
 					aria-describedby="emailHelp" placeholder="ex)푸들">
 			</div>
 			 
 			<fieldset class="row mb-3"> 
 			<div class="col-sm-10">
-			<label for="exampleInputEmail1" class="form-label">5.펫 성별</label>
+			<h5 style="margin-top:20px; margin-bottom:20px;">4.성별</h5>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="pet_sex"
 						id="gridRadios1" value="0" checked> <label
@@ -68,14 +69,14 @@
 
 
 			<div class="mb-3">
-				<label for="exampleInputEmail1" class="form-label">6.펫 생년월일</label> <input
+				<h5 style="margin-top:20px; margin-bottom:20px;">5.생년월일</h5> <input
 					name="pet_birth" class="form-control" id="exampleInputEmail1"
 					aria-describedby="emailHelp" placeholder="ex)990105">
 			</div>
 
 		<fieldset class="row mb-3"> 
 			<div class="col-sm-10">
-			<label for="exampleInputEmail1" class="form-label">7.중성화여부</label>
+			<h5 style="margin-top:20px; margin-bottom:20px;">6.중성화여부</h5>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="pet_neutering"
 						id="gridRadios1" value="0" checked> <label
@@ -91,7 +92,7 @@
 			
 			<fieldset class="row mb-3"> 
 			<div class="col-sm-10">
-			<label for="exampleInputEmail1" class="form-label">8.백신접종여부</label>
+			<h5 style="margin-top:20px; margin-bottom:20px;">7.백신접종여부</h5>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="pet_vaccin"
 						id="gridRadios1" value="0" checked> <label
@@ -107,7 +108,7 @@
 
 
 			<div class="input-form-box">
-				9.펫 사진:<input type="file" name="file" class="form-control">
+				<h5 style="margin-top:20px; margin-bottom:20px;">8.펫 사진</h5><input type="file" name="file" class="form-control">
 			</div>
 			<br>
 			<div class="button-login-box">
@@ -115,6 +116,7 @@
 			</div>
 
 		</form>
+	</div>
 </div>
 </body>
 </html>

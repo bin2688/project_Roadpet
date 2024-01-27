@@ -43,5 +43,10 @@ public class PetWalkDAO {
 		return list3;
 	} // ³¯Â¥¿¡
 	
+	public int delete(PetWalkVO petwalkVO) {
+		int result = my.delete("petWalk.delete", petwalkVO);
+		
+		return result;
+	}
 	
 }

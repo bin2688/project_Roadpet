@@ -23,12 +23,7 @@ public class PetStoryVO {
 	public void setStory_id(int story_id) {
 		this.story_id = story_id;
 	}
-	public int getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
-	}
+	
 	public String getStory_title() {
 		return story_title;
 	}

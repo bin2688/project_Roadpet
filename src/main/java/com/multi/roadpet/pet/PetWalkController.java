@@ -62,5 +62,9 @@ public class PetWalkController {
 		System.out.println("모든 산책랭킹"+list3.size());
 		model.addAttribute("list3",list3);
 	}
-	
+	@RequestMapping("pet/pet_walk_delete")
+	public void delete(PetWalkVO petwalkVO , Model model) {
+		int result = petwalkService.delete(petwalkVO);//int
+		model.addAttribute("result", result);
+	}
 }
