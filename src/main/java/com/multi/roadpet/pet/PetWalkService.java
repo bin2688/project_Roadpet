@@ -37,5 +37,9 @@ public class PetWalkService {
 		List<PetWalkVO> list4 =dao.list4(petwalkVO);
 		return list4;
 	}
-	
+	public int delete(PetWalkVO petWalkVO) {
+		int result = dao.delete(petWalkVO);
+		
+		return result;
+	}
 }

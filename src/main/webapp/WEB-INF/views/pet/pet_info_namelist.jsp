@@ -11,15 +11,11 @@
 <link rel="stylesheet" href="/roadpet/resources/css/style.css">
 </head>
 <body>
-<div class="h-100 bg-light rounded p-4">
-<div align="right">
-</div>
-
+<div style="margin:20px;">
 <c:forEach items="${list}" var="vo">
-<input type="checkbox" value="${vo.pet_name}" name="pet_name">
-<label>${vo.pet_name}</label>
+<input type="radio" value="${vo.pet_name}" name="pet_name" class="form-check-input">
+<label class="form-check-label">${vo.pet_name}</label>
 </c:forEach>
-
 
 </div>
 

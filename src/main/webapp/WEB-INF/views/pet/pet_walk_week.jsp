@@ -12,6 +12,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
  <!-- Bootstrap JS (optional) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+th {
+font-size:17px;
+color: orange;
+}
+
+</style>
+
 </head>
 <body>
 
@@ -19,33 +27,32 @@
  ArrayList<PetWalkVO> list2 =(ArrayList<PetWalkVO>)request.getAttribute("list2");
 for(PetWalkVO dto : list2){
 %>
-<!--model로 views/one.jsp까지 전달한 데이터를 받아 꺼내서 출력 -->
-<div class="week-div" style="flex-direction: column;">
-<div class="d-flex align-items-center border-bottom py-3">				
-				
-				<div class="w-100 ms-3"style="flex-direction: column;" >
-						<span><h4 class="mb-0"><%=dto.getPet_name() %></h4></span>
-				
-				</div>		
-				<div class="w-100 ms-3" style="flex-direction: column;">
-						<h4>최근 7일 평균 시간</h4>
-						<h4 class="mb-0" style="color:orange;"> <%=dto.getWalk_time() %>분</h4><br><br>
-				
-						<h4>산책 랭킹</h4>
-						<h4 class="mb-0" style="color:orange;"> <%=dto.getWalk_date() %>위</h4><br><br>
-				</div>	
-				<div class="w-100 ms-3" style="flex-direction: column;">
-						<h4>최근 7일 평균 거리</h4>
-						<h4 class="mb-0" style="color:orange;"> <%=dto.getWalk_distance() %>m</h4><br><br>
-				
-						<h4>거리 랭킹</h4>
-						<h4 class="mb-0" style="color:orange;"> <%=dto.getWalk_id() %>위</h4><br><br>
-				</div>		
-</div>	
-</div>
 
-<br>
+<div style="width:80%; margin:auto; border:2px solid black; margin-top:50px;">
+<h3 style="color:green; text-align:center; margin-top:10px;"><%=dto.getPet_name() %></h3>
+<table class="table" style="text-align:center;">
+	<tr>
+		<th>최근7일 평균시간</th>
+		<th>최근7일 평균거리</th>
+	</tr>
+	<tr>
+		<td><%=dto.getWalk_time() %>분</td>
+		<td><%=dto.getWalk_distance() %>m</td>
+	</tr>
+	
+	<tr>
+	</tr>
+	<tr>
+		<td><%=dto.getWalk_date() %>위</td>
+		<td><%=dto.getWalk_id() %>위</td>
+	</tr>
+	
+</table>
+</div>
 <%} %>
+	
+	
+	
 	
 </body>
 </html>

@@ -4855,7 +4855,7 @@ keyframes progress-bar-stripes { 0%{
 	z-index: 1;
 	color: #495057;
 	text-decoration: none;
-	background-color: #f8f9fa
+	background-color: #f3f6f9
 }
 
 .list-group-item-action:active {

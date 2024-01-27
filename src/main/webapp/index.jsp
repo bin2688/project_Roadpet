@@ -99,7 +99,7 @@
 						<h6 class="mb-0">반려동물에 대한 정보나 그 외의 여러가지 정보를 공유할 수 있어요.</h6>
 
 						</div>
-					</a>
+					
 					</div>
 
 				</div>
@@ -125,7 +125,8 @@
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
 							<a href="/roadpet/lounge/list?page=1">
-							<h2 style="text-align: left;">인기 커뮤니티 글</h2>
+							<h2 style="padding: 10px; text-align: center; margin-top:20px; margin-bottom:20px;">
+      <img src="/roadpet/resources/img/index_community.png" style="width:60px; height:60px; display:inline-block;">인기 커뮤니티글</h2>
 							</a>
 						</div>
 
@@ -143,7 +144,8 @@
 					<div class="bg-light text-center rounded p-4">
 						<div
 							class="d-flex align-items-center justify-content-between mb-4">
-							<h2 style="text-align: left;">최근 스토리</h2>
+							<h2 style="padding: 10px; text-align: center; margin-top:20px; margin-bottom:20px;">
+      <img src="/roadpet/resources/img/pslogo2.png" style="width:60px; height:60px; display:inline-block;">최근 스토리</h2>
 							<a href="">자세히 보기</a>
 						</div>
 						<div id="main_result2" style="text-align: left;">
@@ -158,7 +160,8 @@
 					<div class="bg-light text-center rounded p-4">
 
 						<div class="d-flex align-items-center justify-content-between mb-4">
-						<h2 style="text-align: left;">산책 랭킹</h2>
+						<h2 style="padding: 10px; text-align: center; margin-top:20px; margin-bottom:20px;">
+      				<img src="/roadpet/resources/img/crown.png" style="width:60px; height:60px; display:inline-block;">산책왕</h2>  
 						<h6>* 시간 기준 랭킹이며 최근 7일 기록을 기준으로 산정합니다.</h6>				
 						</div>	
 						<div id="main_result3">
@@ -172,32 +175,14 @@
 			<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
 
 			class="bi bi-arrow-up"></i></a>
-		
-			<script>
-			$(function() {
-			 $.ajax({
-
-				class="bi bi-arrow-up"></i></a>
-
-		</div>
 	</div>
-
+	</div>
+	</div>	
+			
 	<script>
 		
 	window.onload = function() {
 		console.log("onload called!!")
-		
-		$.ajax({
-			url : "lounge/bestList",
-			success : function(response) {
-				console.log(response)
-				$("#result").append(response)
-			},//success
-			error : function(){
-				console.log("error")
-			}
-			
-		})//ajax
 		
 	}
 	
@@ -208,7 +193,17 @@
 					$("#main_result3").html(x)
 				}//success
 			})//ajax	
-
+			$.ajax({
+				url : "lounge/bestList",
+				success : function(response) {
+					console.log(response)
+					$("#result").append(response)
+				},//success
+				error : function(){
+					console.log("error")
+				}
+				
+			})//ajax
 		})
 				
 		

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 		<meta charset="UTF-8">
 		
-		<title>로드펫-지도 홈</title>		
+		<title>로드펫-펫 홈</title>		
 		<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	    <meta content="" name="keywords">
 	    <meta content="" name="description">
@@ -70,53 +70,67 @@
 	if (session.getAttribute("user_id")!= null){
 	%>
 		<!--내 펫 리스트  -->
-      <div class="bg-light rounded p-4" style="width:80%; margin:auto; background-color:red;">
-             <div class="row g-4" style="background-color:#F3F6F9;">
-               <h3 class="mb-0" style="text-align:center;">마이펫 정보</h3>                
-                	<div id="all" style="background-color:#F3F6F9;">
+      
+      
+      <h2 style="padding: 10px; text-align: center; margin-top:40px; margin-bottom:40px;">
+      <img src="/roadpet/resources/img/pwlogo.png" style="width:60px; height:60px; display:inline-block;">펫 정보</h2>  
+      
+      <br>
+      <div class="bg-light rounded " style="width:80%; margin:auto;">
+             <div class="row g-4" style="background-color:#F3F6F9;">               
+                	<div id="all" style="background-color:#F3F6F9; width:70%; margin:auto; padding: 20px;">
                 	내 펫들이름 들어가는곳
                 	</div>         
-				<div id="result" style="background-color:#F3F6F9;"></div>			  
+				<div id="result" style="background-color:#F3F6F9; width:70%; margin:auto;"></div>			  
     		 	
     		 </div>
     	</div>
     <br><br>
     
     	<!--스토리  -->
-    <div class="bg-light rounded p-4" style="width:80%;  margin:auto; ">
-    	
-    	    <div class="row g-4" >
-                    <h3 class="mb-0" style="text-align:center;">스토리</h3>                         
-					<div id="result2">다이어리 들어가는곳</div>
-					
-			</div>	
+    	<h2 style="padding: 10px; text-align: center; margin-top:40px; margin-bottom:40px;">
+      <img src="/roadpet/resources/img/pslogo2.png" style="width:60px; height:60px; display:inline-block;">내 스토리</h2>
+    	 <br>  
+    <div class="bg-light rounded" style="width:80%; margin:auto;">
+    	         <div style="background-color:#F3F6F9; margin:auto;" >
+					<div id="result2" style="background-color:#F3F6F9; width:90%; margin:auto; padding: 20px;">다이어리 들어가는곳</div>
+				</div>
+			
 	</div>
 	
 		<br><br>
   	 	
-			<div class="bg-light rounded p-4" style="width:80%; height:80%; margin:auto; ">
-				<div class="row g-4">
-					<h3 class="mb-0" style="text-align:center;">산책기록</h3>
-				</div>
+  	 	<!-- 산책 -->
+  	 	
+  	 	<h2 style="padding: 10px; text-align: center; margin-top:40px; margin-bottom:40px;">
+      <img src="/roadpet/resources/img/petlogo.png" style="width:60px; height:60px; display:inline-block;">산책기록</h2>
+  	 	<br>
+  	 	
+			<div class="bg-light rounded" style="width:80%; height:80%; margin:auto; ">
 				<br><br>
-					<div class="row g-4" style="width: 50%; height: 50%; float:left;">
-					<h3 class="mb-0">Today</h3><br>
-					
-					<input type="button" class="btn btn-primary" onclick="popup();"
-						value="추가">
-						
-					<a href="/roadpet/pet/my_walk_list?<%=session.getAttribute("user_id")%>">
-					<button class="btn btn-primary">기록보기</button>
-					</a>
+					<div style="width: 50%; height: 50%; float:left; border-right: dotted 3px black">
+					<h2 style="padding: 10px; text-align: center; margin-top:40px; margin-bottom:40px;">
+      <img src="/roadpet/resources/img/1day.png" style="width:60px; height:60px; display:inline-block;">Today</h2>
+					<div style="text-align:center">
+						<input type="button" class="btn btn-primary" onclick="popup();"
+							value="추가">	
+						<a href="/roadpet/pet/my_walk_list?<%=session.getAttribute("user_id")%>">
+						<button class="btn btn-primary">기록보기</button>
+						</a>
+					</div>
 					<div id="result5">산책정보2</div>
 					</div>
 
-					<div class="row g-4" style="width: 50%; height: 50%; float:right;">
-						<h3 class="mb-0">Week</h3><br>
-						<div id="result6">주간정보</div>
-						
-					</div>
+				<div style="width: 50%; height: 50%; float: right;">
+					<h2
+						style="padding: 10px; text-align: center; margin-top: 40px; margin-bottom: 40px;">
+						<img src="/roadpet/resources/img/7day.png"
+							style="width: 60px; height: 60px; display: inline-block;">Week
+					</h2>
+					<div id="result6">주간정보</div>
+
 				</div>
+			</div>
 			
 
 			<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i

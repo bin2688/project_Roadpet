@@ -64,6 +64,9 @@
 		limit 5;
 	</select>
 	
+	<delete id="delete" parameterType="petWalkVO">
+		delete from pet_walk where walk_id = #{walk_id}
+	</delete>
 	
 	
 </mapper>

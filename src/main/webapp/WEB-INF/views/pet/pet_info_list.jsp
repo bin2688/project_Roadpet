@@ -18,7 +18,7 @@
 
 <c:forEach items="${list}" var="vo">
 <button class="btn_pet" id="${vo.pet_id}" style="margin-right:50px;">
-	<img class="petprofile" src="../resources/upload/${vo.pet_photo}" style="width:120px; height:120px; border-radius:70%; border: 3px solid gold;"  >
+	<img class="petprofile" src="../resources/upload/${vo.pet_photo}" style="width:120px; height:120px; border-radius:70%; border: 3px solid gray;"  >
 </button>
 
 </c:forEach>
