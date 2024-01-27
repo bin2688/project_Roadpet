@@ -11,7 +11,6 @@ public class PetStoryVO {
 	private int story_private;
 	
 
-
 	public int getStory_no() {
 		return story_no;
 	}
