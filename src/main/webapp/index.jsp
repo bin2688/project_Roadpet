@@ -89,19 +89,15 @@
 					</div>
 				</div>
 				<div class="col-sm-6 col-xl-3">
-					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-						<a href="/roadpet/lounge/list?page=1">
-						<img src="/roadpet/resources/img/community_logo.png">
-						</a>
-						<div class ="ms-3" style="text-align:center;">
-						
+				<a href="/roadpet/lounge/list?page=1">
+					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">					
+						<img src="/roadpet/resources/img/community_logo.png">						
+						<div class ="ms-3" style="text-align:center;">						
 						<h4 class="mb-0">펫 커뮤니티</h4><br>
 						<h6 class="mb-0">반려동물에 대한 정보나 그 외의 여러가지 정보를 공유할 수 있어요.</h6>
-
-						</div>
-					</a>
+						</div>										
 					</div>
-
+					</a>
 				</div>
 				<div class="col-sm-6 col-xl-3">
 					<div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
@@ -173,24 +169,18 @@
 
 			class="bi bi-arrow-up"></i></a>
 		
-			<script>
-			$(function() {
-			 $.ajax({
-
-				class="bi bi-arrow-up"></i></a>
 
 		</div>
 	</div>
+</div>
 
 	<script>
 		
 	window.onload = function() {
-		console.log("onload called!!")
 		
 		$.ajax({
 			url : "lounge/bestList",
 			success : function(response) {
-				console.log(response)
 				$("#result").append(response)
 			},//success
 			error : function(){
@@ -199,9 +189,9 @@
 			
 		})//ajax
 		
-	}
 	
-		$(function() {
+	
+		/* $(function() {
 			$.ajax({
 				url : "pet/all_walk_week",
 				success : function(x) {
@@ -209,7 +199,8 @@
 				}//success
 			})//ajax	
 
-		})
+		}) */
+	}	
 				
 		
 	</script>

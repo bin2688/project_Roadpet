@@ -94,7 +94,7 @@
                         <img class="rounded-circle" src="../resources/img/default.jpg" alt="" style="width: 40px; height: 40px;">
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0"><%=session.getAttribute("user_id")%>님</h6>
+                        <h6 class="mb-0"><%=session.getAttribute("nickName")%>님</h6>
                         <span>환영합니다.</span>
                     </div>
                 </div> 

@@ -8,7 +8,15 @@ public class LoungeReplyVO {
 	private int user_id;
 	private String reply_content;
 	private String reply_date;
+	private String reply_writer;
+		
 	
+	public String getReply_writer() {
+		return reply_writer;
+	}
+	public void setReply_writer(String reply_writer) {
+		this.reply_writer = reply_writer;
+	}
 	public int getReply_id() {
 		return reply_id;
 	}
@@ -43,7 +51,7 @@ public class LoungeReplyVO {
 	@Override
 	public String toString() {
 		return "LoungeReplyVO [reply_id=" + reply_id + ", reply_oriid=" + reply_oriid + ", user_id="
-				+ user_id + ", reply_content=" + reply_content + ", reply_date=" + reply_date + "]";
+				+ user_id + ", reply_content=" + reply_content + ", reply_date=" + reply_date +  ", reply_writer=" + reply_writer +"]";
 	}
 
 	

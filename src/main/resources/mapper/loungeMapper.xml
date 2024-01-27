@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<mapper namespace="lounge">
+	
 	<insert id="insert" parameterType="loungeVO" useGeneratedKeys="true" keyProperty="lounge_id">
-		insert into lounge (lounge_id, lounge_pet_type, user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img, lounge_replyCount)
-		values (
+		INSERT INTO lounge (lounge_id, lounge_pet_type, user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img, lounge_replyCount)
+		VALUES (
 			null,
 			#{lounge_pet_type},
 			#{user_id},
@@ -18,105 +19,118 @@
 	</insert>
 	
 	<update id="update" parameterType="loungeVO">
-		update lounge 
-		set 
+		UPDATE lounge 
+		SET 
 			lounge_pet_type = #{lounge_pet_type},
 			lounge_title = #{lounge_title},
 			lounge_content = #{lounge_content},
 			lounge_img = #{lounge_img},
 			lounge_date = now()
-		where lounge_id = #{lounge_id}
+		WHERE lounge_id = #{lounge_id}
 	</update>
 	
 	<delete id="delete" parameterType="loungeVO">
-		delete from lounge where lounge_id = #{lounge_id}
+		DELETE 
+		FROM lounge 
+		WHERE lounge_id = #{lounge_id}
 	</delete>
 	
 	<select id="one" parameterType="int" resultType="loungeVO">
-	 	select L.*,
-       		count(Ll.like_id) as likeCnt	       
-        from lounge AS L
-        left join lounge_like as Ll on L.lounge_id = Ll.lounge_id
-        where L.lounge_id = #{lounge_id}               
+	 	SELECT L.*, count(Ll.like_id) as likeCnt	       
+        FROM lounge AS L
+        LEFT JOIN lounge_like as Ll 
+        ON L.lounge_id = Ll.lounge_id
+        WHERE L.lounge_id = #{lounge_id}               
 	</select>
-	
-		
-	<select id="list" parameterType="loungePageVO" resultType="loungeVO">
-    select * 
-    from
-        (select row_number() over(order by L.lounge_id desc) as lounge_no,
-             L.lounge_id, L.user_id , L.lounge_pet_type, L.lounge_title, L.lounge_content, 
-             L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replyCount, COUNT(Ll.like_id) as likeCnt            
-         from lounge AS L
-             left join lounge_like as Ll on L.lounge_id = Ll.lounge_id
-         <choose>
-             <when test="searchType eq 'all'">
-                 where L.lounge_title like CONCAT('%',#{keyWord},'%')
-                     or L.lounge_content like CONCAT('%', #{keyWord}, '%')
-                     or L.lounge_writer like CONCAT('%', #{keyWord}, '%')
-             </when>
-             <when test="searchType eq 'titleContent'">
-                 where L.lounge_title like CONCAT('%', #{keyWord}, '%') 
-                     or L.lounge_content like CONCAT('%', #{keyWord}, '%')
-             </when>
-             <when test="searchType eq 'writer'">
-                 where L.lounge_writer like CONCAT('%', #{keyWord}, '%')
-             </when>
-         </choose>
-         group by L.lounge_id, L.user_id, L.lounge_pet_type, L.lounge_title, L.lounge_content, L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replyCount) l2
-     	 where l2.lounge_no between #{start} and #{end}
-     	 order by l2.lounge_no;
+			
+	<select id="list" parameterType="hashmap" resultType="loungeVO">
+	    SELECT * 
+	    FROM
+	        (SELECT ROW_NUMBER() OVER(ORDER BY L.lounge_id DESC) AS lounge_no,
+	             L.lounge_id, L.user_id , L.lounge_pet_type, L.lounge_title, L.lounge_content, 
+	             L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replycount, 
+	              	<if test="#{loungeVO.user_id != '0'}">
+	              	 (select count(b.like_id) from  lounge_like b where b.lounge_id = L.lounge_id and b.user_id = #{loungeVO.user_id}) as likeState,
+	               </if>
+	               COUNT(Ll.like_id) AS likeCnt  
+	         FROM lounge AS L
+	             LEFT JOIN lounge_like AS Ll ON L.lounge_id = Ll.lounge_id
+	         <choose>
+	             <when test="#{loungePageVO.searchType == 'all'}">
+	                 WHERE L.lounge_title LIKE CONCAT('%', #{loungePageVO.keyWord},'%')
+	                     OR L.lounge_content LIKE CONCAT('%', #{loungePageVO.keyWord}, '%')
+	                     OR L.lounge_writer LIKE CONCAT('%', #{loungePageVO.keyWord}, '%')
+	             </when>
+	             <when test="#{loungePageVO.searchType == 'titleContent'}">
+	                 WHERE L.lounge_title LIKE CONCAT('%', #{loungePageVO.keyWord}, '%') 
+	                     OR L.lounge_content LIKE CONCAT('%', #{loungePageVO.keyWord}, '%')
+	             </when>
+	             <when test="#{loungePageVO.searchType == 'writer'}">
+	                 WHERE L.lounge_writer LIKE CONCAT('%', #{loungePageVO.keyWord}, '%')
+	             </when>	             
+	         </choose>
+	     GROUP BY L.lounge_id, L.user_id, L.lounge_pet_type, L.lounge_title, L.lounge_content, L.lounge_writer, L.lounge_img , L.lounge_date, L.lounge_replycount) l2
+	     WHERE l2.lounge_no BETWEEN #{loungePageVO.start} AND #{loungePageVO.end}
+	     ORDER BY l2.lounge_no;
 	</select>
-	  
-		
+  
+  
+	<!-- 검색한 게시물 SELECT QUERY  -->
 	<select id="countAll" resultType="int">
-			select count(*) from lounge		
+	    SELECT COUNT(*) FROM lounge;
 	</select>
-	
-	
+
+	<!-- 검색한 게시물 수 SELECT QUERY  -->
 	<select id="countSearch" resultType="int" parameterType="map">
-			select count(*) from lounge
-	    	 where 
-    		<choose>
-			<when test="searchType eq 'all'">
-				lounge_title like CONCAT('%',#{keyWord},'%')
-				or lounge_content like CONCAT('%', #{keyWord}, '%')
-				or lounge_writer like CONCAT('%', #{keyWord}, '%')
-			</when>
-			<when test="searchType eq 'titleContent'">
-				lounge_title like CONCAT('%', #{keyWord}, '%')
-				or lounge_content like CONCAT('%', #{keyWord}, '%')
-			</when>
-			<when test="searchType eq 'reply'">
-				reply_column like CONCAT('%', #{keyWord}, '%')
-		    </when>
- 		    <when test="searchType eq 'writer'">
-		         lounge_writer like CONCAT('%', #{keyWord}, '%')
- 		    </when>
- 		    <otherwise>
- 		         1=1
- 		    </otherwise>
-  		  </choose>
+	    SELECT COUNT(*) FROM lounge
+	     WHERE 
+		    <choose>
+		        <when test="searchType eq 'all'">
+		            lounge_title LIKE CONCAT('%',#{keyWord},'%')
+		            OR lounge_content LIKE CONCAT('%', #{keyWord}, '%')
+		            OR lounge_writer LIKE CONCAT('%', #{keyWord}, '%')
+		        </when>
+		        <when test="searchType eq 'titleContent'">
+		            lounge_title LIKE CONCAT('%', #{keyWord}, '%')
+		            OR lounge_content LIKE CONCAT('%', #{keyWord}, '%')
+		        </when>
+		        <when test="searchType eq 'reply'">
+		            reply_column LIKE CONCAT('%', #{keyWord}, '%')
+		        </when>
+		        <when test="searchType eq 'writer'">
+		            lounge_writer LIKE CONCAT('%', #{keyWord}, '%')
+		        </when>
+		        <otherwise>
+		            1=1
+		        </otherwise>
+		    </choose>
 	</select>
-	
+
+	<!-- 수정된 댓글 UPDATE QUERY  -->
 	<update id="replyCount" parameterType="map">
-		UPDATE lounge 
-		SET lounge_replyCount = lounge_replyCount + #{rpCntUpDown}
-		WHERE lounge_id = #{lounge_id} 
+	    UPDATE lounge 
+	    SET lounge_replycount = lounge_replycount + #{rpCntUpDown}
+	    WHERE lounge_id = #{lounge_id};
 	</update>
 	
+	
+	<!-- 최근 인기글 SELCT QUERY  -->
 	<select id="bestList" resultType="loungeVO">
-	SELECT * FROM (
-    	SELECT L.*, COUNT(LL.like_id) AS likeCnt
-    	FROM lounge L
-    	LEFT JOIN lounge_like LL ON L.lounge_id = LL.lounge_id
-    	WHERE L.lounge_date >= CURDATE() - INTERVAL 7 DAY
-    	GROUP BY L.lounge_id
-   		HAVING likeCnt >= 1
-    	ORDER BY likeCnt DESC
-   		LIMIT 6
-	) AS s
-	ORDER BY likeCnt DESC;	
+		SELECT * FROM (
+	    	SELECT L.*,
+	    	 <if test="#{user_id != '0'}">
+	              (select count(B.like_id) from  lounge_like B where B.lounge_id = L.lounge_id and B.user_id = #{user_id}) as likeState,
+	          </if>
+	       		  COUNT(LL.like_id) AS likeCnt
+	    	FROM lounge L
+	    	LEFT JOIN lounge_like LL ON L.lounge_id = LL.lounge_id
+	    	WHERE L.lounge_date >= CURDATE() - INTERVAL 7 DAY
+	    	GROUP BY L.lounge_id
+	   		HAVING likeCnt >= 1
+	    	ORDER BY likeCnt DESC
+	   		LIMIT 5
+		) AS s
+		ORDER BY likeCnt DESC;	
 	</select>
 
 </mapper>
