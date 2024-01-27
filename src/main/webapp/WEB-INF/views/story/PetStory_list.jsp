@@ -41,11 +41,70 @@
 	<div class="container-fluid">
 		<div class="content open">
 			<%@ include file="/header.jsp"%>
-			<!-- 글 목록 -->
-			<div class="container mt-4">
-			<h4 style="padding: 10px; text-align: center;">펫 스토리</h4>
-			<br>
-			
+
+			<%@ include file="/sidebar.jsp"%>
+
+			<div class="container-fluid pt-4 px-4">
+				<div class="row g-4" style="width: 60%; margin: auto;">
+					<c:forEach items="${list}" var="vo">
+						<div class="bg-light rounded">
+							<div style="display: flex; gap: 20px;">
+								<div>
+									<h6 style="padding: 5px;">${vo.story_title}</h6>
+											</div>
+											<div class="myinfo">
+												<div
+													class="d-flex align-items-center justify-content-right mb-2">
+													<dl>
+														<dt>날짜</dt>
+														<dd>${vo.story_date}</dd>
+													</dl>
+													<dl>
+														<dt>작성자</dt>
+														<dd>${vo.user_id}</dd>
+													</dl>
+												</div>
+											</div>
+											<div class="cont">
+												<h3>
+													<img src="../resources/upload/${vo.story_photo}"
+														width="250" height="200">
+												</h3>
+												<button type="button" class="btn btn-primary m-2"
+													onclick="location.href='PetStory_one?story_id=${vo.story_id}'">상세보기
+												</button>
+											</div>
+										</div>
+									</div>
+					</c:forEach>
+
+				</div>
+			</div>
+
+			<hr color="red">
+
+
+
+
+			<hr color="red">
+
+
+
+			<%
+				int pages = (int) request.getAttribute("pages"); //int <-- object
+			for (int p = 1; p <= pages; p++) {
+			%>
+			<a href="PetStory_list?page=<%=p%>&story_private=0">
+				<button class="btn btn-primary pages"><%=p%></button>
+			</a>
+			<%
+				}
+			%>
+
+
+			<!-- Content End -->
+			<!-- Back to Top -->
+
 			<%
 				if (session.getAttribute("user_id") != null) {
 			%>
@@ -72,6 +131,7 @@
 			<%
 				}
 			%>
+
 			<!-- 스토리 목록 -->
 				<div id="result">
 				<c:forEach items="${list}" var="vo">
@@ -98,6 +158,7 @@
 					</div>			
 				</c:forEach>
 			</div>
+
 		</div>
 			
 				<!-- 페이징 -->

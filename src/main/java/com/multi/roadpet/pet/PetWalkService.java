@@ -33,5 +33,9 @@ public class PetWalkService {
 		List<PetWalkVO> list3 =dao.list3(petwalkVO);
 		return list3;
 	}
+	public List<PetWalkVO> list4(PetWalkVO petwalkVO) throws Exception{ //id=4
+		List<PetWalkVO> list4 =dao.list4(petwalkVO);
+		return list4;
+	}
 	
 }

@@ -37,5 +37,9 @@ public class PetInfoDAO {
 		List<PetInfoVO> list=my.selectList("petInfo.list",petinfoVO);
 		return list;
 	}
+	public List<PetInfoVO> all_list() throws Exception {
+		List<PetInfoVO> list=my.selectList("petInfo.all_list");
+		return list;
+	}
 	
 }

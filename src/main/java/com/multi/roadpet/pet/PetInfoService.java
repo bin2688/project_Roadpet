@@ -36,6 +36,11 @@ public class PetInfoService {
 		
 		return list;
 	}
+	public List<PetInfoVO> all_list() throws Exception {
+		List<PetInfoVO> all_list = dao.all_list();
+		
+		return all_list;
+	}
 
 	
 	
