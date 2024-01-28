@@ -106,7 +106,7 @@
 									<span class="badge bg-warning">${vo.lounge_pet_type}</span>
 								</div>
 							</div>
-							<a href="one?lounge_id=${vo.lounge_id}">
+							<a href="detail?lounge_id=${vo.lounge_id}">
 								<div>
 									<h5 style="padding: 5px; overflow: hidden; text-overflow: ellipsis;">${vo.lounge_title}</h5>
 								</div>
@@ -160,25 +160,24 @@
 				</form>
 				<br>
 
-
-				<c:if test="${sessionScope.user_id != null}">
-					<!-- 로그인한 경우 -->
-					<div style="display: flex; justify-content: flex-end;">
-						<a href="lounge_insert.jsp?user_id=${sessionScope.user_id}">
-							<button type="button" class="btn btn-outline-danger m-2"
-								id="insertType" aria-hidden="true">글쓰기</button>
-						</a>
-					</div>
-				</c:if>
-				<c:if test="${sessionScope.user_id == null}">
-					<!-- 로그인하지 않은 경우 -->
-					<div style="display: flex; justify-content: flex-end;">
-						<a href="/roadpet/member/login.jsp">
-							<button type="button" class="btn btn-outline-danger m-2"
-								id="insertType" aria-hidden="true">로그인 후 글쓰기</button>
-						</a>
-					</div>
-				</c:if>
+				<c:choose>
+					<c:when test="${sessionScope.user_id != null}">
+						<!-- 로그인 한 경우 -->
+						<div style="display: flex; justify-content: flex-end;">
+							<a href="lounge_insert.jsp?user_id=${sessionScope.user_id}">
+								<button type="button" class="btn btn-outline-danger m-2" id="insertType" aria-hidden="true">글쓰기</button>
+							</a>
+						</div>
+					</c:when>
+					<c:otherwise>
+						<!-- 로그인하지 않은 경우 -->
+						<div style="display: flex; justify-content: flex-end;">
+							<a href="/roadpet/member/login.jsp">
+							 <button type="button" class="btn btn-outline-danger m-2" id="insertType" aria-hidden="true">로그인 후 글쓰기</button>
+							</a>
+						</div>
+					</c:otherwise>
+				</c:choose>
 
 
 				<!-- lounge list Start -->
@@ -190,7 +189,7 @@
 									<span class="badge bg-warning">${bag.lounge_pet_type}</span>
 								</div>
 							</div>
-							<a href="one?lounge_id=${bag.lounge_id}">
+							<a href="detail?lounge_id=${bag.lounge_id}">
 								<div>
 									<h5
 										style="padding: 6px; overflow: hidden; text-overflow: ellipsis;">${bag.lounge_title}</h5>

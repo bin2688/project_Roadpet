@@ -10,7 +10,7 @@
 									<span class="badge bg-warning">${bag.lounge_pet_type}</span>
 								</div>
 							</div>
-							<a href="one?lounge_id=${bag.lounge_id}">
+							<a href="detail?lounge_id=${bag.lounge_id}">
 								<div>
 									<h5
 										style="padding: 6px; overflow: hidden; text-overflow: ellipsis;">${bag.lounge_title}</h5>

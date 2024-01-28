@@ -73,14 +73,14 @@
 			
 			<!-- details Start -->
 			<div class="container mt-4">
-			<c:if test="${sessionScope.user_id != null && sessionScope.user_id == bag.user_id}">				
+			<c:if test="${sessionScope.user_id != null && sessionScope.user_id == details.user_id}">				
 				<div style="display: flex; justify-content: flex-end;">
-					<a href="update?lounge_id=${bag.lounge_id}">
+					<a href="update?lounge_id=${details.lounge_id}">
 						<button class="btn btn-primary w-20 m-2" type="submit">글수정</button>
 					</a>
 					<form action="delete">
 						<button class="btn btn-primary w-20 m-2" name="lounge_id"
-							value="${bag.lounge_id}">글삭제</button>
+							value="${details.lounge_id}">글삭제</button>
 					</form>
 				</div>
 			</c:if>
@@ -88,22 +88,22 @@
 				<div class="bg-light rounded">
 					<div style="display: flex; gap: 20px;">
 						<div>
-							<span class="badge bg-warning">${bag.lounge_pet_type}</span>
+							<span class="badge bg-warning">${details.lounge_pet_type}</span>
 						</div>
 					</div>
 					<div>
-						<h3 style="padding: 5px;">${bag.lounge_title}</h3>
+						<h3 style="padding: 5px;">${details.lounge_title}</h3>
 					</div>
 					<hr>
 					<div
-						style="padding: 10px 20px;  max-height: 200px; overflow-y: auto;">${bag.lounge_content}</div>
-					<img alt="" src="../resources/upload/${bag.lounge_img}" width="400" height="400"> <br>
+						style="padding: 10px 20px;  max-height: 200px; overflow-y: auto;">${details.lounge_content}</div>
+					<img alt="" src="../resources/upload/${details.lounge_img}" width="400" height="400"> <br>
 
 					<div style="display: flex; justify-content: space-between;">
-						<div style="padding: 5px;">${bag.lounge_writer}</div>
+						<div style="padding: 5px;">${details.lounge_writer}</div>
 						<div style="padding: 1px;">
 
-							<div id="replyCount">댓글: ${bag.lounge_replyCount}</div>
+							<div id="replyCount">댓글: ${details.lounge_replyCount}</div>
 						</div>
 						<div style="padding: 5px;">
 							<c:choose>
@@ -119,54 +119,53 @@
 													src="../resources/img/heart-On.png">
 											</c:otherwise>
 										</c:choose>
-										<div id="b1" style="display: inline-block;">${bag.likeCnt}</div>
+										<div id="b1" style="display: inline-block;">${details.likeCnt}</div>
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div class="" style="text-align: center;" onclick="handleLikeClick()">
 										<img id="likeImg" style="display: inline-block;" alt="like"
 											src="../resources/img/heart-Off.png">
-										<div id="b1" style="display: inline-block;">${bag.likeCnt}</div>
+										<div id="b1" style="display: inline-block;">${details.likeCnt}</div>
 									</div>
 								</c:otherwise>
 							</c:choose>
 						</div>
-						<div style="padding: 5px;">${bag.lounge_date}</div>
+						<div style="padding: 5px;">${details.lounge_date}</div>
 					</div>
 					<hr>
 				</div>
-			</div>
-			<br>
+			</div><br>
+			
+			
 			<div class="container mt-4">
 				<a href="list?page=1">
 				<button class="btn btn-success" style="display: inline-block;" id="returnBtn">목록으로</button>
 				</a>
-				<br>
-				
-				<form action="rpInsert">
-					<br>
-					<div class="input-group mb-3" style="text-align: center">
-						<c:if test="${sessionScope.user_id != null}">
-						<textarea id="reply" name="reply_content"
-							style="display: inline-block;" class="form-control"
-							placeholder="댓글을 입력해주세요."></textarea>
-						<input type="hidden" name="reply_oriid" value="${bag.lounge_id}">
-						<input type="hidden" name="user_id" value="${sessionScope.user_id}">
-						<input type="hidden" name="reply_writer" value="${sessionScope.nickName}">			
-							    <button class="btn btn-primary" style="display: inline-block;" id="replyBtn">댓글등록</button>
-							</c:if>						
-				</form>
-						<c:if test="${sessionScope.user_id == null}">
-							<textarea id="reply" name="reply_content"
-							style="display: inline-block;" class="form-control"
-							placeholder="로그인 후 작성이 가능합니다." readonly></textarea>
-						    <button class="btn btn-primary" style="display: inline-block;" id="loginAlertBtn" onclick="checkLogin()">댓글등록</button>
-						</c:if>
+				<br><br>
+				<c:choose>
+					<c:when test="${sessionScope.user_id != null}">	
+						<form action="rpInsert">					
+							<div class="input-group mb-3" style="text-align: center">
+								<textarea id="reply" name="reply_content" style="display: inline-block;" class="form-control" placeholder="댓글을 입력해주세요."></textarea>
+								<input type="hidden" name="reply_oriid" value="${details.lounge_id}">
+								<input type="hidden" name="user_id" value="${sessionScope.user_id}">
+								<input type="hidden" name="reply_writer" value="${sessionScope.nickName}">			
+							    <button class="btn btn-primary" style="display: inline-block;" id="replyBtn">댓글등록</button>	
+							</div>				
+						    </form>						
+						</c:when>				
+					<c:otherwise>						
+						<textarea id="reply" name="reply_content" style="display: inline-block;" class="form-control" placeholder="로그인 후 작성이 가능합니다." readonly></textarea>
+					    <button class="btn btn-primary" style="display: inline-block;" id="loginAlertBtn" onclick="checkLogin()">댓글등록</button>
+					</c:otherwise>
+			   </c:choose>				   
 			</div>
-		</div>
+			
+		
 			<c:forEach items="${rpList}" var="rp">
 				<div id="comment_${rp.reply_id}"
-					class="container mt-4">
+					class="container mt-4 comment">
 					<div class="bg-light rounded">
 						<div style="display: flex; justify-content: space-between;">
 							<div style="padding: 5px;">${rp.reply_writer}</div>
@@ -202,20 +201,22 @@
 					</div>
 				</div>
 			</c:forEach>
-			<!-- details End -->					
+			<!-- details End -->	
+			
+			<!-- Back to Top -->				
+			<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
+				class="bi bi-arrow-up"></i></a>			
 
 		</div>
 		<!-- Content End -->
-			
+	</div>		
 		<!-- Back to Top -->
-		<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i
-			class="bi bi-arrow-up"></i></a>			
 			
 <script type="text/javascript">
 	//좋아요 클릭시 호출		
 	$(function() {
 		let userId = '${sessionScope.user_id}';
-		let loungeId = '${bag.lounge_id}';
+		let loungeId = '${details.lounge_id}';
 		$('.likeClick').click(function() {		
 			$.ajax({
 		        type: "get",

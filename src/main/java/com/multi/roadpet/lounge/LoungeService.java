@@ -7,13 +7,13 @@ public interface LoungeService {
 
 	void insert(LoungeVO loungeVO);
 
-	void update(LoungeVO loungeVO);
+	void updateSend(LoungeVO loungeVO);
 
 	void delete(LoungeVO loungeVO);
 
 	List<LoungeVO> list(HashMap<String, Object> loungeMap);
 
-	LoungeVO one(LoungeVO loungeVO);
+	LoungeVO detail(LoungeVO loungeVO);
 
 	int pageCount(String keyWord, String searchType);
 	

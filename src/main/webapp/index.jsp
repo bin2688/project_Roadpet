@@ -129,7 +129,7 @@
 						</div>
 
 						<div id="main_result1" style="text-align: left;">
-							<div style="display: flex; flex-direction: row; gap: 20px;">
+							<div style="display: flex; flex-direction: row; gap: 20px; overflow: hidden;" >
 							<div id="result"></div>
 							</div>
 						</div>

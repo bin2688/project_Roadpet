@@ -1,6 +1,5 @@
 package com.multi.roadpet.lounge;
 
-import java.util.List;
 
 public interface LoungeLikeDAO {
 

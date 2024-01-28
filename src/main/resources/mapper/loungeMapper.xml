@@ -56,16 +56,16 @@
 	         FROM lounge AS L
 	             LEFT JOIN lounge_like AS Ll ON L.lounge_id = Ll.lounge_id
 	         <choose>
-	             <when test="#{loungePageVO.searchType == 'all'}">
+	             <when test="loungePageVO.searchType eq 'all'">
 	                 WHERE L.lounge_title LIKE CONCAT('%', #{loungePageVO.keyWord},'%')
 	                     OR L.lounge_content LIKE CONCAT('%', #{loungePageVO.keyWord}, '%')
 	                     OR L.lounge_writer LIKE CONCAT('%', #{loungePageVO.keyWord}, '%')
 	             </when>
-	             <when test="#{loungePageVO.searchType == 'titleContent'}">
+	             <when test="loungePageVO.searchType eq 'titleContent'">
 	                 WHERE L.lounge_title LIKE CONCAT('%', #{loungePageVO.keyWord}, '%') 
 	                     OR L.lounge_content LIKE CONCAT('%', #{loungePageVO.keyWord}, '%')
 	             </when>
-	             <when test="#{loungePageVO.searchType == 'writer'}">
+	             <when test="loungePageVO.searchType eq 'writer'">
 	                 WHERE L.lounge_writer LIKE CONCAT('%', #{loungePageVO.keyWord}, '%')
 	             </when>	             
 	         </choose>

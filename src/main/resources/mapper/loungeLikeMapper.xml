@@ -42,7 +42,7 @@
 	               FROM lounge_like 
 	               <include refid="whereId"></include>) = 0, 'off', 'on') AS likeState
 	    FROM lounge_like
-	    WHERE lounge_id = #{lounge_id} 
+	    <include refid="whereId"></include>
 	</select>
 
 </mapper>

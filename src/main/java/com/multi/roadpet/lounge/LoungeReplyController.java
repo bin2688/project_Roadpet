@@ -20,34 +20,32 @@ public class LoungeReplyController {
 	@RequestMapping("lounge/rpInsert")
 	public String rpInsert(LoungeReplyVO lngRpVO, Model model) throws ParseException {
 		int result = lngRpService.rpInsert(lngRpVO);
-
 		
-		Date now1= new Date();
+		Date nowDate= new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		String insFormat = dateFormat.format(now1);
+		String insFormat = dateFormat.format(nowDate);
 		Date resultDate = dateFormat.parse(insFormat);	
 		lngRpVO.setReply_date(resultDate);
-		return "redirect:one?lounge_id=" + lngRpVO.getReply_oriid();	
+		return "redirect:detail?lounge_id=" + lngRpVO.getReply_oriid();	
 	}
 	
 	@RequestMapping("lounge/rpUpdate")
 	public String rpUpdate(LoungeReplyVO lngRpVO, Model model) throws ParseException {
 		int result = lngRpService.rpUpdate(lngRpVO);
 
-		Date now1= new Date();
+		Date nowDate= new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		String insFormat = dateFormat.format(now1);
-		Date resultDate = dateFormat.parse(insFormat);
-	
+		String insFormat = dateFormat.format(nowDate);
+		Date resultDate = dateFormat.parse(insFormat);	
 		lngRpVO.setReply_date(resultDate);
-		return "redirect:one?lounge_id=" + lngRpVO.getReply_oriid();
+		return "redirect:detail?lounge_id=" + lngRpVO.getReply_oriid();
 
 	}
 	
 	@RequestMapping("lounge/rpDelete")
 	public String rpDelete(LoungeReplyVO lngRpVO) {
 		 lngRpService.rpDelete(lngRpVO);
-		return "redirect:one?lounge_id=" + lngRpVO.getReply_oriid();
+		return "redirect:detail?lounge_id=" + lngRpVO.getReply_oriid();
 	}
 	
 	

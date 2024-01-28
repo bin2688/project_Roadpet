@@ -64,7 +64,7 @@
 			<%@ include file="/header.jsp"%>
 			<%@ include file="/sidebar.jsp"%>
 
-			</head>
+
 
 
 			<%
@@ -95,9 +95,7 @@
 				})
 			</script>
 
-			</head>
 
-			<body>
 				<br>
 				<h4>상세보기</h4>
 				<hr>

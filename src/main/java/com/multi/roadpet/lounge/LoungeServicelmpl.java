@@ -20,8 +20,8 @@ public class LoungeServicelmpl implements LoungeService {
 	}
 	
 	@Override
-	public void update(LoungeVO loungeVO) {
-		loungeDAO.update(loungeVO);
+	public void updateSend(LoungeVO loungeVO) {
+		loungeDAO.updateSend(loungeVO);
 	}
 	
 	@Override
@@ -30,14 +30,13 @@ public class LoungeServicelmpl implements LoungeService {
 	}
 	
 	@Override
-	public List<LoungeVO> list(HashMap<String, Object> loungeMap) {	
-		
+	public List<LoungeVO> list(HashMap<String, Object> loungeMap) {		
 		return loungeDAO.list(loungeMap);
 	}
 	
 	@Override
-	public LoungeVO one(LoungeVO loungeVO) {
-		return loungeDAO.one(loungeVO);
+	public LoungeVO detail(LoungeVO loungeVO) {
+		return loungeDAO.detail(loungeVO);
 	}
 	
 	@Override

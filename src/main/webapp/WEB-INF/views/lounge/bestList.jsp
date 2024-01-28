@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div style="display: flex; gap: 20px;">
+<div style="display: flex; gap: 20px;  margin: auto;">
 		<c:if test="${empty bestList}">
 			<div style="text-align: center;">최근 인기 게시글이 없습니다</div>
 		</c:if>
 	<c:forEach items="${bestList}" var="vo">
-		<div class="bg-light rounded "
+		<div class="bg-light rounded"
 			style="max-width: 300px; overflow: hidden; white-space: nowrap; border: 3px solid #ccc; padding: 15px;">
 			<div style="display: flex; gap: 20px;">
 				<div>

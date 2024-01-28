@@ -20,7 +20,7 @@ public class LoungeDAOlmpl implements LoungeDAO {
 	}
 	
 	@Override
-	public void update(LoungeVO loungeVO) {
+	public void updateSend(LoungeVO loungeVO) {
 		my.update("lounge.update", loungeVO);
 	}
 	
@@ -35,7 +35,7 @@ public class LoungeDAOlmpl implements LoungeDAO {
 	}
 	
 	@Override
-	public LoungeVO one(LoungeVO loungeVO) {
+	public LoungeVO detail(LoungeVO loungeVO) {
 		return my.selectOne("lounge.one", loungeVO);
 	}
 	

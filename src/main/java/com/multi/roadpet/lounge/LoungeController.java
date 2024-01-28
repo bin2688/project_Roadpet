@@ -44,19 +44,19 @@ public class LoungeController {
 	        loungeVO.setLounge_img(null);
 	    }
 		loungeService.insert(loungeVO);		
-		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();	
+		return "redirect:detail?lounge_id=" + loungeVO.getLounge_id();	
 	}
 
 	
 	@RequestMapping("lounge/update")
 	public void update(LoungeVO loungeVO,Model model) {
-		LoungeVO bag = loungeService.one(loungeVO);
+		LoungeVO bag = loungeService.detail(loungeVO);
 		model.addAttribute("bag", bag);
 	}
 	
 	
-	@RequestMapping("lounge/updateTr")
-	public String updateTr(LoungeVO loungeVO,
+	@RequestMapping("lounge/updateSend")
+	public String updateSend(LoungeVO loungeVO,
 			HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
 		if (!file.isEmpty()) {
 	        String savedName = file.getOriginalFilename();
@@ -69,8 +69,8 @@ public class LoungeController {
 	        // 이미지 파일이 없으면 null로 처리
 	        loungeVO.setLounge_img(null);
 	    }
-		loungeService.update(loungeVO);
-		return "redirect:one?lounge_id=" + loungeVO.getLounge_id();	
+		loungeService.updateSend(loungeVO);
+		return "redirect:detail?lounge_id=" + loungeVO.getLounge_id();	
 	}
 	
 	
@@ -84,7 +84,6 @@ public class LoungeController {
 	@RequestMapping("lounge/list")
 	public void list(@RequestParam(value = "searchType", required = false) String searchType, HttpSession session,
 					 @RequestParam(value = "keyWord", required = false) String keyWord, LoungePageVO loungePageVO, Model model) throws Exception {	
-
 		loungePageVO.setSearchType(searchType);
 		loungePageVO.setKeyWord(keyWord);
 		loungePageVO.setStartEnd();
@@ -95,8 +94,7 @@ public class LoungeController {
 			loungeVO.setUser_id(0);
 		}		
 		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
-		HashMap<String, Object> loungeMap = new HashMap<String, Object>();
-		
+		HashMap<String, Object> loungeMap = new HashMap<String, Object>();		
 		loungeMap.put("loungePageVO", loungePageVO);
 		loungeMap.put("loungeVO", loungeVO);		
 
@@ -124,7 +122,6 @@ public class LoungeController {
 		loungePageVO.setKeyWord(keyWord);
 		loungePageVO.setStartEnd();
 		LoungeVO loungeVO = new LoungeVO();
-		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
 		
 		if(session.getAttribute("user_id") != null) {
 			loungeVO.setUser_id((int)session.getAttribute("user_id"));
@@ -144,10 +141,9 @@ public class LoungeController {
 		}
 
 	
-	@RequestMapping("lounge/one")
-	public void one(LoungeVO loungeVO, HttpSession session, Model model) throws Exception {
-		LoungeVO bag = loungeService.one(loungeVO);
-		LoungeLikeVO loungeLikeVO = new LoungeLikeVO();
+	@RequestMapping("lounge/detail")
+	public void detail(LoungeVO loungeVO, HttpSession session, Model model) throws Exception {
+		LoungeVO details = loungeService.detail(loungeVO);
 		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());
 		if(session.getAttribute("user_id") != null) {
 			int sessionUserId = (int)session.getAttribute("user_id");
@@ -155,7 +151,7 @@ public class LoungeController {
 		}
 
 
-		model.addAttribute("bag", bag);
+		model.addAttribute("details", details);
 		model.addAttribute("rpList", rpList);
 	}
 	

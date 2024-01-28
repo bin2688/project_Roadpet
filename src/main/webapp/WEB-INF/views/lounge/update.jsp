@@ -50,7 +50,7 @@
 			<!-- Form Start -->
 			<div class="container-fluid pt-4 px-4">
 				<div class="row g-4">
-				<form action="updateTr" method="post" enctype="multipart/form-data" id="form">
+				<form action="updateSend" method="post" enctype="multipart/form-data" id="form">
 					<div class="col-sm-24 col-xl-12">
 						<div class="bg-light rounded h-30 p-4">
 							<h6 class="mb-4">카테고리</h6>
