@@ -99,19 +99,16 @@ public class LoungeController {
 		loungeMap.put("loungeVO", loungeVO);		
 
 		List<LoungeVO> list = loungeService.list(loungeMap);
-
 		int count = loungeService.pageCount(keyWord, searchType);
 		int pages = count/5;
 		if (count%5 != 0) {
 			pages += 1;
 		}	
-
 		model.addAttribute("bestList", bestList);	
 		model.addAttribute("list", list);	
 		model.addAttribute("pages", pages);	
 		model.addAttribute("searchType", searchType);	
 		model.addAttribute("keyWord", keyWord);
-
 		}
 	
 	
@@ -149,8 +146,6 @@ public class LoungeController {
 			int sessionUserId = (int)session.getAttribute("user_id");
 			model.addAttribute("likeCheck", loungeLikeService.likeCheck(sessionUserId, loungeVO.getLounge_id()));
 		}
-
-
 		model.addAttribute("details", details);
 		model.addAttribute("rpList", rpList);
 	}

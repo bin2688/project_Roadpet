@@ -155,9 +155,11 @@
 							</div>				
 						    </form>						
 						</c:when>				
-					<c:otherwise>						
-						<textarea id="reply" name="reply_content" style="display: inline-block;" class="form-control" placeholder="로그인 후 작성이 가능합니다." readonly></textarea>
-					    <button class="btn btn-primary" style="display: inline-block;" id="loginAlertBtn" onclick="checkLogin()">댓글등록</button>
+					<c:otherwise>
+							<div class="input-group mb-3" style="text-align: center">						
+								<textarea id="reply" name="reply_content" style="display: inline-block;" class="form-control" placeholder="로그인 후 작성이 가능합니다." readonly></textarea>
+							    <button class="btn btn-primary" style="display: inline-block;" id="loginAlertBtn" onclick="checkLogin()">댓글등록</button>
+						    </div>
 					</c:otherwise>
 			   </c:choose>				   
 			</div>
@@ -279,8 +281,8 @@
 	//댓글수정 클릭시 해당위치 스크립트 처리
 	$(function() {
 		$('[id^="rpUpdateBtn_"]').click(function() {
-			var reply_id = $(this).data('reply_id');
-			var commentDiv = $(this).closest(".comment");
+			let reply_id = $(this).data('reply_id');
+			let commentDiv = $(this).closest(".comment");
 			commentDiv.find(".editForm").show();
 			commentDiv.find(".rpContent").hide();
 		});

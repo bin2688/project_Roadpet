@@ -126,7 +126,7 @@
 	    	LEFT JOIN lounge_like LL ON L.lounge_id = LL.lounge_id
 	    	WHERE L.lounge_date >= CURDATE() - INTERVAL 7 DAY
 	    	GROUP BY L.lounge_id
-	   		HAVING likeCnt >= 1
+	   		HAVING likeCnt >= 5
 	    	ORDER BY likeCnt DESC
 	   		LIMIT 5
 		) AS s
