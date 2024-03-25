@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 회원가입 -->
+<mapper namespace="member">
+	<insert id="signUp" parameterType="memberVO" useGeneratedKeys="true" keyProperty="user_id">
+		insert into member
+		values (
+		#{user_id},#{login_id}, #{password}, #{name}, #{phone}, #{birthday},
+		#{nickname} ,0)
+	</insert>
+	<!-- 로그인 -->
+	<select id="login" parameterType="memberVO" resultType="memberVO">
+		select user_id,password,nickname from member where login_id = #{login_id}
+	</select>
+
+	<!-- 비밀번호찾기 -->
+	<select id="findPw" parameterType="memberVO" resultType="String">
+		select
+		password from member where login_id = #{login_id}
+	</select>
+
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT
+		count(login_id)
+		FROM MEMBER WHERE login_id = #{login_id}
+	</select>
+	
+	<!-- 네이버 회원가입 -->
+	<insert id="naverLogin" parameterType="memberVO">
+		insert into member
+		values (
+		0,#{login_id}, #{name}, #{nickname} ,0)
+	</insert>
+
+</mapper>
