@@ -58,7 +58,7 @@
 		
 		<!--홈페이지 로고(이름,설명칸 )-->
 		<div class="container-fluid pt-4 px-4">
-		<h1 style="text-align:center;"> RoadPet </h1><br>
+		<h1 style="text-align:center; color: blue;"> RoadPet </h1><br>
 		<h4 style="text-align:center;"> 반려동물의 기록을 작성하고 정보를 공유하는 커뮤니티</h4>
 		</div>
 		
@@ -129,7 +129,7 @@
 						</div>
 
 						<div id="main_result1" style="text-align: left;">
-							<div style="display: flex; flex-direction: row; gap: 20px; overflow: hidden;" >
+							<div style="display: flex; flex-direction: row; gap: 25px;">
 							<div id="result"></div>
 							</div>
 						</div>

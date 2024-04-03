@@ -8,13 +8,13 @@
 		</c:if>
 	<c:forEach items="${bestList}" var="vo">
 		<div class="bg-light rounded"
-			style="max-width: 300px; overflow: hidden; white-space: nowrap; border: 3px solid #ccc; padding: 15px;">
+			style="max-width: 350px; overflow: hidden; white-space: nowrap; border: 3px solid #ccc; padding: 20px;">
 			<div style="display: flex; gap: 20px;">
 				<div>
 					<span class="badge bg-warning">${vo.lounge_pet_type}</span>
 				</div>
 			</div>
-
+		<a href="detail?lounge_id=${vo.lounge_id}">
 			<div>
 				<h6 style="padding: 5px; overflow: hidden; text-overflow: ellipsis;">${vo.lounge_title}</h6><hr>
 				
@@ -28,7 +28,7 @@
 				</c:if>
 				<hr>
 			</div>
-
+			</a>
 			<div style="display: flex; justify-content: space-between;">
 				<div style="padding: 10px;">${vo.lounge_writer}</div>
 				<div style="padding: 10px;">댓글: ${vo.lounge_replyCount}</div>
