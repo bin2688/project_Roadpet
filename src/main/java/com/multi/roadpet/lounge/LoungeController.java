@@ -44,7 +44,7 @@ public class LoungeController {
 	        loungeVO.setLounge_img(null);
 	    }
 		loungeService.insert(loungeVO);		
-		return "redirect:detail?lounge_id=" + loungeVO.getLounge_id();	
+		return "redirect:detail?lounge_id=" + loungeVO.getLounge_id();
 	}
 
 	
@@ -126,11 +126,10 @@ public class LoungeController {
 			loungeVO.setUser_id(0);
 		}		
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("loungePageVO", loungePageVO);
-		map.put("loungeVO", loungeVO);		
-		List<LoungeVO> list = loungeService.list(map);
+		HashMap<String, Object> loungeMap = new HashMap<String, Object>();		
+		loungeMap.put("loungePageVO", loungePageVO);
+		loungeMap.put("loungeVO", loungeVO);		
+		List<LoungeVO> list = loungeService.list(loungeMap);
 		model.addAttribute("list", list);
 		model.addAttribute("searchType", searchType);	
 		model.addAttribute("keyWord", keyWord);	
