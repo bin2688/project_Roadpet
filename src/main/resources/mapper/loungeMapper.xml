@@ -3,6 +3,7 @@
 
 	<mapper namespace="lounge">
 	
+	<!-- 게시물 작성 INSERT QUERY  -->
 	<insert id="insert" parameterType="loungeVO" useGeneratedKeys="true" keyProperty="lounge_id">
 		INSERT INTO lounge (lounge_id, lounge_pet_type, user_id, lounge_title, lounge_content, lounge_writer, lounge_date,lounge_img, lounge_replyCount)
 		VALUES (
@@ -18,6 +19,7 @@
 			)
 	</insert>
 	
+	<!-- 게시물 수정 UPDATE QUERY  -->
 	<update id="update" parameterType="loungeVO">
 		UPDATE lounge 
 		SET 
@@ -29,20 +31,23 @@
 		WHERE lounge_id = #{lounge_id}
 	</update>
 	
+	<!-- 삭제한 게시물 DELETE QUERY  -->
 	<delete id="delete" parameterType="loungeVO">
 		DELETE 
 		FROM lounge 
 		WHERE lounge_id = #{lounge_id}
 	</delete>
 	
-	<select id="one" parameterType="int" resultType="loungeVO">
+	<!-- 상세페이지 SELECT QUERY  -->
+	<select id="detail" parameterType="int" resultType="loungeVO">
 	 	SELECT L.*, count(Ll.like_id) as likeCnt	       
         FROM lounge AS L
         LEFT JOIN lounge_like as Ll 
         ON L.lounge_id = Ll.lounge_id
         WHERE L.lounge_id = #{lounge_id}               
 	</select>
-			
+	
+	<!-- 전체/검색 게시물 SELECT QUERY  -->		
 	<select id="list" parameterType="hashmap" resultType="loungeVO">
 	    SELECT * 
 	    FROM
@@ -75,7 +80,7 @@
 	</select>
   
   
-	<!-- 검색한 게시물 SELECT QUERY  -->
+	<!-- 전체 게시물 SELECT QUERY  -->
 	<select id="countAll" resultType="int">
 	    SELECT COUNT(*) FROM lounge;
 	</select>

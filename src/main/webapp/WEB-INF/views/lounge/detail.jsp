@@ -45,11 +45,11 @@
 <link href="../resources/css/style.css" rel="stylesheet">
 <style>
 .result div[style*="flex: 1;"] {
-        font-size: 20px; /* 예시로 16px로 지정했으니 필요에 따라 조절하세요. */
+        font-size: 20px;
     }
 
 .bg-light rounded div[style*="padding: 5px;"] {
-        font-size: 20px; /* 예시로 14px로 지정했으니 필요에 따라 조절하세요. */
+        font-size: 20px; 
     }
 </style>
 </head>
@@ -228,7 +228,7 @@
 		            lounge_id : loungeId,
 		        },
 		        success: function(response) {		            
-				 if(response.likeState == 'off') { 
+				 if(response.likeState == 'off') {  
 							$.ajax({
 								type: "get",
 								url: "likeInsert",  // 정보가없다면 insert

@@ -44,7 +44,7 @@ public class LoungeController {
 	        loungeVO.setLounge_img(null);
 	    }
 		loungeService.insert(loungeVO);		
-		return "redirect:detail?lounge_id=" + loungeVO.getLounge_id();	
+		return "redirect:detail?lounge_id=" + loungeVO.getLounge_id();
 	}
 
 	
@@ -98,14 +98,14 @@ public class LoungeController {
 		loungeMap.put("loungePageVO", loungePageVO);
 		loungeMap.put("loungeVO", loungeVO);		
 
-		List<LoungeVO> list = loungeService.list(loungeMap);
+		List<LoungeVO> listAll = loungeService.list(loungeMap);
 		int count = loungeService.pageCount(keyWord, searchType);
 		int pages = count/5;
 		if (count%5 != 0) {
 			pages += 1;
 		}	
 		model.addAttribute("bestList", bestList);	
-		model.addAttribute("list", list);	
+		model.addAttribute("listAll", listAll);	
 		model.addAttribute("pages", pages);	
 		model.addAttribute("searchType", searchType);	
 		model.addAttribute("keyWord", keyWord);
@@ -126,12 +126,10 @@ public class LoungeController {
 			loungeVO.setUser_id(0);
 		}		
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("loungePageVO", loungePageVO);
-		map.put("loungeVO", loungeVO);		
-		List<LoungeVO> list = loungeService.list(map);
-		System.out.println("페이지 VO>>>" + loungePageVO);
+		HashMap<String, Object> loungeMap = new HashMap<String, Object>();		
+		loungeMap.put("loungePageVO", loungePageVO);
+		loungeMap.put("loungeVO", loungeVO);		
+		List<LoungeVO> list = loungeService.list(loungeMap);
 		model.addAttribute("list", list);
 		model.addAttribute("searchType", searchType);	
 		model.addAttribute("keyWord", keyWord);	
@@ -150,7 +148,7 @@ public class LoungeController {
 		model.addAttribute("rpList", rpList);
 	}
 	
-	
+	//메인페이지에서 호출하는 인기글 리스트
 	@RequestMapping("lounge/bestList")
 	public void bestList(LoungeVO loungeVO, HttpSession session, Model model) throws Exception {		
 		if(session.getAttribute("user_id") != null) {
@@ -159,7 +157,6 @@ public class LoungeController {
 			loungeVO.setUser_id(0);
 		}		
 		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
-
 		model.addAttribute("bestList", bestList);	
 		
 	}

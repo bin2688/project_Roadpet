@@ -36,7 +36,7 @@ public class LoungeDAOlmpl implements LoungeDAO {
 	
 	@Override
 	public LoungeVO detail(LoungeVO loungeVO) {
-		return my.selectOne("lounge.one", loungeVO);
+		return my.selectOne("lounge.detail", loungeVO);
 	}
 	
 	@Override
