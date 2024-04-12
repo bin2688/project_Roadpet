@@ -139,13 +139,13 @@ public class LoungeController {
 	@RequestMapping("lounge/detail")
 	public void detail(LoungeVO loungeVO, HttpSession session, Model model) throws Exception {
 		LoungeVO details = loungeService.detail(loungeVO);
-		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());
+		List<LoungeReplyVO> replyList = lngRpService.list(loungeVO.getLounge_id());
 		if(session.getAttribute("user_id") != null) {
 			int sessionUserId = (int)session.getAttribute("user_id");
 			model.addAttribute("likeCheck", loungeLikeService.likeCheck(sessionUserId, loungeVO.getLounge_id()));
 		}
 		model.addAttribute("details", details);
-		model.addAttribute("rpList", rpList);
+		model.addAttribute("replyList", replyList);
 	}
 	
 	//메인페이지에서 호출하는 인기글 리스트

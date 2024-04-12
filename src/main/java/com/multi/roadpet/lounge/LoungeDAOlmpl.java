@@ -54,11 +54,11 @@ public class LoungeDAOlmpl implements LoungeDAO {
 		}
 	
 	@Override
-	public void replyCount(int lounge_id, int rpCntUpDown) {
-		Map<String, Object> rpCntMap  = new HashMap<>();
-		rpCntMap.put("lounge_id", lounge_id);
-		rpCntMap.put("rpCntUpDown", rpCntUpDown);
-		my.update("lounge.replyCount",rpCntMap);
+	public void replyCount(int lounge_id, int replyCntUpDown) {
+		Map<String, Object> replyCntMap  = new HashMap<>();
+		replyCntMap.put("lounge_id", lounge_id);
+		replyCntMap.put("replyCntUpDown", replyCntUpDown);
+		my.update("lounge.replyCount",replyCntMap);
 	}
 	
 	@Override

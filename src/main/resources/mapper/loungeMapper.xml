@@ -114,10 +114,9 @@
 	<!-- 수정된 댓글 UPDATE QUERY  -->
 	<update id="replyCount" parameterType="map">
 	    UPDATE lounge 
-	    SET lounge_replycount = lounge_replycount + #{rpCntUpDown}
+	    SET lounge_replycount = lounge_replycount + #{replyCntUpDown}
 	    WHERE lounge_id = #{lounge_id};
 	</update>
-	
 	
 	<!-- 최근 인기글 SELCT QUERY  -->
 	<select id="bestList" resultType="loungeVO">
@@ -125,8 +124,8 @@
 	    	SELECT L.*,
 	    	 <if test="#{user_id != '0'}">
 	              (select count(B.like_id) from  lounge_like B where B.lounge_id = L.lounge_id and B.user_id = #{user_id}) as likeState,
-	          </if>
-	       		  COUNT(LL.like_id) AS likeCnt
+	         </if>
+	       	 COUNT(LL.like_id) AS likeCnt
 	    	FROM lounge L
 	    	LEFT JOIN lounge_like LL ON L.lounge_id = LL.lounge_id
 	    	WHERE L.lounge_date >= CURDATE() - INTERVAL 7 DAY
