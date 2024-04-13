@@ -165,7 +165,7 @@
 			</div>
 			
 		
-			<c:forEach items="${rpList}" var="rp">
+			<c:forEach items="${replyList}" var="rp">
 				<div id="comment_${rp.reply_id}"
 					class="container mt-4 comment">
 					<div class="bg-light rounded">
