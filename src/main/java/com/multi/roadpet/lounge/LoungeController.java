@@ -98,14 +98,14 @@ public class LoungeController {
 		loungeMap.put("loungePageVO", loungePageVO);
 		loungeMap.put("loungeVO", loungeVO);		
 
-		List<LoungeVO> listAll = loungeService.list(loungeMap);
+		List<LoungeVO> loungeList = loungeService.list(loungeMap);
 		int count = loungeService.pageCount(keyWord, searchType);
 		int pages = count/5;
 		if (count%5 != 0) {
 			pages += 1;
 		}	
 		model.addAttribute("bestList", bestList);	
-		model.addAttribute("listAll", listAll);	
+		model.addAttribute("loungeList", loungeList);	
 		model.addAttribute("pages", pages);	
 		model.addAttribute("searchType", searchType);	
 		model.addAttribute("keyWord", keyWord);
@@ -129,8 +129,8 @@ public class LoungeController {
 		HashMap<String, Object> loungeMap = new HashMap<String, Object>();		
 		loungeMap.put("loungePageVO", loungePageVO);
 		loungeMap.put("loungeVO", loungeVO);		
-		List<LoungeVO> list = loungeService.list(loungeMap);
-		model.addAttribute("list", list);
+		List<LoungeVO> loungeList = loungeService.list(loungeMap);
+		model.addAttribute("loungeList", loungeList);
 		model.addAttribute("searchType", searchType);	
 		model.addAttribute("keyWord", keyWord);	
 		}
@@ -139,13 +139,13 @@ public class LoungeController {
 	@RequestMapping("lounge/detail")
 	public void detail(LoungeVO loungeVO, HttpSession session, Model model) throws Exception {
 		LoungeVO details = loungeService.detail(loungeVO);
-		List<LoungeReplyVO> rpList = lngRpService.list(loungeVO.getLounge_id());
+		List<LoungeReplyVO> replyList = lngRpService.list(loungeVO.getLounge_id());
 		if(session.getAttribute("user_id") != null) {
 			int sessionUserId = (int)session.getAttribute("user_id");
 			model.addAttribute("likeCheck", loungeLikeService.likeCheck(sessionUserId, loungeVO.getLounge_id()));
 		}
 		model.addAttribute("details", details);
-		model.addAttribute("rpList", rpList);
+		model.addAttribute("replyList", replyList);
 	}
 	
 	//메인페이지에서 호출하는 인기글 리스트

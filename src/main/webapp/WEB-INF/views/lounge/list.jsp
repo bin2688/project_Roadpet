@@ -182,7 +182,7 @@
 
 				<!-- lounge list Start -->
 				<div id="result">
-					<c:forEach items="${listAll}" var="list">
+					<c:forEach items="${loungeList}" var="list">
 						<div class="bg-light rounded">
 							<div style="display: flex; gap: 20px;">
 								<div>
