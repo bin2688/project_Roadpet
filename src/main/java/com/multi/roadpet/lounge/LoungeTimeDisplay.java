@@ -1,6 +1,5 @@
 package com.multi.roadpet.lounge;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class LoungeTimeDisplay {
@@ -37,9 +36,4 @@ public class LoungeTimeDisplay {
 		return displayTime;		
 	}
 	
-	public String TimeFormat(Date lounge_date) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
-		String insFormat = dateFormat.format(lounge_date);
-		return insFormat;
-	}
 }
