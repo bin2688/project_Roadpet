@@ -4,6 +4,7 @@ package com.multi.roadpet.lounge;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
 
-
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 @Controller
@@ -31,19 +34,30 @@ public class LoungeController {
 	
 	@RequestMapping("lounge/insert")
 	public String insert(LoungeVO loungeVO,
-			HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
-		if (!file.isEmpty()) {
-	        String savedName = file.getOriginalFilename();
-	        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
-	        File target = new File(uploadPath, savedName);
-	        // 이미지 파일이 존재하면 업로드
-	        file.transferTo(target);
-	        loungeVO.setLounge_img(savedName);
-	    } else {
-	        // 이미지 파일이 없으면 null로 처리
-	        loungeVO.setLounge_img(null);
-	    }
-		loungeService.insert(loungeVO);		
+				HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
+			String savedName = file.getOriginalFilename();
+			String uuid = UUID.randomUUID().toString();
+			String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
+			savedName = uuid + "_" + savedName;			
+			File target = new File(uploadPath, savedName);
+			try {		        
+		        File thumnailImg = new File(uploadPath,"s_" + savedName);
+		        
+				BufferedImage bufferedOriginalImage = ImageIO.read(target);
+				BufferedImage bufferedTypeImage = new BufferedImage(300, 500, BufferedImage.TYPE_3BYTE_BGR);
+
+				Graphics2D graphic = bufferedTypeImage.createGraphics();
+				graphic.drawImage(bufferedOriginalImage, 0, 0, 300, 500, null);
+
+				ImageIO.write(bufferedTypeImage, "jpg", thumnailImg);
+
+		        
+		        file.transferTo(target);
+		        loungeVO.setLounge_img(savedName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}		
+		loungeService.insert(loungeVO);
 		return "redirect:detail?lounge_id=" + loungeVO.getLounge_id();
 	}
 
@@ -58,17 +72,28 @@ public class LoungeController {
 	@RequestMapping("lounge/updateSend")
 	public String updateSend(LoungeVO loungeVO,
 			HttpServletRequest request, MultipartFile file) throws IllegalStateException, IOException {
-		if (!file.isEmpty()) {
-	        String savedName = file.getOriginalFilename();
-	        String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
-	        File target = new File(uploadPath, savedName);
-	        // 이미지 파일이 존재하면 업로드
+		String savedName = file.getOriginalFilename();
+		String uuid = UUID.randomUUID().toString();
+		String uploadPath = request.getSession().getServletContext().getRealPath("/resources/upload");
+		savedName = uuid + "_" + savedName;			
+		File target = new File(uploadPath, savedName);
+		try {		        
+	        File thumnailImg = new File(uploadPath,"s_" + savedName);
+	        
+			BufferedImage bufferedOriginalImage = ImageIO.read(target);
+			BufferedImage bufferedTypeImage = new BufferedImage(300, 500, BufferedImage.TYPE_3BYTE_BGR);
+
+			Graphics2D graphic = bufferedTypeImage.createGraphics();
+			graphic.drawImage(bufferedOriginalImage, 0, 0, 300, 500, null);
+
+			ImageIO.write(bufferedTypeImage, "jpg", thumnailImg);
+
+	        
 	        file.transferTo(target);
 	        loungeVO.setLounge_img(savedName);
-	    } else {
-	        // 이미지 파일이 없으면 null로 처리
-	        loungeVO.setLounge_img(null);
-	    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}  loungeVO.setLounge_img(null);	    
 		loungeService.updateSend(loungeVO);
 		return "redirect:detail?lounge_id=" + loungeVO.getLounge_id();	
 	}
@@ -157,8 +182,7 @@ public class LoungeController {
 			loungeVO.setUser_id(0);
 		}		
 		List<LoungeVO> bestList = loungeService.bestList(loungeVO);
-		model.addAttribute("bestList", bestList);	
-		
+		model.addAttribute("bestList", bestList);			
 	}
 	
 	
