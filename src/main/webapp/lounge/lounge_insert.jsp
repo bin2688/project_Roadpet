@@ -138,8 +138,7 @@
 //파일 업로드 호출
 function previewImage() {
 	const input = document.getElementById('file');
-	const container = document
-			.getElementById('image-preview-container');
+	const container = document.getElementById('image-preview-container');
 
 	// 이전에 추가된 이미지 및 버튼 제거
 	container.innerHTML = '';
